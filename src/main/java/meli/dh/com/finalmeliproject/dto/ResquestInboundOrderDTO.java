@@ -6,6 +6,6 @@ import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor
-public class ResquestBatchDTO {
+public class ResquestInboundOrderDTO {
     private InboundOrderDTO inboundOrder;
 }

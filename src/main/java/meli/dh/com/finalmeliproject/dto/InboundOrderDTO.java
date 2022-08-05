@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -18,4 +19,11 @@ public class InboundOrderDTO {
 
     private SectionDTO section;
     private List<BatchDTO> batchStock;
+
+    public static List<BatchDTO> findBatchStock(List<BatchDTO> batchStock){
+        return batchStock.stream().map(
+                BatchDTO::new
+        ).collect(Collectors.toList());
+    }
+
 }
