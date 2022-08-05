@@ -19,7 +19,7 @@ public class ProductController {
     private IInboundService service;
 
     @PostMapping
-    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest) {
-        return new ResponseEntity<>(service.save(resquest.getInboundOrder()), HttpStatus.ACCEPTED);
+    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
+        return new ResponseEntity<>(service.save(resquest.getInboundOrder(), representativeId), HttpStatus.ACCEPTED);
     }
 }
