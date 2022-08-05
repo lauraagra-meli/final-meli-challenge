@@ -1,24 +1,25 @@
 package meli.dh.com.finalmeliproject.controller;
 
-import meli.dh.com.finalmeliproject.model.Product;
-import meli.dh.com.finalmeliproject.service.IProductService;
+import meli.dh.com.finalmeliproject.dto.BatchDTO;
+import meli.dh.com.finalmeliproject.dto.ResponseDTO;
+import meli.dh.com.finalmeliproject.dto.ResquestInboundOrderDTO;
+import meli.dh.com.finalmeliproject.service.Inbound.IInboundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/fresh-products/inboundorder/")
+@RequestMapping("/api/v1/fresh-products/inboundorder")
 public class ProductController {
 
     @Autowired
-    private IProductService service;
+    private IInboundService service;
 
-    @GetMapping
-    public ResponseEntity<Product> newProduct(@RequestBody Product product) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(product));
+    @PostMapping
+    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
+        return new ResponseEntity<>(service.save(resquest.getInboundOrder(), representativeId), HttpStatus.ACCEPTED);
     }
 }

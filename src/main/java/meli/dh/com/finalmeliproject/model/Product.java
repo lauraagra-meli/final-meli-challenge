@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
     private String name;
     private int quantity;
@@ -29,6 +28,7 @@ public class Product {
     @JoinColumn(name = "id_batch")
     private Batch batch;
 
-    private LocalDate expirationDate;
+    private LocalDate dueDate;
+
     private LocalDateTime manufacturingDate;
 }
