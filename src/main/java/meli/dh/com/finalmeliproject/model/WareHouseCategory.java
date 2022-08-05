@@ -17,4 +17,8 @@ public class WareHouseCategory {
     @ManyToOne
     @JoinColumn(name = "id_category")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "id_warehouse")
+    private WareHouse wareHouse;
 }

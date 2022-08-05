@@ -1,5 +1,6 @@
 package meli.dh.com.finalmeliproject.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter @Setter
 public class ShippingCategory {
     @Id
@@ -16,8 +18,11 @@ public class ShippingCategory {
 
     private int quantityMax;
 
-    @JoinColumn
     @ManyToOne
     @JoinColumn(name = "id_category")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "id_shipping")
+    private Shipping shipping;
 }
