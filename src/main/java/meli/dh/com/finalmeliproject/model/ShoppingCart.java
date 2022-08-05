@@ -15,7 +15,7 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "shippingcart")
+    @OneToMany(mappedBy = "shoppingCart")
     private List<ProductShoppingCart> listOfShoppingProducts;
 
 }

@@ -1,25 +1,37 @@
 package meli.dh.com.finalmeliproject.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
-    @Column (length = 100, nullable = false, unique = true)
-    String categoryName;
+    private String categoryName;
 
-    @Column (nullable = false)
-    int minTemperature;
+    private int minTemperature;
 
-    @Column (nullable = false)
-    int maxTemperature;
+    private int maxTemperature;
+
+    @OneToMany(mappedBy = "category")
+    private List<ShippingCategory> shippingCategories;
+
+    @OneToMany(mappedBy = "category")
+    private List<Package> listOfPackages;
+
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "category")
+    private List<InboundOrder> inboundOrder;
 }

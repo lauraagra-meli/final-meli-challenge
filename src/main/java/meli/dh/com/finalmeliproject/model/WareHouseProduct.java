@@ -19,4 +19,8 @@ public class WareHouseProduct {
     @ManyToOne
     @JoinColumn(name = "id_product")
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "id_warehouse")
+    private WareHouse wareHouse;
 }
