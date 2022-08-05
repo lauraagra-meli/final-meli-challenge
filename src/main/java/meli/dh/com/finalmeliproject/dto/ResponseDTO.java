@@ -7,5 +7,5 @@ import java.util.List;
 
 @Getter @Setter
 public class ResponseDTO {
-    private List<BatchDTO> batchStock;
+    private List<ProductDTO> batchStock;
 }

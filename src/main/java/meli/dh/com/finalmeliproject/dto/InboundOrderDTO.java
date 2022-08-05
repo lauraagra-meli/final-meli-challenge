@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import meli.dh.com.finalmeliproject.model.Product;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +17,8 @@ public class InboundOrderDTO {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime orderDate;
 
-    private SectionDTO section;
-    private List<BatchDTO> batchStock;
+    private WareHouseCategoryDTO wareHouseCategory;
+
+    private List<ProductDTO> batchStock;
 
 }
