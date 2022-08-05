@@ -1,0 +1,8 @@
+package meli.dh.com.finalmeliproject.exception;
+
+public class ProductNotFoundException extends RuntimeException {
+
+    public ProductNotFoundException(String message) {
+        super(message);
+    }
+}
