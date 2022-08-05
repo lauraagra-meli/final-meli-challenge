@@ -29,6 +29,7 @@ public class Product {
     @JoinColumn(name = "id_batch")
     private Batch batch;
 
-    private LocalDate expirationDate;
+    private LocalDate dueDate;
+
     private LocalDateTime manufacturingDate;
 }
