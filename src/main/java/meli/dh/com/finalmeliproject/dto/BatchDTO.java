@@ -18,15 +18,6 @@ public class BatchDTO {
     private int initialQuantity;
     private int currentQuantity;
 
-    public BatchDTO(BatchDTO batchDTO){
-        setBatchNumber(batchDTO.getBatchNumber());
-        setCurrentQuantity(batchDTO.getCurrentQuantity());
-        setDueDate(batchDTO.getDueDate());
-        setBatchNumber(batchDTO.getBatchNumber());
-        setManufacturingDate(batchDTO.getManufacturingDate());
-        setProductId(batchDTO.getProductId());
-    }
-
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime manufacturingDate;
 

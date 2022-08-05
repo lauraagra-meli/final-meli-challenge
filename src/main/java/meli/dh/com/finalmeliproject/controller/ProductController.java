@@ -1,6 +1,7 @@
 package meli.dh.com.finalmeliproject.controller;
 
 import meli.dh.com.finalmeliproject.dto.BatchDTO;
+import meli.dh.com.finalmeliproject.dto.ResponseDTO;
 import meli.dh.com.finalmeliproject.dto.ResquestInboundOrderDTO;
 import meli.dh.com.finalmeliproject.service.Inbound.IInboundService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ProductController {
     private IInboundService service;
 
     @PostMapping
-    public ResponseEntity<List<BatchDTO>> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest) {
+    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest) {
         return new ResponseEntity<>(service.save(resquest.getInboundOrder()), HttpStatus.ACCEPTED);
     }
 }
