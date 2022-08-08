@@ -12,7 +12,7 @@ public class WareHouseCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int quantityMax;
+    private int capacity;
 
     @ManyToOne
     @JoinColumn(name = "id_category")

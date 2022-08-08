@@ -1,4 +1,4 @@
-package meli.dh.com.finalmeliproject.service.Representative;
+package meli.dh.com.finalmeliproject.service.representative;
 
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.Representative;

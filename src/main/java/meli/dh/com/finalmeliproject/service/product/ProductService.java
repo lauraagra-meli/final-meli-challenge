@@ -1,4 +1,4 @@
-package meli.dh.com.finalmeliproject.service.Product;
+package meli.dh.com.finalmeliproject.service.product;
 
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
