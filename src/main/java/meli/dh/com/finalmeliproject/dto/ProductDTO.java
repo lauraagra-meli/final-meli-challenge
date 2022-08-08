@@ -14,7 +14,7 @@ public class ProductDTO {
     private String name;
     private int batchNumber;
     private String productId;
-    private double currentTemperature;
+    private double maxTemperature;
     private double minimumTemperature;
     private int quantity;
 

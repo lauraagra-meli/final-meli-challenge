@@ -1,6 +1,7 @@
 package meli.dh.com.finalmeliproject.service.inbound;
 
 import meli.dh.com.finalmeliproject.dto.InboundOrderDTO;
+import meli.dh.com.finalmeliproject.dto.ProductDTO;
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;
 import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
@@ -43,7 +44,17 @@ public class InboundService implements IInboundService {
             throw new BadRequestExceptionImp("The size of the category batch exceeds the limit of the warehouse.");
         }
 
+        // comparando as temperaturas de cada um dos produtosDTO com as temperaturas da categorias
+        // verifica se os produtos estao de acordo com as especificacoes da categoria informada
+        for (ProductDTO p : inboundOrderDTO.getBatchStock()) {
+            if (!(p.getMaxTemperature() < wareHouseCategory.getCategory().getMaxTemperature())){
+                throw new BadRequestExceptionImp("Product not allowed in this category, not a proper max temperature.");
+            }
+            if (!(p.getMinimumTemperature() > wareHouseCategory.getCategory().getMinTemperature())){
+                throw new BadRequestExceptionImp("Product not allowed in this category, min temperature not compatible.");
+            }
 
+        }
 
 
         return response;
