@@ -2,6 +2,7 @@ package meli.dh.com.finalmeliproject.service.inbound;
 
 import meli.dh.com.finalmeliproject.dto.InboundOrderDTO;
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;
+import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.exception.RepresentativeUnauthorizedException;
 import meli.dh.com.finalmeliproject.model.Representative;
@@ -38,7 +39,11 @@ public class InboundService implements IInboundService {
 
         WareHouseCategory wareHouseCategory = wareHouseService.findWareHouseCategoryByWareHouseId(inboundOrderDTO.getWareHouseCategory());
 
-        System.out.println(wareHouseCategory);
+        if(wareHouseCategory.doesItFit(inboundOrderDTO.getBatchStock().size())){
+            throw new BadRequestExceptionImp("The size of the category batch exceeds the limit of the warehouse.");
+        }
+
+
 
 
         return response;

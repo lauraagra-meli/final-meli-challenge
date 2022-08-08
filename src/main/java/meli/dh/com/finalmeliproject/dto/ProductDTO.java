@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @NoArgsConstructor
 public class ProductDTO {
+    private String name;
     private int batchNumber;
     private String productId;
     private double currentTemperature;
     private double minimumTemperature;
-    private int initialQuantity;
-    private int currentQuantity;
+    private int quantity;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime manufacturingDate;

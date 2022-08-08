@@ -21,6 +21,8 @@ public class WareHouseService implements IWareHouseService {
                 .orElseThrow(() -> new NotFoundExceptionImp("This warehouse does not have this category"));
     }
 
+
+
     public boolean wareHouseExist(String id){
         return wareHouseRepo.findById(id).isPresent();
     }
