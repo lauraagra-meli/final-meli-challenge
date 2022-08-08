@@ -5,7 +5,6 @@ import meli.dh.com.finalmeliproject.dto.ResponseDTO;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.exception.RepresentativeUnauthorizedException;
 import meli.dh.com.finalmeliproject.model.Representative;
-import meli.dh.com.finalmeliproject.repository.IRepresentativeRepo;
 import meli.dh.com.finalmeliproject.repository.IWareHouseRepo;
 import meli.dh.com.finalmeliproject.service.Representative.IRepresentativeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class InboundService implements IInboundService {
         Representative representative = findRepresentative(representativeId);
 
 
-        if (representative.getWareHouse().getId() != inboundOrderDTO.getWareHouseCategory().getWareHouseCode()){
+        if (!representative.getWareHouse().getId().equals(inboundOrderDTO.getWareHouseCategory().getWareHouseCode())){
             throw new RepresentativeUnauthorizedException("Unauthorized representative");
         }
 
