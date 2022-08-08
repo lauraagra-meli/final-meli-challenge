@@ -17,6 +17,6 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
-        return new ResponseEntity<>(service.save(resquest.getInboundOrder(), representativeId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(service.save(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
     }
 }

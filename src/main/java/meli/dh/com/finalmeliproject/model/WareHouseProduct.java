@@ -23,4 +23,10 @@ public class WareHouseProduct {
     @ManyToOne
     @JoinColumn(name = "id_warehouse")
     private WareHouse wareHouse;
+
+    public WareHouseProduct(int quantity, Product product, WareHouse wareHouse) {
+        this.setQuantity(quantity);
+        this.setProduct(product);
+        this.setWareHouse(wareHouse);
+    }
 }

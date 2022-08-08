@@ -18,7 +18,4 @@ public class Batch {
 
     @OneToMany (mappedBy = "batch")
     private List<Product> listOfProducts;
-
-    @OneToMany(mappedBy = "batch")
-    private List<InboundOrder> listOfInboundOrders;
 }

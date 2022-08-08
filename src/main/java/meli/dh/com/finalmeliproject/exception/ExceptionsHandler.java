@@ -31,4 +31,15 @@ public class ExceptionsHandler {
                         .build()
                 , HttpStatus.UNAUTHORIZED);
     }
+
+    @ExceptionHandler(BadRequestExceptionImp.class)
+    public ResponseEntity<ExceptionDetails> handlerBadRequest(BadRequestExceptionImp ex) {
+        return new ResponseEntity<>(
+                ExceptionDetails.builder()
+                        .title("Bad Request :(")
+                        .message(ex.getMessage())
+                        .timestamp(LocalDateTime.now())
+                        .build()
+                , HttpStatus.UNAUTHORIZED);
+    }
 }

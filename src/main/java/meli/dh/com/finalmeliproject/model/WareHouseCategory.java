@@ -26,4 +26,12 @@ public class WareHouseCategory {
     public boolean doesItFit(int receivingQuantity){
         return this.getCapacity()-this.getStorage() >= receivingQuantity;
     }
+
+    public void sumStorage(int productQuantity){
+        this.storage += productQuantity;
+    }
+
+    public void subStorage(int productQuantity){
+        this.storage += productQuantity;
+    }
 }

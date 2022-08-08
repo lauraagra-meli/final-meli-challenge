@@ -7,7 +7,9 @@ import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.exception.RepresentativeUnauthorizedException;
 import meli.dh.com.finalmeliproject.model.Representative;
+import meli.dh.com.finalmeliproject.model.WareHouse;
 import meli.dh.com.finalmeliproject.model.WareHouseCategory;
+import meli.dh.com.finalmeliproject.service.batch.IBatchService;
 import meli.dh.com.finalmeliproject.service.representative.IRepresentativeService;
 import meli.dh.com.finalmeliproject.service.wareHouse.IWareHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class InboundService implements IInboundService {
 
     @Autowired
     private IRepresentativeService representativeService;
+
+    @Autowired
+    private IBatchService batchService;
 
     @Override
     public ResponseDTO save(InboundOrderDTO inboundOrderDTO, long representativeId) {
@@ -40,22 +45,7 @@ public class InboundService implements IInboundService {
 
         WareHouseCategory wareHouseCategory = wareHouseService.findWareHouseCategoryByWareHouseId(inboundOrderDTO.getWareHouseCategory());
 
-        if(wareHouseCategory.doesItFit(inboundOrderDTO.getBatchStock().size())){
-            throw new BadRequestExceptionImp("The size of the category batch exceeds the limit of the warehouse.");
-        }
-
-        // comparando as temperaturas de cada um dos produtosDTO com as temperaturas da categorias
-        // verifica se os produtos estao de acordo com as especificacoes da categoria informada
-        for (ProductDTO p : inboundOrderDTO.getBatchStock()) {
-            if (!(p.getMaxTemperature() < wareHouseCategory.getCategory().getMaxTemperature())){
-                throw new BadRequestExceptionImp("Product not allowed in this category, not a proper max temperature.");
-            }
-            if (!(p.getMinimumTemperature() > wareHouseCategory.getCategory().getMinTemperature())){
-                throw new BadRequestExceptionImp("Product not allowed in this category, min temperature not compatible.");
-            }
-
-        }
-
+        batchService.save(inboundOrderDTO, wareHouseCategory);
 
         return response;
     }
