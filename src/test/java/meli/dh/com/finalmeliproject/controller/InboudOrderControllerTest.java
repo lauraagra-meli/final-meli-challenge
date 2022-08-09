@@ -2,9 +2,7 @@ package meli.dh.com.finalmeliproject.controller;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class ProductControllerTest {
+class InboudOrderControllerTest {
 
     @Test
     void saveInboundOrder() {

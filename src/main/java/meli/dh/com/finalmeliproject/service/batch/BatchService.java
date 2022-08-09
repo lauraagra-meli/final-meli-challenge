@@ -70,12 +70,21 @@ public class BatchService implements IBatchService{
         }
 
         batch.setListOfProducts(products);
-        batch.setId(batchRepo.save(batch).getId());
+
+        batch.setId(inboundOrderDTO.getBatchId());
+        if (batch.getId() == 0){
+            batch.setId(batchRepo.save(batch).getId());
+        }
 
         productService.saveAll(products);
         wareHouseService.saveAll(wareHouseProducts);
         wareHouseService.update(wareHouseCategory);
 
         return batch;
+    }
+
+    @Override
+    public Batch findById(long batchId) {
+        return batchRepo.findById(batchId).get();
     }
 }
