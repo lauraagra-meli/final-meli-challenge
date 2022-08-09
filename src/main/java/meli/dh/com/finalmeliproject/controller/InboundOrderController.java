@@ -1,7 +1,7 @@
 package meli.dh.com.finalmeliproject.controller;
 
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;
-import meli.dh.com.finalmeliproject.dto.ResquestInboundOrderDTO;
+import meli.dh.com.finalmeliproject.dto.RequestInboundOrderDTO;
 import meli.dh.com.finalmeliproject.service.inbound.IInboundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +16,12 @@ public class InboundOrderController {
     private IInboundService service;
 
     @PostMapping
-    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
-        return new ResponseEntity<>(service.save(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
+    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody RequestInboundOrderDTO request, @RequestParam long representativeId) {
+        return new ResponseEntity<>(service.save(request.getInboundOrder(), representativeId), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<ResponseDTO> updateInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
-        return new ResponseEntity<>(service.update(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
+    public ResponseEntity<ResponseDTO> updateInboundOrder(@RequestBody RequestInboundOrderDTO request, @RequestParam long representativeId) {
+        return new ResponseEntity<>(service.update(request.getInboundOrder(), representativeId), HttpStatus.CREATED);
     }
 }

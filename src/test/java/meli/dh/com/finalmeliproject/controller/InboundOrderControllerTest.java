@@ -2,6 +2,7 @@ package meli.dh.com.finalmeliproject.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import meli.dh.com.finalmeliproject.dto.InboundOrderDTO;
+import meli.dh.com.finalmeliproject.dto.RequestInboundOrderDTO;
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;
 import meli.dh.com.finalmeliproject.mocks.GenerateInboundOrderDTO;
 import meli.dh.com.finalmeliproject.mocks.GenerateResponseDTO;
@@ -40,14 +41,16 @@ class InboundOrderControllerTest {
         BDDMockito.given(service.save(ArgumentMatchers.any(InboundOrderDTO.class), ArgumentMatchers.anyLong()))
                 .willAnswer((invocation) -> invocation.getArgument(0));
 
-        ResponseDTO responseDTO = GenerateResponseDTO.newResponseDTO();
+        InboundOrderDTO inboundOrderDTO = GenerateInboundOrderDTO.newInboundOrderDTO();
+        RequestInboundOrderDTO requestInboundOrderDTO = new RequestInboundOrderDTO();
+        requestInboundOrderDTO.setInboundOrder(inboundOrderDTO);
 
-        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/fresh-products/inboundorder")
-                .content(objectMapper.writeValueAsString(responseDTO))
+        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/fresh-products/inboundorder?representativeId=1")
+                .content(objectMapper.writeValueAsString(requestInboundOrderDTO))
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
         response.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.batchId", CoreMatchers.is(responseDTO.getBatchId())));
+                .andExpect(jsonPath("$.inboundOrder", CoreMatchers.is(requestInboundOrderDTO.getInboundOrder())));
     }
 }
