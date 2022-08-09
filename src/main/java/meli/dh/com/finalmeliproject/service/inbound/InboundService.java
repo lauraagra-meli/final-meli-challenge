@@ -48,7 +48,6 @@ public class InboundService implements IInboundService {
 
         Batch batch = batchService.save(inboundOrderDTO, wareHouseCategory);
         response.setBatchStock(batch.getListOfProducts());
-        response.setBatchId(batch.getId());
 
         InboundOrder inboundOrder = new InboundOrder(wareHouseCategory.getCategory(), wareHouseCategory.getWareHouse(), batch);
 

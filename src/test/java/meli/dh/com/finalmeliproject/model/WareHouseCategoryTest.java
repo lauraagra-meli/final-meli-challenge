@@ -18,9 +18,9 @@ class WareHouseCategoryTest {
 
     @BeforeEach
     void setup() {
-        wareHouse = new WareHouse("a1", 10, null, null, null);
-        category = new Category(1, "frescos", 10, 20, null, null, null, null);
-        wareHouseCategory = new WareHouseCategory(1, 100, null, null);
+        wareHouse = new WareHouse("a1", 10, null);
+        category = new Category(1, "frescos", 10, 20);
+        wareHouseCategory = new WareHouseCategory(1, 100, 0,null, null);
     }
 
     @Test
@@ -30,7 +30,7 @@ class WareHouseCategoryTest {
 
     @Test
     void getQuantityMax() {
-        assertThat(wareHouseCategory.getQuantityMax()).isEqualTo(100);
+        assertThat(wareHouseCategory.getCategory()).isEqualTo(100);
     }
 
     @Test
@@ -52,9 +52,9 @@ class WareHouseCategoryTest {
     }
 
     @Test
-    void setQuantityMax() {
-        wareHouseCategory.setQuantityMax(100);
-        assertThat(wareHouseCategory.getQuantityMax()).isEqualTo(100);
+    void setCapacity() {
+        wareHouseCategory.setCapacity(100);
+        assertThat(wareHouseCategory.getCapacity()).isEqualTo(100);
     }
 
     @Test

@@ -15,13 +15,11 @@ public class GenerateProductDTO {
 
         ProductDTO product = new ProductDTO();
 
-        product.setBatchNumber(10);
         product.setProductId("Meli002");
-        product.setCurrentQuantity(1);
-        product.setCurrentTemperature(20.0);
+        product.setMaxTemperature(1);
+        product.setMinimumTemperature(20.0);
         product.setMinimumTemperature(2.0);
-        product.setInitialQuantity(2);
-        product.setCurrentTemperature(20);
+        product.setQuantity(2);
         product.setManufacturingDate(LocalDateTime.now());
         product.setDueDate(LocalDate.now());
         productDTOS.add(product);

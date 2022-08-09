@@ -1,6 +1,7 @@
 package meli.dh.com.finalmeliproject.service.Representative;
 
 import meli.dh.com.finalmeliproject.repository.IRepresentativeRepo;
+import meli.dh.com.finalmeliproject.service.representative.RepresentativeService;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;

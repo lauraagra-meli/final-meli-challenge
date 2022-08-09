@@ -27,7 +27,7 @@ class CategoryTest {
         productList.add(new Product("MELI20932", "batata", 10, null, null, LocalDate.of(2023, 02, 01), LocalDateTime.now()));
         inboundOrderList.add(new InboundOrder(1, LocalDateTime.now(), null, null, null));
 
-        category = new Category(1, "congelados", -20, 0, null, null, null, null);
+        category = new Category(1, "congelados", -20, 0);
     }
 
     @Test
@@ -48,30 +48,6 @@ class CategoryTest {
     @Test
     void getMaxTemperature() {
         assertThat(category.getMinTemperature()).isEqualTo(-20);
-    }
-
-    @Test
-    void getShippingCategories() {
-        category.setShippingCategories(shippingCategoryList);
-        assertThat(category.getShippingCategories()).isEqualTo(shippingCategoryList);
-    }
-
-    @Test
-    void getListOfPackages() {
-        category.setListOfPackages(packageList);
-        assertThat(category.getListOfPackages()).isEqualTo(packageList);
-    }
-
-    @Test
-    void getProducts() {
-        category.setListOfProducts(productList);
-        assertThat(category.getListOfProducts()).isEqualTo(productList);
-    }
-
-    @Test
-    void getInboundOrder() {
-        category.setListOfInboundOrder(inboundOrderList);
-        assertThat(category.getListOfInboundOrder()).isEqualTo(inboundOrderList);
     }
 
     @Test
@@ -96,30 +72,6 @@ class CategoryTest {
     void setMaxTemperature() {
         category.setMaxTemperature(0);
         assertThat(category.getMaxTemperature()).isEqualTo(0);
-    }
-
-    @Test
-    void setShippingCategories() {
-        category.setShippingCategories(shippingCategoryList);
-        assertThat(category.getShippingCategories()).isEqualTo(shippingCategoryList);
-    }
-
-    @Test
-    void setListOfPackages() {
-        category.setListOfPackages(packageList);
-        assertThat(category.getListOfPackages()).isEqualTo(packageList);
-    }
-
-    @Test
-    void setProducts() {
-        category.setListOfProducts(productList);
-        assertThat(category.getListOfProducts()).isEqualTo(productList);
-    }
-
-    @Test
-    void setInboundOrder() {
-        category.setListOfInboundOrder(inboundOrderList);
-        assertThat(category.getListOfInboundOrder()).isEqualTo(inboundOrderList);
     }
 
     @Test

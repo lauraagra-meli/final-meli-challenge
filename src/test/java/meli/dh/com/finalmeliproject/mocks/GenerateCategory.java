@@ -26,10 +26,6 @@ public class GenerateCategory {
                 .categoryName("fresco")
                 .minTemperature(15)
                 .maxTemperature(25)
-                .shippingCategories(shippingCategoryList)
-                .listOfPackages(packageList)
-                .listOfProducts(productList)
-                .listOfInboundOrder(inboundOrderList)
                 .build();
     }
 }

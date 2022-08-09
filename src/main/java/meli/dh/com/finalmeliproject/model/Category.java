@@ -21,15 +21,4 @@ public class Category {
 
     private double maxTemperature;
 
-    @OneToMany(mappedBy = "category")
-    private List<ShippingCategory> shippingCategories;
-
-    @OneToMany(mappedBy = "category")
-    private List<Package> listOfPackages;
-
-    @OneToMany(mappedBy = "category")
-    private List<Product> listOfProducts;
-
-    @OneToMany(mappedBy = "category")
-    private List<InboundOrder> listOfInboundOrder;
 }

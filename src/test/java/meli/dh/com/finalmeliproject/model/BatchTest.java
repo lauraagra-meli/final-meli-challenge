@@ -25,7 +25,7 @@ class BatchTest {
         productList.add(new Product("MELI12321", "carne", 10, null, null, LocalDate.of(2023, 01, 12), LocalDateTime.now()));
         inboundOrderList.add(new InboundOrder(1, LocalDateTime.now(), null, null, null));
 
-        batch = new Batch(1, null, null);
+        batch = new Batch(1, null);
     }
 
     @Test
@@ -40,12 +40,6 @@ class BatchTest {
     }
 
     @Test
-    void getListOfInboundOrders() {
-        batch.setListOfInboundOrders(inboundOrderList);
-        assertThat(batch.getListOfInboundOrders()).isEqualTo(inboundOrderList);
-    }
-
-    @Test
     void setId() {
         batch.setId(1);
         assertThat(batch.getId()).isEqualTo(1);
@@ -55,12 +49,6 @@ class BatchTest {
     void setListOfProducts() {
         batch.setListOfProducts(productList);
         assertThat(batch.getListOfProducts()).isEqualTo(productList);
-    }
-
-    @Test
-    void setListOfInboundOrders() {
-        batch.setListOfInboundOrders(inboundOrderList);
-        assertThat(batch.getListOfInboundOrders()).isEqualTo(inboundOrderList);
     }
 
     @Test
