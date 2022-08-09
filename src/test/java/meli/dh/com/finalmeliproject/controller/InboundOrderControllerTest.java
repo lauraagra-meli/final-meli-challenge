@@ -48,6 +48,6 @@ class InboundOrderControllerTest {
         );
 
         response.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.batchStock", CoreMatchers.is(responseDTO.getBatchStock())));
+                .andExpect(jsonPath("$.batchId", CoreMatchers.is(responseDTO.getBatchId())));
     }
 }
