@@ -2,16 +2,11 @@ package meli.dh.com.finalmeliproject.controller;
 
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;
 import meli.dh.com.finalmeliproject.dto.ResquestInboundOrderDTO;
-import meli.dh.com.finalmeliproject.dto.shoppingCar.ResponseProductsDTO;
-import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.service.inbound.IInboundService;
-import meli.dh.com.finalmeliproject.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products")

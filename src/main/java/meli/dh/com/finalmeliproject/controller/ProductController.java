@@ -1,6 +1,5 @@
 package meli.dh.com.finalmeliproject.controller;
 
-import meli.dh.com.finalmeliproject.dto.shoppingCar.ResponseProductsDTO;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
