@@ -1,15 +1,14 @@
 package meli.dh.com.finalmeliproject.service.Product;
 
+import meli.dh.com.finalmeliproject.mocks.GenerateProduct;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
-import meli.dh.com.finalmeliproject.util.GenerateProduct;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
