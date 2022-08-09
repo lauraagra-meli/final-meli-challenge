@@ -1,7 +1,6 @@
 package meli.dh.com.finalmeliproject.service.Representative;
 
 import meli.dh.com.finalmeliproject.repository.IRepresentativeRepo;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
@@ -20,8 +19,8 @@ class RepresentativeServiceTest {
     @Mock
     private IRepresentativeRepo representativeRepo;
 
-    @Test
-    void findRepresentativeById() {
-        BDDMockito.when(representativeRepo.findById())
-    }
+//    @Test
+//    void findRepresentativeById() {
+//        BDDMockito.when(representativeRepo.findById());
+//    }
 }

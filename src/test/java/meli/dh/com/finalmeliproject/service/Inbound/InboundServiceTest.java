@@ -1,11 +1,11 @@
 package meli.dh.com.finalmeliproject.service.Inbound;
 
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;
+import meli.dh.com.finalmeliproject.mocks.GenerateInboundOrderDTO;
+import meli.dh.com.finalmeliproject.mocks.GenerateRepresentative;
+import meli.dh.com.finalmeliproject.mocks.GenerateResponseDTO;
 import meli.dh.com.finalmeliproject.repository.IWareHouseRepo;
 import meli.dh.com.finalmeliproject.service.Representative.IRepresentativeService;
-import meli.dh.com.finalmeliproject.util.GenerateInboundOrderDTO;
-import meli.dh.com.finalmeliproject.util.GenerateRepresentative;
-import meli.dh.com.finalmeliproject.util.GenerateResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,7 +30,7 @@ class InboundServiceTest {
  void save_saveProduct() {
 
   GenerateInboundOrderDTO inboundOrderDTO = new GenerateInboundOrderDTO();
-  ResponseDTO inboundService = service.save(GenerateInboundOrderDTO.newInboundOrderDTO(),GenerateRepresentative.newRepresentative().getId());
+  ResponseDTO inboundService = service.save(GenerateInboundOrderDTO.newInboundOrderDTO(), GenerateRepresentative.newRepresentative().getId());
   GenerateResponseDTO responseDTO = new GenerateResponseDTO();
 
 
