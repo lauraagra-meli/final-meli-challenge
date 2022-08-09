@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/inboundorder")
-public class ProductController {
+public class InboundOrderController {
 
     @Autowired
     private IInboundService service;
@@ -18,5 +18,10 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
         return new ResponseEntity<>(service.save(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<ResponseDTO> updateInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
+        return new ResponseEntity<>(service.update(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
     }
 }

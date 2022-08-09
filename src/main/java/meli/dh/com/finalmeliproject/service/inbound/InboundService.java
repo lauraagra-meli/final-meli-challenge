@@ -56,6 +56,11 @@ public class InboundService implements IInboundService {
         return response;
     }
 
+    @Override
+    public ResponseDTO update(InboundOrderDTO inboundOrderDTO, long representativeId) {
+        return null;
+    }
+
 
     private Representative findRepresentative(long id){
         return representativeService.findRepresentativeById(id);
