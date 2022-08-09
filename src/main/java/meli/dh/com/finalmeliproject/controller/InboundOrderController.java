@@ -19,4 +19,9 @@ public class InboundOrderController {
     public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
         return new ResponseEntity<>(service.save(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
     }
+
+    @PutMapping
+    public ResponseEntity<ResponseDTO> updateInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
+        return new ResponseEntity<>(service.update(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
+    }
 }
