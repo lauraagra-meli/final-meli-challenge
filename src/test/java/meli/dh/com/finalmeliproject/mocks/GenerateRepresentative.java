@@ -2,10 +2,13 @@ package meli.dh.com.finalmeliproject.util;
 
 import meli.dh.com.finalmeliproject.model.Representative;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GenerateRepresentative {
 
-
+    public static Representative newRepresentative(){
+        return Representative.builder()
+                .id(2)
+                .name("Pedro")
+                .wareHouse(GenerateWareHouse.newWareHouse())
+                .build();
+    }
 }
