@@ -1,56 +1,66 @@
 package meli.dh.com.finalmeliproject.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import meli.dh.com.finalmeliproject.dto.InboundOrderDTO;
 import meli.dh.com.finalmeliproject.dto.RequestInboundOrderDTO;
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;
-import meli.dh.com.finalmeliproject.mocks.GenerateInboundOrderDTO;
+import meli.dh.com.finalmeliproject.mocks.GenerateRequestInboundOrderDTO;
 import meli.dh.com.finalmeliproject.mocks.GenerateResponseDTO;
-import meli.dh.com.finalmeliproject.service.inbound.InboundService;
-import org.hamcrest.CoreMatchers;
+import meli.dh.com.finalmeliproject.service.inbound.IInboundService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
-@WebMvcTest(InboundOrderController.class)
+
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class InboundOrderControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @InjectMocks
+    private InboundOrderController inboundOrderController;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockBean
-    private InboundService service;
+    @Mock
+    private IInboundService service;
 
     @Test
     void save_saveInboundOrder_whenNewInboundOrder() throws Exception {
-        // testando comportamento do controller independente do retorno
-        BDDMockito.given(service.save(ArgumentMatchers.any(InboundOrderDTO.class), ArgumentMatchers.anyLong()))
-                .willAnswer((invocation) -> invocation.getArgument(0));
+        BDDMockito.when(service.save(ArgumentMatchers.any(InboundOrderDTO.class), ArgumentMatchers.anyLong()))
+                .thenReturn(GenerateResponseDTO.newResponseDTO());
 
-        InboundOrderDTO inboundOrderDTO = GenerateInboundOrderDTO.newInboundOrderDTO();
-        RequestInboundOrderDTO requestInboundOrderDTO = new RequestInboundOrderDTO();
-        requestInboundOrderDTO.setInboundOrder(inboundOrderDTO);
+        InboundOrderDTO inboundOrderDTO = new InboundOrderDTO();
+        RequestInboundOrderDTO newInboundOrder = GenerateRequestInboundOrderDTO.newRequestInboundOrderToSave();
+        ResponseEntity<ResponseDTO> response = inboundOrderController.saveInboundOrder(newInboundOrder, 1);
 
-        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/fresh-products/inboundorder?representativeId=1")
-                .content(objectMapper.writeValueAsString(requestInboundOrderDTO))
-                .contentType(MediaType.APPLICATION_JSON)
-        );
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody()).isNotNull();
 
-        response.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.inboundOrder", CoreMatchers.is(requestInboundOrderDTO.getInboundOrder())));
+        //verify(service, atLeastOnce()).save(inboundOrderDTO, 1);
+    }
+
+    @Test
+    void update_updateInboundOrder_whenInboundOrderExist() {
+        BDDMockito.when(service.update(ArgumentMatchers.any(InboundOrderDTO.class), ArgumentMatchers.anyLong()))
+                .thenReturn(GenerateResponseDTO.newResponseDTO());
+
+        InboundOrderDTO inboundOrderDTO = new InboundOrderDTO();
+        RequestInboundOrderDTO newInboundOrder = GenerateRequestInboundOrderDTO.newRequestInboundOrderToSave();
+        ResponseEntity<ResponseDTO> response = inboundOrderController.updateInboundOrder(newInboundOrder, 1);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody()).isNotNull();
+
+        //verify(service, atLeastOnce()).update(any(), 1);
     }
 }

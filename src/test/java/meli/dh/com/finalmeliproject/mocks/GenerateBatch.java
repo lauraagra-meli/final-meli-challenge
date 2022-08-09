@@ -7,7 +7,7 @@ public class GenerateBatch {
     public static Batch newBatchToSave() {
         return Batch.builder()
                 .id(2)
-                .listOfProducts(GenerateProduct.newListProductToSave())
+                .listOfProducts(null)
                 //.listOfInboundOrders()
                 .build();
     }

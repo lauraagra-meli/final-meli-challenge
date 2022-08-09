@@ -20,6 +20,7 @@ public class GenerateResponseDTO {
         productList.add(new Product("MELI02193", "banana", 12, null, null, LocalDate.of(2023, 02, 15), LocalDateTime.now()));
 
         return ResponseDTO.builder()
+                .batchId(1)
                 .batchStock(productList)
                 .build();
     }
