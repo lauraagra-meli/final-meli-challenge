@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ProductDTO {
     private String name;
-    private int batchNumber;
     private String productId;
     private double maxTemperature;
     private double minimumTemperature;

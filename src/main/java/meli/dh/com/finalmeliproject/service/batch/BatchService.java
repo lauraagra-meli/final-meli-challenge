@@ -63,15 +63,18 @@ public class BatchService implements IBatchService{
                     wareHouseCategory.getWareHouse()
             );
 
+            p.setProductId(product.getId());
+
             wareHouseProducts.add(wareHouseProduct);
             products.add(product);
         }
 
         batch.setListOfProducts(products);
-        batchRepo.save(batch);
+        inboundOrderDTO.setBatchId(batchRepo.save(batch).getId());
         productService.saveAll(products);
         wareHouseService.saveAll(wareHouseProducts);
         wareHouseService.update(wareHouseCategory);
-        return null;
+
+        return inboundOrderDTO;
     }
 }

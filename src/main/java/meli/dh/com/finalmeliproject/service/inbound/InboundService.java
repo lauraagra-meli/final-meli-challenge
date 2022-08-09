@@ -31,7 +31,6 @@ public class InboundService implements IInboundService {
     @Override
     public ResponseDTO save(InboundOrderDTO inboundOrderDTO, long representativeId) {
         ResponseDTO response = new ResponseDTO();
-        response.setBatchStock(inboundOrderDTO.getBatchStock());
 
         if (!wareHouseService.wareHouseExist(inboundOrderDTO.getWareHouseCategory().getWareHouseCode())) { //verifica se existe o ware house
             throw new NotFoundExceptionImp("Warehouse not found");
@@ -45,7 +44,9 @@ public class InboundService implements IInboundService {
 
         WareHouseCategory wareHouseCategory = wareHouseService.findWareHouseCategoryByWareHouseId(inboundOrderDTO.getWareHouseCategory());
 
-        batchService.save(inboundOrderDTO, wareHouseCategory);
+        InboundOrderDTO inboundSaved = batchService.save(inboundOrderDTO, wareHouseCategory);
+        response.setBatchStock(inboundSaved.getBatchStock());
+        response.setBatchId(inboundSaved.getBatchId());
 
         return response;
     }
