@@ -1,5 +1,6 @@
 package meli.dh.com.finalmeliproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "id_batch")
+    @JsonIgnoreProperties("listOfProducts")
     private Batch batch;
 
     private LocalDate dueDate;

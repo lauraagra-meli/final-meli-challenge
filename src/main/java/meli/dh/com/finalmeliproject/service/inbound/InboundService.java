@@ -6,9 +6,8 @@ import meli.dh.com.finalmeliproject.dto.ResponseDTO;
 import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.exception.RepresentativeUnauthorizedException;
-import meli.dh.com.finalmeliproject.model.Representative;
-import meli.dh.com.finalmeliproject.model.WareHouse;
-import meli.dh.com.finalmeliproject.model.WareHouseCategory;
+import meli.dh.com.finalmeliproject.model.*;
+import meli.dh.com.finalmeliproject.repository.IInboundOrderRepo;
 import meli.dh.com.finalmeliproject.service.batch.IBatchService;
 import meli.dh.com.finalmeliproject.service.representative.IRepresentativeService;
 import meli.dh.com.finalmeliproject.service.wareHouse.IWareHouseService;
@@ -18,6 +17,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class InboundService implements IInboundService {
+
+    @Autowired
+    private IInboundOrderRepo inboundOrderRepo;
 
     @Autowired
     private IWareHouseService wareHouseService;
@@ -44,9 +46,13 @@ public class InboundService implements IInboundService {
 
         WareHouseCategory wareHouseCategory = wareHouseService.findWareHouseCategoryByWareHouseId(inboundOrderDTO.getWareHouseCategory());
 
-        InboundOrderDTO inboundSaved = batchService.save(inboundOrderDTO, wareHouseCategory);
-        response.setBatchStock(inboundSaved.getBatchStock());
-        response.setBatchId(inboundSaved.getBatchId());
+        Batch batch = batchService.save(inboundOrderDTO, wareHouseCategory);
+        response.setBatchStock(batch.getListOfProducts());
+        response.setBatchId(batch.getId());
+
+        InboundOrder inboundOrder = new InboundOrder(wareHouseCategory.getCategory(), wareHouseCategory.getWareHouse(), batch);
+
+        inboundOrderRepo.save(inboundOrder);
 
         return response;
     }

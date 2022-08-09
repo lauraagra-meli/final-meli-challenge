@@ -26,7 +26,7 @@ public class BatchService implements IBatchService{
     private IBatchRepo batchRepo;
 
     @Override
-    public InboundOrderDTO save(InboundOrderDTO inboundOrderDTO, WareHouseCategory wareHouseCategory) {
+    public Batch save(InboundOrderDTO inboundOrderDTO, WareHouseCategory wareHouseCategory) {
 
         Batch batch = new Batch();
         List<Product> products = new ArrayList<>();
@@ -70,11 +70,12 @@ public class BatchService implements IBatchService{
         }
 
         batch.setListOfProducts(products);
-        inboundOrderDTO.setBatchId(batchRepo.save(batch).getId());
+        batch.setId(batchRepo.save(batch).getId());
+
         productService.saveAll(products);
         wareHouseService.saveAll(wareHouseProducts);
         wareHouseService.update(wareHouseCategory);
 
-        return inboundOrderDTO;
+        return batch;
     }
 }

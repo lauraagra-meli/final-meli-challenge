@@ -32,4 +32,10 @@ public class InboundOrder {
     @ManyToOne
     @JoinColumn(name = "id_batch")
     private Batch batch;
+
+    public InboundOrder(Category category, WareHouse wareHouse, Batch batch){
+        this.setCategory(category);
+        this.setWareHouse(wareHouse);
+        this.setBatch(batch);
+    }
 }
