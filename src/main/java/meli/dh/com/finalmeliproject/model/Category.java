@@ -1,9 +1,6 @@
 package meli.dh.com.finalmeliproject.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +8,7 @@ import java.util.List;
 @Setter @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class Category {
     @Id
@@ -23,4 +21,15 @@ public class Category {
 
     private double maxTemperature;
 
+    @OneToMany(mappedBy = "category")
+    private List<ShippingCategory> shippingCategories;
+
+    @OneToMany(mappedBy = "category")
+    private List<Package> listOfPackages;
+
+    @OneToMany(mappedBy = "category")
+    private List<Product> listOfProducts;
+
+    @OneToMany(mappedBy = "category")
+    private List<InboundOrder> listOfInboundOrder;
 }
