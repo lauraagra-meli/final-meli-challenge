@@ -1,5 +1,7 @@
 package meli.dh.com.finalmeliproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +21,4 @@ public class Batch {
 
     @OneToMany (mappedBy = "batch")
     private List<Product> listOfProducts;
-
-    @OneToMany(mappedBy = "batch")
-    private List<InboundOrder> listOfInboundOrders;
 }

@@ -17,9 +17,9 @@ public class Category {
 
     private String categoryName;
 
-    private int minTemperature;
+    private double minTemperature;
 
-    private int maxTemperature;
+    private double maxTemperature;
 
     @OneToMany(mappedBy = "category")
     private List<ShippingCategory> shippingCategories;

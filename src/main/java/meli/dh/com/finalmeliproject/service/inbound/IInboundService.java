@@ -1,4 +1,4 @@
-package meli.dh.com.finalmeliproject.service.Inbound;
+package meli.dh.com.finalmeliproject.service.inbound;
 
 import meli.dh.com.finalmeliproject.dto.InboundOrderDTO;
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;

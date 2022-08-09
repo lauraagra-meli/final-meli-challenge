@@ -19,9 +19,4 @@ public class WareHouse {
     @OneToMany(mappedBy = "wareHouse")
     private List<WareHouseCategory> listOfWareHouseCategory;
 
-    @OneToMany(mappedBy = "wareHouse")
-    private List<WareHouseProduct> listOfWareHouseProduct;
-
-    @OneToMany(mappedBy = "wareHouse")
-    private List<InboundOrder> listOfInboundOrders;
 }

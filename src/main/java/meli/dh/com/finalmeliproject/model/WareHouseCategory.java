@@ -14,7 +14,8 @@ public class WareHouseCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int quantityMax;
+    private int capacity;//capacidade maxima
+    private int storage;//estoque atual
 
     @ManyToOne
     @JoinColumn(name = "id_category")
@@ -23,4 +24,16 @@ public class WareHouseCategory {
     @ManyToOne
     @JoinColumn(name = "id_warehouse")
     private WareHouse wareHouse;
+
+    public boolean doesItFit(int receivingQuantity){
+        return this.getCapacity()-this.getStorage() >= receivingQuantity;
+    }
+
+    public void sumStorage(int productQuantity){
+        this.storage += productQuantity;
+    }
+
+    public void subStorage(int productQuantity){
+        this.storage += productQuantity;
+    }
 }
