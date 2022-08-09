@@ -9,4 +9,5 @@ import meli.dh.com.finalmeliproject.model.WareHouseCategory;
 
 public interface IBatchService {
     Batch save(InboundOrderDTO inboundOrderDTO, WareHouseCategory wareHouseCategory);
+    Batch findById(long batchId);
 }

@@ -8,5 +8,6 @@ import java.util.List;
 
 @Getter @Setter
 public class ResponseDTO {
+    private long batchId;
     private List<Product> batchStock;
 }

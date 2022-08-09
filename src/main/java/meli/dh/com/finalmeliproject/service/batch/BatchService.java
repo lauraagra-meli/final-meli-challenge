@@ -78,4 +78,9 @@ public class BatchService implements IBatchService{
 
         return batch;
     }
+
+    @Override
+    public Batch findById(long batchId) {
+        return batchRepo.findById(batchId).get();
+    }
 }

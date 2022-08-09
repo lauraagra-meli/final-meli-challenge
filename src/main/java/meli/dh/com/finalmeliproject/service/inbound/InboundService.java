@@ -48,6 +48,7 @@ public class InboundService implements IInboundService {
 
         Batch batch = batchService.save(inboundOrderDTO, wareHouseCategory);
         response.setBatchStock(batch.getListOfProducts());
+        response.setBatchId(batch.getId());
 
         InboundOrder inboundOrder = new InboundOrder(wareHouseCategory.getCategory(), wareHouseCategory.getWareHouse(), batch);
 
@@ -57,7 +58,8 @@ public class InboundService implements IInboundService {
     }
 
     @Override
-    public ResponseDTO update(InboundOrderDTO inboundOrderDTO, long representativeId) {
+    public ResponseDTO update(InboundOrderDTO inboundOrderDTO, long representativeId, long batchId) {
+        batchService.findById(batchId);
         return null;
     }
 
