@@ -1,4 +1,4 @@
-package meli.dh.com.finalmeliproject.util;
+package meli.dh.com.finalmeliproject.mocks;
 
 import com.sun.xml.bind.v2.runtime.reflect.Lister;
 import meli.dh.com.finalmeliproject.model.*;

@@ -1,4 +1,4 @@
-package meli.dh.com.finalmeliproject.util;
+package meli.dh.com.finalmeliproject.mocks;
 
 import lombok.Getter;
 import lombok.Setter;
