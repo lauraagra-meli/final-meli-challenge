@@ -5,7 +5,6 @@ import lombok.Setter;
 import meli.dh.com.finalmeliproject.dto.InboundOrderDTO;
 import meli.dh.com.finalmeliproject.dto.ProductDTO;
 import meli.dh.com.finalmeliproject.dto.WareHouseCategoryDTO;
-import meli.dh.com.finalmeliproject.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,7 +28,5 @@ public class GenerateInboundOrderDTO {
                 .wareHouseCategory(wareHouseCategoryDTO)
                 .batchStock(batchStock)
                 .build();
-
-
     }
 }
