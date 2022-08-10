@@ -12,8 +12,8 @@ public class GenerateWareHouseCategory {
                 .id(1)
                 .capacity(76)
                 .storage(0)
-                .category(GenerateCategory.newCategoryToSave())
-                .wareHouse(GenerateWareHouse.newWareHouse())
+                .category(null)
+                .wareHouse(null)
                 .build();
     }
 
@@ -22,10 +22,10 @@ public class GenerateWareHouseCategory {
 
         WareHouseCategory wareHouseCategory = new WareHouseCategory();
 
-        wareHouseCategory.setCategory(GenerateCategory.newCategoryToSave());
+        wareHouseCategory.setCategory(null);
         wareHouseCategory.setId(2);
         wareHouseCategory.setCapacity(100);
-        wareHouseCategory.setWareHouse(GenerateWareHouse.newWareHouse());
+        wareHouseCategory.setWareHouse(null);
         wareHouseCategories.add(wareHouseCategory);
         return wareHouseCategories;
     }

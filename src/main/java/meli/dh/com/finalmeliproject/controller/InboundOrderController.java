@@ -1,7 +1,7 @@
 package meli.dh.com.finalmeliproject.controller;
 
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;
-import meli.dh.com.finalmeliproject.dto.ResquestInboundOrderDTO;
+import meli.dh.com.finalmeliproject.dto.RequestInboundOrderDTO;
 import meli.dh.com.finalmeliproject.service.inbound.IInboundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
