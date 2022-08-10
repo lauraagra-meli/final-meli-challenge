@@ -30,7 +30,7 @@ public class GenerateProduct {
     public static List<Product> newListProductToSave() {
         List<Product> listOfProducts = new ArrayList<>();
         Category category = new Category();
-        Batch batch = new Batch();
+        Batch batch = new Batch(1, null);
 
         Product product = new Product();
         product.setId("MELI34242");

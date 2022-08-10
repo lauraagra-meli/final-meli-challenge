@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BatchService implements IBatchService{
@@ -35,10 +36,10 @@ public class BatchService implements IBatchService{
         // comparando as temperaturas de cada um dos produtosDTO com as temperaturas da categorias
         // verifica se os produtos estao de acordo com as especificacoes da categoria informada
         for (ProductDTO p : inboundOrderDTO.getBatchStock()) {
-            if (!(p.getMaxTemperature() < wareHouseCategory.getCategory().getMaxTemperature())){
+            if (!(p.getMaxTemperature() <= wareHouseCategory.getCategory().getMaxTemperature())){
                 throw new BadRequestExceptionImp("Product not allowed in this category, not a proper max temperature.");
             }
-            if (!(p.getMinimumTemperature() > wareHouseCategory.getCategory().getMinTemperature())){
+            if (!(p.getMinimumTemperature() >= wareHouseCategory.getCategory().getMinTemperature())){
                 throw new BadRequestExceptionImp("Product not allowed in this category, min temperature not compatible.");
             }
 
