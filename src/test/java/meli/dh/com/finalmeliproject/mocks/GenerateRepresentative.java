@@ -8,7 +8,7 @@ public class GenerateRepresentative {
         return Representative.builder()
                 .id(2)
                 .name("Pedro")
-                .wareHouse(GenerateWareHouse.newWareHouse())
+                .wareHouse(null)
                 .build();
     }
 

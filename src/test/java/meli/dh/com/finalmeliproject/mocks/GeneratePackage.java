@@ -13,7 +13,7 @@ public class GeneratePackage {
                 .id(21)
                 .packageType("caixa")
                 .storageCapacity(10)
-                .category(GenerateCategory.newCategoryToSave())
+                .category(null)
                 .build();
     }
 
@@ -24,7 +24,7 @@ public class GeneratePackage {
         packages.setId(54);
         packages.setPackageType("saco");
         packages.setStorageCapacity(20);
-        packages.setCategory(GenerateCategory.newCategoryToSave());
+        packages.setCategory(null);
 
         listOfPackages.add(packages);
 
