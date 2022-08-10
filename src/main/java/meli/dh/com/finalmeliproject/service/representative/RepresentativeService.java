@@ -13,6 +13,11 @@ public class RepresentativeService implements IRepresentativeService {
     private IRepresentativeRepo representativeRepo;
 
     @Override
+    public Representative save(Representative representative) {
+        return representativeRepo.save(representative);
+    }
+
+    @Override
     public Representative findRepresentativeById(long id) {
         try{
             return representativeRepo.findById(id).get();
