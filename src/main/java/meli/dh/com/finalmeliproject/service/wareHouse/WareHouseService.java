@@ -1,6 +1,7 @@
 package meli.dh.com.finalmeliproject.service.wareHouse;
 
 import meli.dh.com.finalmeliproject.dto.WareHouseCategoryDTO;
+import meli.dh.com.finalmeliproject.dto.WareHouseProductDTO;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.WareHouseCategory;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
@@ -40,6 +41,12 @@ public class WareHouseService implements IWareHouseService {
     public WareHouseCategory update(WareHouseCategory wareHouseCategory) {
         return wareHouseCategoryRepo.save(wareHouseCategory);
     }
+
+//    @Override
+//    public List<WareHouseProductDTO> findAllProductsByWareHouse(String id) {
+//        List<WareHouseProductDTO> wareHouseProductDTOList = wareHouseProductRepo.findAllById(id);
+//        return wareHouseProductDTOList;
+//    }
 
     @Override
     public boolean wareHouseExist(String id){
