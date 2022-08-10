@@ -49,8 +49,8 @@ public class ProductService implements IProductService {
         return findAll(buyerId).stream().map(ProductDTO::new).collect(Collectors.toList());
     }
 
-    public ProductDTO checkStock(String id) {
-        List<ProductDTO> allProducts = getAllProducts(0);
+    public ProductDTO checkStock(String id, long buyerId) {
+        List<ProductDTO> allProducts = getAllProducts(buyerId);
         ProductDTO productDTO = allProducts.stream().filter(p -> p.getProductId().equals(id)).findFirst().orElse(null);
 
         if (productDTO == null) {

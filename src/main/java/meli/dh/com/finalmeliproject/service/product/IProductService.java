@@ -10,5 +10,5 @@ public interface IProductService {
     List<Product> saveAll(List<Product> products);
     List<Product> findAll(long buyerId);
     List<ProductDTO> getAllProducts(long buyerId);
-    ProductDTO checkStock(String id);
+    ProductDTO checkStock(String id,long buyerId);
 }
