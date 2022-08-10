@@ -20,9 +20,9 @@ public class WareHouseController {
     @Autowired
     WareHouseService service;
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<List<WareHouseProductDTO>> findAllProductsByWareHouse(@PathVariable String id) {
-//        List<WareHouseProductDTO> wareHouseProductDTOList = service.findAllProductsByWareHouse(id);
-//        return ResponseEntity.ok().body(wareHouseProductDTOList);
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<List<WareHouseProductDTO>> findAllProductsByWareHouse(@PathVariable String id) {
+        List<WareHouseProductDTO> wareHouseProductDTOList = service.findAllProductsByWareHouse(id);
+        return ResponseEntity.ok().body(wareHouseProductDTOList);
+    }
 }

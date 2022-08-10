@@ -12,5 +12,5 @@ public interface IWareHouseService {
     boolean wareHouseExist(String id);
     List<WareHouseProduct> saveAll(List<WareHouseProduct> wareHouseProducts);
     WareHouseCategory update(WareHouseCategory wareHouseCategory);
-    //List<WareHouseProductDTO> findAllProductsByWareHouse(String id);
+    List<WareHouseProductDTO> findAllProductsByWareHouse(String id);
 }

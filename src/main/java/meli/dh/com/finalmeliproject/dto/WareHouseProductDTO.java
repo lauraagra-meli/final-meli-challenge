@@ -8,6 +8,6 @@ import meli.dh.com.finalmeliproject.model.WareHouse;
 @AllArgsConstructor
 @Builder
 public class WareHouseProductDTO {
+    private long wareHouseCode;
     private int totalQuantity;
-    private WareHouse wareHouse;
 }

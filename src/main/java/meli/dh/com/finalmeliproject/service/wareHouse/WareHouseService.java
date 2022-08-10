@@ -1,8 +1,10 @@
 package meli.dh.com.finalmeliproject.service.wareHouse;
 
+import meli.dh.com.finalmeliproject.dto.ProductDTO;
 import meli.dh.com.finalmeliproject.dto.WareHouseCategoryDTO;
 import meli.dh.com.finalmeliproject.dto.WareHouseProductDTO;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
+import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseCategory;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import meli.dh.com.finalmeliproject.repository.IWareHouseCategoryRepo;
@@ -25,6 +27,9 @@ public class WareHouseService implements IWareHouseService {
     @Autowired
     private IWareHouseCategoryRepo wareHouseCategoryRepo;
 
+    /*
+    * encontrar armazem (warehouse) por id
+     */
     @Override
     public WareHouseCategory findWareHouseCategoryByWareHouseId(WareHouseCategoryDTO wareHouseCategoryDTO) {
         return wareHouseRepo.findById(wareHouseCategoryDTO.getWareHouseCode()).get().getListOfWareHouseCategory().stream()
@@ -42,11 +47,21 @@ public class WareHouseService implements IWareHouseService {
         return wareHouseCategoryRepo.save(wareHouseCategory);
     }
 
-//    @Override
-//    public List<WareHouseProductDTO> findAllProductsByWareHouse(String id) {
-//        List<WareHouseProductDTO> wareHouseProductDTOList = wareHouseProductRepo.findAllById(id);
-//        return wareHouseProductDTOList;
-//    }
+    /*
+    * encontrar quantidade de produtos por id em cada armazem
+     */
+    @Override
+    public List<WareHouseProductDTO> findAllProductsByWareHouse(String productId) {
+        List<WareHouseProductDTO> wareHouseProductDTOList = wareHouseProductRepo.findAllById(productId);
+
+        // TODO: fazer lógica pra
+
+        if (wareHouseProductDTOList.isEmpty()) {
+            throw new NotFoundExceptionImp("Product not found any warehouse");
+        }
+
+        return wareHouseProductDTOList;
+    }
 
     @Override
     public boolean wareHouseExist(String id){
