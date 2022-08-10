@@ -41,7 +41,7 @@ public class WareHouseService implements IWareHouseService {
         return wareHouseCategoryRepo.save(wareHouseCategory);
     }
 
-
+    @Override
     public boolean wareHouseExist(String id){
         return wareHouseRepo.findById(id).isPresent();
     }
