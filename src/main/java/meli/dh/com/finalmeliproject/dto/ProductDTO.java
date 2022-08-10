@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import meli.dh.com.finalmeliproject.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
@@ -25,4 +26,10 @@ public class ProductDTO {
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dueDate;
+
+    public ProductDTO(Product p) {
+        this.productId = getProductId();
+        this.name = getName();
+        this.quantity = getQuantity();
+    }
 }
