@@ -11,4 +11,12 @@ public class GenerateRepresentative {
                 .wareHouse(null)
                 .build();
     }
+
+    public static Representative getRepresentativeById(){
+        return Representative.builder()
+                .id(2)
+                .name("Pedro")
+                .wareHouse(GenerateWareHouse.newWareHouse())
+                .build();
+    }
 }
