@@ -30,7 +30,7 @@ class WareHouseCategoryTest {
 
     @Test
     void getQuantityMax() {
-        assertThat(wareHouseCategory.getCategory()).isEqualTo(100);
+        assertThat(wareHouseCategory.getCapacity()).isEqualTo(100);
     }
 
     @Test
@@ -74,4 +74,61 @@ class WareHouseCategoryTest {
         wareHouseCategory = new WareHouseCategory();
         assertEquals(wareHouseCategory.getId(), 0);
     }
+
+    @Test
+    void builder() {
+        WareHouseCategory whc = WareHouseCategory.builder().build();
+        assertThat(whc).isNotNull();
+    }
+
+    @Test
+    void doesItFitTrue() {
+        WareHouseCategory whc = WareHouseCategory.builder()
+                .storage(0)
+                .capacity(10)
+                .build();
+
+        assertThat(whc.doesItFit(5)).isTrue();
+    }
+
+    @Test
+    void doesItFitFalse() {
+        WareHouseCategory whc = WareHouseCategory.builder()
+                .storage(0)
+                .capacity(10)
+                .build();
+
+        assertThat(whc.doesItFit(100)).isFalse();
+    }
+
+    @Test
+    void sumStorage() {
+        WareHouseCategory whc = WareHouseCategory.builder()
+                .storage(0)
+                .capacity(10)
+                .build();
+
+        whc.sumStorage(10);
+
+        assertThat(whc.getStorage()).isEqualTo(10);
+    }
+
+    @Test
+    void subStorage() {
+        WareHouseCategory whc = WareHouseCategory.builder()
+                .storage(5)
+                .capacity(10)
+                .build();
+
+        whc.subStorage(3);
+
+        assertThat(whc.getStorage()).isEqualTo(2);
+    }
+
+    @Test
+    void getAndSetStorage() {
+        this.wareHouseCategory.setStorage(0);
+        assertEquals(wareHouseCategory.getStorage(), 0);
+    }
+
 }
