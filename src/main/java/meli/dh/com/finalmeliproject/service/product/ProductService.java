@@ -30,11 +30,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> findAll(long buyerId) {
-        if (!buyerService.buyerExist(buyerId)){
-            throw new NotFoundExceptionImp("Not exist buyer with id " + buyerId);
-        };
-
+    public List<Product> findAllProducts() {
         List<Product> products = repo.findAll();
 
         if (products.size() == 0) {
@@ -44,20 +40,13 @@ public class ProductService implements IProductService {
         return products;
     }
 
-    @Override
-    public List<ProductDTO> getAllProducts(long buyerId) {
-        return findAll(buyerId).stream().map(ProductDTO::new).collect(Collectors.toList());
-    }
+    public Product checkStock(String id) {
+        Product product = repo.findById(id);
 
-    public ProductDTO checkStock(String id, long buyerId) {
-        List<ProductDTO> allProducts = getAllProducts(buyerId);
-        ProductDTO productDTO = allProducts.stream().filter(p -> p.getProductId().equals(id)).findFirst().orElse(null);
-
-        if (productDTO == null) {
+        if (product == null) {
             throw new NotFoundExceptionImp("Product not found");
         }
 
-        return productDTO;
+        return product;
     }
-
 }

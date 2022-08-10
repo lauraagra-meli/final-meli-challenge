@@ -9,4 +9,5 @@ import java.util.List;
 
 @Repository
 public interface IProductRepo extends JpaRepository<Product, Long> {
+    public Product findById(String id);
 }

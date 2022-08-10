@@ -19,17 +19,15 @@ public class ProductController {
 
     /***
      * Retorna todos os produtos
-     * @param buyerId id do cliente que buscando
      * @return todos os produtos disponíveis
      */
     @GetMapping
-    public ResponseEntity<List<Product>> findProductsList(@RequestParam long buyerId){
-        return new ResponseEntity<>(productService.findAll(buyerId), HttpStatus.OK);
+    public ResponseEntity<List<Product>> findProductsList(){
+        return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
     }
 
     @GetMapping("/check-stock/{id}")
-    public ResponseEntity<Integer> checkStock(@PathVariable String id,@RequestParam long buyerId){
-        ProductDTO dto = productService.checkStock(id,buyerId);
-        return new ResponseEntity<>(dto.getQuantity(),HttpStatus.OK);
+    public ResponseEntity<Integer> checkStock(@PathVariable String id){
+        return new ResponseEntity<>(productService.checkStock(id).getQuantity(),HttpStatus.OK);
     }
 }
