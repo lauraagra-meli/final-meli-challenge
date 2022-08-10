@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -40,6 +41,18 @@ public class ProductService implements IProductService {
         }
 
         return products;
+    }
+
+    @Override
+    public List<Product> findProductsByCategory(String category) {
+        List<Product> productsByCategory =  repo.findAll().stream()
+                .filter(product -> product.getCategory().getCategoryName().equals(category))
+                .collect(Collectors.toList());
+
+        if (productsByCategory.isEmpty()){
+            throw new NotFoundExceptionImp("Category not found.");
+        }
+        return productsByCategory;
     }
 
 }

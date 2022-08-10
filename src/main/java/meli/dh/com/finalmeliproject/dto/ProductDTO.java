@@ -25,4 +25,5 @@ public class ProductDTO {
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dueDate;
+
 }
