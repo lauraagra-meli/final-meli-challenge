@@ -84,4 +84,22 @@ class InboundOrderTest {
 
         assertThat(inboundOrder.getBatch()).isEqualTo(bt);
     }
+
+    @Test
+    void constructor(){
+        InboundOrder inboundOrder = new InboundOrder(new Category(), new WareHouse(), new Batch());
+        assertThat(inboundOrder).isNotNull();
+    }
+
+    @Test
+    void allConstructor(){
+        InboundOrder inboundOrder = new InboundOrder(1, LocalDateTime.now(), new Category(), new WareHouse(), new Batch());
+        assertThat(inboundOrder).isNotNull();
+    }
+
+    @Test
+    void builder(){
+        InboundOrder inboundOrder = InboundOrder.builder().build();
+        assertThat(inboundOrder).isNotNull();
+    }
 }
