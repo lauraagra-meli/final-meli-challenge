@@ -33,7 +33,13 @@ public class ProductService implements IProductService {
             throw new NotFoundExceptionImp("Not exist buyer with id " + buyerId);
         };
 
-        return repo.findAll();
+        List<Product> products = repo.findAll();
+
+        if (products.size() == 0) {
+            throw new NotFoundExceptionImp("Dont exist products");
+        }
+
+        return products;
     }
 
 }

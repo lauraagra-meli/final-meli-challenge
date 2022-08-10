@@ -20,7 +20,7 @@ public class ProductController {
     private IProductService productService;
 
     /***
-     * Retorna todos os produtos de um centro de distribuição
+     * Retorna todos os produtos
      * @param buyerId id do cliente que buscando
      * @return todos os produtos disponíveis
      */
