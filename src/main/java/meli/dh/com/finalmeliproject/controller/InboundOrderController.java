@@ -22,7 +22,7 @@ public class InboundOrderController {
      * @return o lote salvo
      */
     @PostMapping("/inboundorder")
-    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
+    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody RequestInboundOrderDTO resquest, @RequestParam long representativeId) {
         return new ResponseEntity<>(service.save(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
     }
 
@@ -33,7 +33,7 @@ public class InboundOrderController {
      * @return produtos salvos no lote
      */
     @PutMapping("/inboundorder")
-    public ResponseEntity<ResponseDTO> updateInboundOrder(@RequestBody ResquestInboundOrderDTO resquest, @RequestParam long representativeId) {
+    public ResponseEntity<ResponseDTO> updateInboundOrder(@RequestBody RequestInboundOrderDTO resquest, @RequestParam long representativeId) {
         return new ResponseEntity<>(service.update(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
     }
 }

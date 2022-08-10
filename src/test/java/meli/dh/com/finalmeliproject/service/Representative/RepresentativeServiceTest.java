@@ -59,7 +59,7 @@ class RepresentativeServiceTest {
     @Test
     void throwRepresentativeException_whenCantFindRepresentativeByIdException() {
         BDDMockito.when(representativeRepo.findById(ArgumentMatchers.anyLong()))
-                .thenThrow(new Exception());
+                .thenThrow(new RuntimeException());
 
         Assertions.assertThrows(NotFoundExceptionImp.class, () -> {
             representativeService.findRepresentativeById(anyLong());
