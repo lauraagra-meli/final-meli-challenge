@@ -79,4 +79,10 @@ class CategoryTest {
         category = new Category();
         assertEquals(category.getId(), 0);
     }
+
+    @Test
+    void builderTest() {
+        category = Category.builder().build();
+        assertEquals(category.getId(), 0);
+    }
 }

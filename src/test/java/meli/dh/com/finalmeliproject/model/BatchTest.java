@@ -1,6 +1,5 @@
 package meli.dh.com.finalmeliproject.model;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,6 +53,12 @@ class BatchTest {
     @Test
     void noConstructor() {
         batch = new Batch();
+        assertEquals(batch.getId(), 0);
+    }
+
+    @Test
+    void builderTest() {
+        batch = Batch.builder().build();
         assertEquals(batch.getId(), 0);
     }
 }
