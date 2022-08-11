@@ -9,7 +9,7 @@ import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import java.util.List;
 
 public class WareHouseServiceMock {
-    public static WareHouseCategory findWareHouseCategoryByWareHouseId(WareHouseCategoryDTO wareHouseCategoryDTO){
+    public static WareHouseCategory findWareHouseCategoryByWareHouseId(){
         return GenerateWareHouseCategory.newWareHouseCategory();
     }
 

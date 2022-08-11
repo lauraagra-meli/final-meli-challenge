@@ -8,7 +8,6 @@ import meli.dh.com.finalmeliproject.mocks.GenerateWareHouseCategory;
 import meli.dh.com.finalmeliproject.mocks.repo.BatchRepoMock;
 import meli.dh.com.finalmeliproject.mocks.service.WareHouseServiceMock;
 import meli.dh.com.finalmeliproject.model.Batch;
-import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseCategory;
 import meli.dh.com.finalmeliproject.repository.IBatchRepo;
 import meli.dh.com.finalmeliproject.service.product.IProductService;

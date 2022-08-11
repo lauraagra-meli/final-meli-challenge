@@ -42,7 +42,10 @@ public class InboundService implements IInboundService {
                 inboundOrderDTO.getWareHouseCategory().getWareHouseCode() //nome da categoria
         );
 
-        WareHouseCategory wareHouseCategory = wareHouseService.findWareHouseCategoryByWareHouseId(inboundOrderDTO.getWareHouseCategory());
+        WareHouseCategory wareHouseCategory = wareHouseService.
+                findWareHouseCategoryByWareHouseId(
+                        inboundOrderDTO.getWareHouseCategory()
+                );
         Batch batch = batchService.save(inboundOrderDTO, wareHouseCategory);
         response.setBatchStock(batch.getListOfProducts());
         response.setBatchId(batch.getId());
