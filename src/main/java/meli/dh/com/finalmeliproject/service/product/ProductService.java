@@ -1,5 +1,6 @@
 package meli.dh.com.finalmeliproject.service.product;
 
+import meli.dh.com.finalmeliproject.dto.ProductDTO;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -28,11 +30,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> findAll(long buyerId) {
-        if (!buyerService.buyerExist(buyerId)){
-            throw new NotFoundExceptionImp("Not exist buyer with id " + buyerId);
-        };
-
+    public List<Product> findAllProducts() {
         List<Product> products = repo.findAll();
 
         if (products.size() == 0) {
@@ -41,5 +39,29 @@ public class ProductService implements IProductService {
 
         return products;
     }
+
+
+    public Product checkStock(String id) {
+        Product product = repo.findById(id);
+
+        if (product == null) {
+            throw new NotFoundExceptionImp("Product not found");
+        }
+
+        return product;
+    }
+
+    @Override
+    public List<Product> findProductsByCategory(String category) {
+        List<Product> productsByCategory =  repo.findAll().stream()
+                .filter(product -> product.getCategory().getCategoryName().equals(category))
+                .collect(Collectors.toList());
+
+        if (productsByCategory.isEmpty()){
+            throw new NotFoundExceptionImp("Category not found.");
+        }
+        return productsByCategory;
+    }
+
 
 }
