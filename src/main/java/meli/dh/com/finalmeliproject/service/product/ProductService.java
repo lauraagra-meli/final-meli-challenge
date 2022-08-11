@@ -1,5 +1,6 @@
 package meli.dh.com.finalmeliproject.service.product;
 
+import meli.dh.com.finalmeliproject.dto.ProductDTO;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
@@ -29,11 +30,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> findAll(long buyerId) {
-        if (!buyerService.buyerExist(buyerId)){
-            throw new NotFoundExceptionImp("Not exist buyer with id " + buyerId);
-        };
-
+    public List<Product> findAllProducts() {
         List<Product> products = repo.findAll();
 
         if (products.size() == 0) {
@@ -41,6 +38,17 @@ public class ProductService implements IProductService {
         }
 
         return products;
+    }
+
+
+    public Product checkStock(String id) {
+        Product product = repo.findById(id);
+
+        if (product == null) {
+            throw new NotFoundExceptionImp("Product not found");
+        }
+
+        return product;
     }
 
     @Override
@@ -54,5 +62,6 @@ public class ProductService implements IProductService {
         }
         return productsByCategory;
     }
+
 
 }

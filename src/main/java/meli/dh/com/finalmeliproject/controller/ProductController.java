@@ -1,12 +1,11 @@
 package meli.dh.com.finalmeliproject.controller;
 
+import meli.dh.com.finalmeliproject.dto.ProductDTO;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
@@ -18,12 +17,16 @@ public class ProductController {
 
     /***
      * Retorna todos os produtos
-     * @param buyerId id do cliente que buscando
      * @return todos os produtos disponíveis
      */
     @GetMapping
-    public ResponseEntity<List<Product>> findProductsList(@RequestParam long buyerId){
-        return new ResponseEntity<>(productService.findAll(buyerId), HttpStatus.OK);
+    public ResponseEntity<List<Product>> findProductsList(){
+        return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
+    }
+
+    @GetMapping("/check-stock/{id}")
+    public ResponseEntity<Integer> checkStock(@PathVariable String id){
+        return new ResponseEntity<>(productService.checkStock(id).getQuantity(),HttpStatus.OK);
     }
 
     @GetMapping("/by-category")
