@@ -24,6 +24,8 @@ public class Product {
     private String name;
     private int quantity;
 
+    private double price;
+
     @ManyToOne
     @JoinColumn(name = "id_category")
     private Category category;
@@ -37,10 +39,11 @@ public class Product {
 
     private LocalDateTime manufacturingDate;
 
-    public Product(String name, int quantity, Category category, Batch batch, LocalDate dueDate, LocalDateTime manufacturingDate) {
+    public Product(String name, int quantity, double price, Category category, Batch batch, LocalDate dueDate, LocalDateTime manufacturingDate) {
         this.setId("CF-" + UUID.randomUUID());
         this.setName(name);
         this.setQuantity(quantity);
+        this.setPrice(price);
         this.setCategory(category);
         this.setBatch(batch);
         this.setDueDate(dueDate);
@@ -51,6 +54,7 @@ public class Product {
         this.name = getName();
         this.category = getCategory();
         this.quantity = getQuantity();
+        this.price = getPrice();
         this.batch = getBatch();
         this.dueDate = getDueDate();
         this.manufacturingDate = getManufacturingDate();

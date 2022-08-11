@@ -51,11 +51,7 @@ public class ProductController {
 
     @PostMapping("/by-shopping-cart")
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
-
-
         return new ResponseEntity<>(iShoppingCartService.shoppingCart(request.getPurchaseOrder()),
                 HttpStatus.CREATED);
-
-
     }
 }

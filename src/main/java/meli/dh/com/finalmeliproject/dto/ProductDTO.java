@@ -20,6 +20,7 @@ public class ProductDTO {
     private double maxTemperature;
     private double minimumTemperature;
     private int quantity;
+    private double price;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime manufacturingDate;
@@ -32,6 +33,7 @@ public class ProductDTO {
         this.productId = getProductId();
         this.name = getName();
         this.quantity = getQuantity();
+        this.price = getPrice();
     }
 
 }
