@@ -1,6 +1,7 @@
 package meli.dh.com.finalmeliproject.controller;
 
 import com.sun.istack.Nullable;
+import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.Product;
@@ -53,5 +54,10 @@ public class ProductController {
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
         return new ResponseEntity<>(iShoppingCartService.shoppingCart(request.getPurchaseOrder()),
                 HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<PurchaseOrderDto>> findAllShoppingCartProducts(@PathVariable long id) {
+        return ResponseEntity.ok().body(iShoppingCartService.findAllShoppingCartProducts(id));
     }
 }

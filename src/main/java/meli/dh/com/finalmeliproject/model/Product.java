@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -22,6 +26,8 @@ public class Product {
     private String id;
 
     private String name;
+
+    @Min(value = 1, message = "quantity must be positive value")
     private int quantity;
 
     private double price;

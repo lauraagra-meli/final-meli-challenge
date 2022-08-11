@@ -1,6 +1,7 @@
 package meli.dh.com.finalmeliproject.service.product;
 
 import meli.dh.com.finalmeliproject.dto.ProductDTO;
+import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
@@ -10,9 +11,11 @@ import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class ProductService implements IProductService {
 
@@ -25,10 +28,16 @@ public class ProductService implements IProductService {
     @Autowired
     private IBuyerService buyerService;
 
+    @Transactional
     public Product save(Product product) {
+        if (product.getQuantity() < 0) {
+            throw new BadRequestExceptionImp("Product quantity could not be negative");
+        }
+
         return repo.save(product);
     }
 
+    @Transactional
     @Override
     public List<Product> saveAll(List<Product> products) {
         return repo.saveAll(products);
@@ -70,7 +79,6 @@ public class ProductService implements IProductService {
 
     public WareHouseProduct findByProductId(String id){
         WareHouseProduct product =iWareHouseProductRepo.findByProductId(id);
-
 
         return product;
     }

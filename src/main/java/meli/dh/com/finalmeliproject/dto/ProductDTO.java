@@ -8,6 +8,7 @@ import lombok.Setter;
 import meli.dh.com.finalmeliproject.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,6 +20,7 @@ public class ProductDTO {
     private String productId;
     private double maxTemperature;
     private double minimumTemperature;
+    @Min(value = 1)
     private int quantity;
     private double price;
 
