@@ -1,6 +1,6 @@
 package meli.dh.com.finalmeliproject.service.buyer;
 
-import meli.dh.com.finalmeliproject.GenerateBuyer;
+import meli.dh.com.finalmeliproject.mocks.GenerateBuyer;
 import meli.dh.com.finalmeliproject.mocks.repo.BuyerRepoMock;
 import meli.dh.com.finalmeliproject.repository.IBuyerRepo;
 import org.junit.jupiter.api.Test;
@@ -12,10 +12,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 

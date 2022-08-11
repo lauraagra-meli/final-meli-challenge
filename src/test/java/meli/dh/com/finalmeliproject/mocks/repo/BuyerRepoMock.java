@@ -1,6 +1,6 @@
 package meli.dh.com.finalmeliproject.mocks.repo;
 
-import meli.dh.com.finalmeliproject.GenerateBuyer;
+import meli.dh.com.finalmeliproject.mocks.GenerateBuyer;
 import meli.dh.com.finalmeliproject.model.Buyer;
 
 import java.util.Optional;

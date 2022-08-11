@@ -1,4 +1,4 @@
-package meli.dh.com.finalmeliproject;
+package meli.dh.com.finalmeliproject.mocks;
 
 import meli.dh.com.finalmeliproject.model.Buyer;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
