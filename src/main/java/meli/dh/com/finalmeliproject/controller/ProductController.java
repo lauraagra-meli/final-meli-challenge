@@ -6,8 +6,6 @@ import meli.dh.com.finalmeliproject.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -29,5 +27,11 @@ public class ProductController {
     @GetMapping("/check-stock/{id}")
     public ResponseEntity<Integer> checkStock(@PathVariable String id){
         return new ResponseEntity<>(productService.checkStock(id).getQuantity(),HttpStatus.OK);
+    }
+
+    @GetMapping("/by-category")
+    public ResponseEntity<List<Product>> listingProductsByCategory (@RequestParam @Nullable String category){
+        List<Product> productsByCategory = productService.findProductsByCategory(category);
+        return ResponseEntity.ok().body(productsByCategory);
     }
 }

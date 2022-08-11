@@ -27,9 +27,11 @@ public class ProductDTO {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dueDate;
 
+
     public ProductDTO(Product p) {
         this.productId = getProductId();
         this.name = getName();
         this.quantity = getQuantity();
     }
+
 }

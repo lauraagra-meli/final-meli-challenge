@@ -46,4 +46,13 @@ public class Product {
         this.setDueDate(dueDate);
         this.setManufacturingDate(manufacturingDate);
     }
+
+    public Product(Product p){
+        this.name = getName();
+        this.category = getCategory();
+        this.quantity = getQuantity();
+        this.batch = getBatch();
+        this.dueDate = getDueDate();
+        this.manufacturingDate = getManufacturingDate();
+    }
 }

@@ -40,6 +40,7 @@ public class ProductService implements IProductService {
         return products;
     }
 
+
     public Product checkStock(String id) {
         Product product = repo.findById(id);
 
@@ -49,4 +50,18 @@ public class ProductService implements IProductService {
 
         return product;
     }
+
+    @Override
+    public List<Product> findProductsByCategory(String category) {
+        List<Product> productsByCategory =  repo.findAll().stream()
+                .filter(product -> product.getCategory().getCategoryName().equals(category))
+                .collect(Collectors.toList());
+
+        if (productsByCategory.isEmpty()){
+            throw new NotFoundExceptionImp("Category not found.");
+        }
+        return productsByCategory;
+    }
+
+
 }
