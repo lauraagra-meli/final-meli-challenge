@@ -12,7 +12,6 @@ public interface IProductService {
     List<Product> findAllProducts();
     Product checkStock(String id);
 
-    List<Product> findAll(long buyerId);
     List<Product> findProductsByCategory(String category);
 
 }

@@ -1,11 +1,13 @@
 package meli.dh.com.finalmeliproject.controller;
 
-import meli.dh.com.finalmeliproject.dto.ProductDTO;
+import com.sun.istack.Nullable;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
