@@ -4,7 +4,9 @@ import com.sun.istack.Nullable;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.Product;
+import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
+import meli.dh.com.finalmeliproject.service.product.ProductService;
 import meli.dh.com.finalmeliproject.service.shoppingCart.IShoppingCartService;
 import meli.dh.com.finalmeliproject.service.shoppingCart.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class ProductController {
 
     @Autowired
     private IShoppingCartService iShoppingCartService;
+
+    @Autowired
+    private ProductService service;
 
     /***
      * Retorna todos os produtos
@@ -44,7 +49,7 @@ public class ProductController {
         return ResponseEntity.ok().body(productsByCategory);
     }
 
-    @PostMapping()
+    @PostMapping("/by-shopping-cart")
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
 
 
