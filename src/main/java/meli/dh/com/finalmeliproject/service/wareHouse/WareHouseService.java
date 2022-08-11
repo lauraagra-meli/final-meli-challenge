@@ -52,15 +52,15 @@ public class WareHouseService implements IWareHouseService {
      */
     @Override
     public List<WareHouseProductDTO> findAllProductsByWareHouse(String productId) {
-        List<WareHouseProductDTO> wareHouseProductDTOList = wareHouseProductRepo.findAllById(productId);
+        List<WareHouseProduct> wareHouseProductList = wareHouseProductRepo.findAllByProductId(productId);
 
-        // TODO: fazer lógica pra
+        // TODO: fazer lógica
 
-        if (wareHouseProductDTOList.isEmpty()) {
+        if (wareHouseProductList.isEmpty()) {
             throw new NotFoundExceptionImp("Product not found any warehouse");
         }
 
-        return wareHouseProductDTOList;
+        return null;
     }
 
     @Override
