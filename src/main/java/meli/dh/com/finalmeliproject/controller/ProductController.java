@@ -57,7 +57,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<PurchaseOrderDto>> findAllShoppingCartProducts(@PathVariable long id) {
+    public ResponseEntity<List<WareHouseProduct>> findAllShoppingCartProducts(@PathVariable long id) {
         return ResponseEntity.ok().body(iShoppingCartService.findAllShoppingCartProducts(id));
     }
 }

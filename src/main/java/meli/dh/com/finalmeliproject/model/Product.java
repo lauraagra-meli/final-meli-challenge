@@ -27,7 +27,7 @@ public class Product {
 
     private String name;
 
-    @Min(value = 1, message = "quantity must be positive value")
+    @Min(value = 0)
     private int quantity;
 
     private double price;

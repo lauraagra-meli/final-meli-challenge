@@ -4,6 +4,7 @@ import meli.dh.com.finalmeliproject.dto.shoppingCart.ProductPurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
+import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
@@ -14,7 +15,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Service
 public class ShoppingCartService implements IShoppingCartService {
 
@@ -24,7 +24,7 @@ public class ShoppingCartService implements IShoppingCartService {
     @Autowired
     private IProductRepo productRepo;
 
-
+    @Transactional
     @Override
     public ResponseShoppingCartDto shoppingCart(PurchaseOrderDto orderDto) {
         double totalPrice = 0;
@@ -45,21 +45,17 @@ public class ShoppingCartService implements IShoppingCartService {
 
             double currentPrice = wareHouseProduct.getProduct().getPrice() * p.getQuantity();
             responseShoppingCartDto.setTotalPrice(totalPrice += currentPrice);
+            wareHouseProduct.getProduct().setQuantity(wareHouseProduct.getProduct().getQuantity() - p.getQuantity());
 
-            try {
-                wareHouseProduct.getProduct().setQuantity(wareHouseProduct.getProduct().getQuantity() - p.getQuantity());
-            } catch (Exception e) {
-                throw new BadRequestExceptionImp("ERROOOOO");
-            }
-
-            productRepo.save(wareHouseProduct.getProduct());
+            iProductService.save(wareHouseProduct.getProduct());
             wareHouseProducts.add(wareHouseProduct);
         }
 
         return responseShoppingCartDto;
     }
 
-    public List<PurchaseOrderDto> findAllShoppingCartProducts(long orderNumber) {
+    public List<ProductShoppingCart> findAllShoppingCartProducts(long id) {
+        List<ProductShoppingCart> productShoppingCarts =
         return null;
     }
 
