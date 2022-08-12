@@ -10,24 +10,11 @@ public class GenerateWareHouseCategory {
     public static WareHouseCategory newWareHouseCategory() {
         return WareHouseCategory.builder()
                 .id(1)
-                .capacity(76)
+                .capacity(100)
                 .storage(0)
-                .category(null)
-                .wareHouse(null)
+                .category(GenerateCategory.newCategoryToSave())
+                .wareHouse(GenerateWareHouse.newWareHouse())
                 .build();
-    }
-
-    public static List<WareHouseCategory> newWareHouseCategoryList() {
-        List<WareHouseCategory> wareHouseCategories = new ArrayList<>();
-
-        WareHouseCategory wareHouseCategory = new WareHouseCategory();
-
-        wareHouseCategory.setCategory(null);
-        wareHouseCategory.setId(2);
-        wareHouseCategory.setCapacity(100);
-        wareHouseCategory.setWareHouse(null);
-        wareHouseCategories.add(wareHouseCategory);
-        return wareHouseCategories;
     }
 
 }

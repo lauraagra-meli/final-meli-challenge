@@ -7,8 +7,8 @@ public class GenerateWareHouseCategoryDTO {
     public static WareHouseCategoryDTO newWareHouseCategoryDTO(){
 
        return WareHouseCategoryDTO.builder()
-                .categoryName("fresco")
-                .wareHouseCode("1234")
+                .categoryName("CONGELADO")
+                .wareHouseCode("WH-0001")
                 .build();
 
     }

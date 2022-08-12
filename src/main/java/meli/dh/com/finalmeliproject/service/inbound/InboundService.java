@@ -42,14 +42,16 @@ public class InboundService implements IInboundService {
                 inboundOrderDTO.getWareHouseCategory().getWareHouseCode() //nome da categoria
         );
 
-        WareHouseCategory wareHouseCategory = wareHouseService.findWareHouseCategoryByWareHouseId(inboundOrderDTO.getWareHouseCategory());
-
         try {
             batch = batchService.save(inboundOrderDTO, wareHouseCategory);
         } catch (Exception e) {
             throw new BadRequestExceptionImp("quantity must be positive value");
         }
-
+        WareHouseCategory wareHouseCategory = wareHouseService.
+                findWareHouseCategoryByWareHouseId(
+                        inboundOrderDTO.getWareHouseCategory()
+                );
+        Batch batch = batchService.save(inboundOrderDTO, wareHouseCategory);
         response.setBatchStock(batch.getListOfProducts());
         response.setBatchId(batch.getId());
         InboundOrder inboundOrder = new InboundOrder(wareHouseCategory.getCategory(), wareHouseCategory.getWareHouse(), batch);

@@ -9,21 +9,12 @@ import java.util.List;
 
 public class GenerateProductDTO {
 
-
-    public static List<ProductDTO> newListProductDTO(){
-        List<ProductDTO> productDTOS = new ArrayList<>();
-
-        ProductDTO product = new ProductDTO();
-
-        product.setProductId("Meli002");
-        product.setMaxTemperature(1);
-        product.setMinimumTemperature(20.0);
-        product.setMinimumTemperature(2.0);
-        product.setQuantity(2);
-        product.setManufacturingDate(LocalDateTime.now());
-        product.setDueDate(LocalDate.now());
-        productDTOS.add(product);
-
-        return productDTOS;
+    public static ProductDTO newProductDTOCongelado(){
+        ProductDTO dto = new ProductDTO();
+        dto.setName("TEST");
+        dto.setMaxTemperature(0);
+        dto.setQuantity(2);
+        dto.setMinimumTemperature(-90);
+        return dto;
     }
 }
