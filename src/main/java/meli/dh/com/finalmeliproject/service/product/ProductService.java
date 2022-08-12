@@ -1,18 +1,25 @@
 package meli.dh.com.finalmeliproject.service.product;
 
 import meli.dh.com.finalmeliproject.dto.ProductDTO;
+import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
+import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
+import meli.dh.com.finalmeliproject.repository.IWareHouseProductRepo;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
+
+    @Autowired
+    private IWareHouseProductRepo iWareHouseProductRepo;
 
     @Autowired
     private IProductRepo repo;
@@ -40,7 +47,6 @@ public class ProductService implements IProductService {
         return products;
     }
 
-
     public Product checkStock(String id) {
         Product product = repo.findById(id);
 
@@ -61,6 +67,12 @@ public class ProductService implements IProductService {
             throw new NotFoundExceptionImp("Category not found.");
         }
         return productsByCategory;
+    }
+
+    public WareHouseProduct findByProductId(String id){
+        WareHouseProduct product =iWareHouseProductRepo.findByProductId(id);
+
+        return product;
     }
 
 

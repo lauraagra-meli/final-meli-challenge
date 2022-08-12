@@ -26,5 +26,4 @@ public class ProductShoppingCart {
     @ManyToOne
     @JoinColumn(name = "id_shoppingcart")
     private ShoppingCart shoppingCart;
-
 }
