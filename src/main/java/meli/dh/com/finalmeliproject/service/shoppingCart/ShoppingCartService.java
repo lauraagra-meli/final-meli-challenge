@@ -5,15 +5,18 @@ import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
+import meli.dh.com.finalmeliproject.model.ShoppingCart;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
+import meli.dh.com.finalmeliproject.repository.IProductShoppingCartRepo;
+import meli.dh.com.finalmeliproject.repository.IShoppingCartRepo;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShoppingCartService implements IShoppingCartService {
@@ -24,14 +27,12 @@ public class ShoppingCartService implements IShoppingCartService {
     @Autowired
     private IProductRepo productRepo;
 
-    @Transactional
+    @Autowired
+        private IShoppingCartRepo shoppingCartRepo;
+
     @Override
     public ResponseShoppingCartDto shoppingCart(PurchaseOrderDto orderDto) {
         double totalPrice = 0;
-
-        if (!buyerAuth(orderDto.getBuyerId())) {
-            // disparar exceção quando não for autorizado
-        }
 
         ResponseShoppingCartDto responseShoppingCartDto = new ResponseShoppingCartDto();
         List<WareHouseProduct> wareHouseProducts = new ArrayList<>();
@@ -54,13 +55,13 @@ public class ShoppingCartService implements IShoppingCartService {
         return responseShoppingCartDto;
     }
 
-    public List<ProductShoppingCart> findAllShoppingCartProducts(long id) {
-        List<ProductShoppingCart> productShoppingCarts =
-        return null;
-    }
+    public ShoppingCart findShoppingCartProductsById(long id) {
+        Optional<ShoppingCart> shoppingCart = shoppingCartRepo.findById(id);
 
-    private boolean buyerAuth(String buyerId) {
+        if (shoppingCart.isEmpty()) {
+            throw new BadRequestExceptionImp("Shopping cart dont exist");
+        }
 
-        return true;
+        return shoppingCart.get();
     }
 }

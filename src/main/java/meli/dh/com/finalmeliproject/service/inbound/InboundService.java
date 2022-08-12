@@ -31,7 +31,6 @@ public class InboundService implements IInboundService {
     @Autowired
     private IBatchService batchService;
 
-    @Transactional
     @Override
     public ResponseDTO save(InboundOrderDTO inboundOrderDTO, long representativeId) {
         ResponseDTO response = new ResponseDTO();

@@ -2,12 +2,11 @@ package meli.dh.com.finalmeliproject.service.shoppingCart;
 
 import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
-import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
-import meli.dh.com.finalmeliproject.model.WareHouseProduct;
+import meli.dh.com.finalmeliproject.model.ShoppingCart;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface IShoppingCartService {
     ResponseShoppingCartDto shoppingCart(PurchaseOrderDto dto);
-    List<ProductShoppingCart> findAllShoppingCartProducts(long id);
+    ShoppingCart findShoppingCartProductsById(long id);
 }
