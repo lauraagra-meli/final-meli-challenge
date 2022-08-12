@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/fresh-products")
 public class InboundOrderController {
@@ -22,7 +24,7 @@ public class InboundOrderController {
      * @return o lote salvo
      */
     @PostMapping("/inboundorder")
-    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody RequestInboundOrderDTO resquest, @RequestParam long representativeId) {
+    public ResponseEntity<ResponseDTO> saveInboundOrder(@RequestBody @Valid RequestInboundOrderDTO resquest, @RequestParam long representativeId) {
         return new ResponseEntity<>(service.save(resquest.getInboundOrder(), representativeId), HttpStatus.CREATED);
     }
 

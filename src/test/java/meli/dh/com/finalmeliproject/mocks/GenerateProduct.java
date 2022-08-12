@@ -19,7 +19,6 @@ public class GenerateProduct {
         return Product.builder()
                 .id("MELI1203921")
                 .name("maçã pera")
-                .quantity(10)
                 .category(category)
                 .batch(batch)
                 .dueDate(LocalDate.of(2023,2,12))
@@ -35,7 +34,6 @@ public class GenerateProduct {
         Product product = new Product();
         product.setId("MELI34242");
         product.setName("banana");
-        product.setQuantity(20);
         product.setCategory(category);
         product.setBatch(batch);
         product.setDueDate(LocalDate.of(2023,2,12));

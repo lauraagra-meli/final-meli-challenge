@@ -4,7 +4,7 @@ import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 import meli.dh.com.finalmeliproject.dto.ProductDTO;
 import meli.dh.com.finalmeliproject.model.Product;
 import org.springframework.http.ResponseEntity;
-
+import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import java.util.List;
 
 public interface IProductService {
@@ -12,9 +12,12 @@ public interface IProductService {
     List<Product> saveAll(List<Product> products);
 
     List<Product> findAllProducts();
-    Product checkStock(String id);
+    int checkStock(String id);
 
     List<Product> findProductsByCategory(String category);
 
     ProductBatchDTO allProductsInWarehouse(String id);
+
+    WareHouseProduct findByProductId(String id);
+
 }

@@ -14,8 +14,7 @@ import meli.dh.com.finalmeliproject.service.wareHouse.IWareHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+import javax.transaction.Transactional;
 
 @Service
 public class InboundService implements IInboundService {
@@ -35,7 +34,7 @@ public class InboundService implements IInboundService {
     @Override
     public ResponseDTO save(InboundOrderDTO inboundOrderDTO, long representativeId) {
         ResponseDTO response = new ResponseDTO();
-
+        Batch batch;
         this.validations(
                 inboundOrderDTO.getWareHouseCategory().getWareHouseCode(), //id do armazem
                 representativeId, //id do representante
@@ -46,10 +45,13 @@ public class InboundService implements IInboundService {
                 findWareHouseCategoryByWareHouseId(
                         inboundOrderDTO.getWareHouseCategory()
                 );
-        Batch batch = batchService.save(inboundOrderDTO, wareHouseCategory);
+        try {
+            batch = batchService.save(inboundOrderDTO, wareHouseCategory);
+        } catch (Exception e) {
+            throw new BadRequestExceptionImp("quantity must be positive value");
+        }
         response.setBatchStock(batch.getListOfProducts());
         response.setBatchId(batch.getId());
-
         InboundOrder inboundOrder = new InboundOrder(wareHouseCategory.getCategory(), wareHouseCategory.getWareHouse(), batch);
 
         inboundOrderRepo.save(inboundOrder);
