@@ -50,7 +50,6 @@ public class BatchService implements IBatchService{
 
             Product product = new Product(
                     p.getName(),
-                    p.getQuantity(),
                     p.getPrice(),
                     wareHouseCategory.getCategory(),
                     batch,

@@ -17,7 +17,7 @@ public class GenerateCategory {
         List<Package> packageList = new ArrayList<>();
         packageList.add(new Package(1, "caixa", 200, null));
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product("MELI02193", "banana", 12, null, null, LocalDate.of(2023, 02, 15), LocalDateTime.now()));
+        productList.add(new Product("MELI02193", 1, 12, null, null, LocalDate.of(2023, 02, 15), LocalDateTime.now()));
         List<InboundOrder> inboundOrderList = new ArrayList<>();
         inboundOrderList.add(new InboundOrder(1, LocalDateTime.now(), null, null, null));
 

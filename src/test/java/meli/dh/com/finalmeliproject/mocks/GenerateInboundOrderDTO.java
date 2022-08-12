@@ -21,7 +21,7 @@ public class GenerateInboundOrderDTO {
         WareHouseCategoryDTO wareHouseCategoryDTO = new WareHouseCategoryDTO();
         wareHouseCategoryDTO = new WareHouseCategoryDTO("congelados", "WH-0001");
         List<ProductDTO> batchStock = new ArrayList<>();
-        batchStock.add(new ProductDTO("banana", "MELI1", 20, 10, 10, LocalDateTime.now(), LocalDate.of(2023, 02, 15)));
+        //batchStock.add(new ProductDTO("banana", "MELI1", 20, 10, 10, LocalDateTime.now(), LocalDate.of(2023, 02, 15)));
 
         return InboundOrderDTO.builder()
                 .orderDate(LocalDateTime.now())

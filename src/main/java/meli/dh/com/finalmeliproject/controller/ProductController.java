@@ -58,6 +58,6 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<List<WareHouseProduct>> findAllShoppingCartProducts(@PathVariable long id) {
-        return ResponseEntity.ok().body(iShoppingCartService.findAllShoppingCartProducts(id));
+        return null;//ResponseEntity.ok().body(iShoppingCartService.findAllShoppingCartProducts(id));
     }
 }

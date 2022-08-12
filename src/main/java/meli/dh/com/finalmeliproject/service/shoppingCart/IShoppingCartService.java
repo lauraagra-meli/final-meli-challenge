@@ -8,6 +8,7 @@ import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import java.util.List;
 
 public interface IShoppingCartService {
+
     ResponseShoppingCartDto shoppingCart(PurchaseOrderDto dto);
     List<ProductShoppingCart> findAllShoppingCartProducts(long id);
 }
