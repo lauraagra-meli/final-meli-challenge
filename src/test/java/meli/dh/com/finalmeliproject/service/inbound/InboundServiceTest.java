@@ -1,7 +1,6 @@
-package meli.dh.com.finalmeliproject.service.Inbound;
+package meli.dh.com.finalmeliproject.service.inbound;
 
 import meli.dh.com.finalmeliproject.dto.ResponseDTO;
-import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.exception.RepresentativeUnauthorizedException;
 import meli.dh.com.finalmeliproject.mocks.GenerateInboundOrderDTO;
@@ -9,10 +8,8 @@ import meli.dh.com.finalmeliproject.mocks.repo.InboundOrderRepoMock;
 import meli.dh.com.finalmeliproject.mocks.service.BatchServiceMock;
 import meli.dh.com.finalmeliproject.mocks.service.RepresentativeServiceMock;
 import meli.dh.com.finalmeliproject.mocks.service.WareHouseServiceMock;
-import meli.dh.com.finalmeliproject.model.Batch;
 import meli.dh.com.finalmeliproject.repository.IInboundOrderRepo;
 import meli.dh.com.finalmeliproject.service.batch.IBatchService;
-import meli.dh.com.finalmeliproject.service.inbound.InboundService;
 import meli.dh.com.finalmeliproject.service.representative.IRepresentativeService;
 import meli.dh.com.finalmeliproject.service.wareHouse.IWareHouseService;
 import org.junit.jupiter.api.BeforeEach;

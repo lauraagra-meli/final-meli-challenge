@@ -11,9 +11,9 @@ public class GenerateWareHouseProduct {
     public static WareHouseProduct newWareHouseProduct(){
         return new WareHouseProduct(
                 1,
-                1,
-                new Product(),
-                new WareHouse()
+                2,
+                GenerateProduct.newProductToSave(),
+                GenerateWareHouse.newWareHouse()
         );
     }
 

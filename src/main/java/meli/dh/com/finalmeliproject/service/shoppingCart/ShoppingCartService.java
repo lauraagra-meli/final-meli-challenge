@@ -23,7 +23,7 @@ import java.util.Optional;
 public class ShoppingCartService implements IShoppingCartService {
 
     @Autowired
-    private IProductService iProductService;
+    private IProductService productService;
 
     @Autowired
     private IShoppingCartRepo shoppingCartRepo;
@@ -49,7 +49,7 @@ public class ShoppingCartService implements IShoppingCartService {
             ProductShoppingCart productShoopingCart = new ProductShoppingCart();
 
             //verifica se tem o produto em estoque disponível
-            WareHouseProduct wareHouseProduct = iProductService.findByProductId(p.getProductId());
+            WareHouseProduct wareHouseProduct = productService.findByProductId(p.getProductId());
             if (p.getQuantity() > wareHouseProduct.getQuantity()) {
                 throw new BadRequestExceptionImp("Product quantity " + wareHouseProduct.getProduct().getName() + " is insufficient stock");
             }
@@ -72,7 +72,7 @@ public class ShoppingCartService implements IShoppingCartService {
 
         //atualiza a quantidade do produto no banco de dados
         for (WareHouseProduct wp : wareHouseProducts){
-            iProductService.save(wp.getProduct());
+            productService.save(wp.getProduct());
         }
 
         shoppingCartRepo.save(shoppingCart);
