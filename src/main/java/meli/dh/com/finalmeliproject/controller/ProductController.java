@@ -45,7 +45,7 @@ public class ProductController {
 
     @GetMapping("/check-stock/{id}")
     public ResponseEntity<Integer> checkStock(@PathVariable String id){
-        return new ResponseEntity<>(productService.checkStock(id).getQuantity(),HttpStatus.OK);
+        return new ResponseEntity<>(productService.checkStock(id),HttpStatus.OK);
     }
 
     @GetMapping("/by-category")

@@ -7,6 +7,7 @@ import meli.dh.com.finalmeliproject.model.ShoppingCart;
 import java.util.Optional;
 
 public interface IShoppingCartService {
+
     ResponseShoppingCartDto shoppingCart(PurchaseOrderDto dto);
     ShoppingCart findShoppingCartProductsById(long id);
 }

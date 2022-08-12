@@ -14,7 +14,7 @@ public class ExceptionsHandler {
     public ResponseEntity<ExceptionDetails> handlerNotFoundProductException(NotFoundExceptionImp ex) {
         return new ResponseEntity<>(
                 ExceptionDetails.builder()
-                        .title("Not found")
+                        .title("Not found :/")
                         .message(ex.getMessage())
                         .timestamp(LocalDateTime.now())
                         .build()
@@ -25,7 +25,7 @@ public class ExceptionsHandler {
     public ResponseEntity<ExceptionDetails> handlerRepresentativeUnauthorized(RepresentativeUnauthorizedException ex) {
         return new ResponseEntity<>(
                 ExceptionDetails.builder()
-                        .title("Unauthorized representative")
+                        .title("Unauthorized representative :|")
                         .message(ex.getMessage())
                         .timestamp(LocalDateTime.now())
                         .build()
@@ -37,6 +37,17 @@ public class ExceptionsHandler {
         return new ResponseEntity<>(
                 ExceptionDetails.builder()
                         .title("Bad Request :(")
+                        .message(ex.getMessage())
+                        .timestamp(LocalDateTime.now())
+                        .build()
+                , HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AuthorizationExceptionImp.class)
+    public ResponseEntity<ExceptionDetails> handlerBadRequest(AuthorizationExceptionImp ex) {
+        return new ResponseEntity<>(
+                ExceptionDetails.builder()
+                        .title("Unauthorized :|")
                         .message(ex.getMessage())
                         .timestamp(LocalDateTime.now())
                         .build()

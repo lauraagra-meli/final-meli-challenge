@@ -27,14 +27,6 @@ class ProductTest {
     }
 
     @Test
-    void getAndSetQuantity() {
-        Product p = new Product();
-        p.setQuantity(1);
-
-        assertThat(p.getQuantity()).isEqualTo(1);
-    }
-
-    @Test
     void getAndSetCategory() {
         Product p = new Product();
         Category c = new Category();

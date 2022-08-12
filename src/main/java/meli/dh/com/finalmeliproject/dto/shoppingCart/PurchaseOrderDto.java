@@ -13,7 +13,8 @@ public class PurchaseOrderDto {
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
-    private String buyerId;
+    private long shoopingCartId;
+    private long buyerId;
     private String orderStatus;
     private List<ProductPurchaseOrderDto> products;
 }
