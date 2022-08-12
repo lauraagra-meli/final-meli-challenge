@@ -1,6 +1,7 @@
 package meli.dh.com.finalmeliproject.controller;
 
 import com.sun.istack.Nullable;
+import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +37,10 @@ public class ProductController {
         List<Product> productsByCategory = productService.findProductsByCategory(category);
         return ResponseEntity.ok().body(productsByCategory);
     }
+
+    //FEATURE 03
+//    @GetMapping("/{id}")
+//    public ResponseEntity<ProductBatchDTO> allProductsInWarehouse(@PathVariable String id){
+//        return productService.allProductsInWarehouse();
+//    }
 }
