@@ -8,7 +8,6 @@ import meli.dh.com.finalmeliproject.model.Buyer;
 import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
-import meli.dh.com.finalmeliproject.repository.IProductRepo;
 import meli.dh.com.finalmeliproject.repository.IProductShoppingCartRepo;
 import meli.dh.com.finalmeliproject.repository.IShoppingCartRepo;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
@@ -16,7 +15,6 @@ import meli.dh.com.finalmeliproject.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -83,9 +81,14 @@ public class ShoppingCartService implements IShoppingCartService {
         return responseShoppingCartDto;
     }
 
-    public List<ProductShoppingCart> findAllShoppingCartProducts(long id) {
-        //List<ProductShoppingCart> productShoppingCarts =
-        return null;
+    public ShoppingCart findShoppingCartProductsById(long id) {
+        Optional<ShoppingCart> shoppingCart = shoppingCartRepo.findById(id);
+
+        if (shoppingCart.isEmpty()) {
+            throw new BadRequestExceptionImp("Shopping cart dont exist");
+        }
+
+        return shoppingCart.get();
     }
 
     private ShoppingCart findById(long id){

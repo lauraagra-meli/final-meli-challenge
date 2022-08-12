@@ -47,14 +47,14 @@ public class ProductService implements IProductService {
         return products;
     }
 
-    public Product checkStock(String id) {
-        Product product = repo.findById(id);
-
-        if (product == null) {
+    @Override
+    public int checkStock(String id) {
+        try {
+            WareHouseProduct product = iWareHouseProductRepo.findByProductId(id);
+            return product.getQuantity();
+        }catch (Exception ex){
             throw new NotFoundExceptionImp("Product not found");
         }
-
-        return product;
     }
 
     @Override

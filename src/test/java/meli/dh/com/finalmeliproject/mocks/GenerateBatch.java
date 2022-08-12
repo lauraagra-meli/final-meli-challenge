@@ -5,10 +5,10 @@ import meli.dh.com.finalmeliproject.model.Batch;
 public class GenerateBatch {
 
     public static Batch newBatchToSave() {
-        return Batch.builder()
-                .id(2)
-                .listOfProducts(null)
-                //.listOfInboundOrders()
+        Batch batch = Batch.builder()
+                .id(1)
+                .listOfProducts(GenerateProduct.newListProductToSave())
                 .build();
+        return batch;
     }
 }

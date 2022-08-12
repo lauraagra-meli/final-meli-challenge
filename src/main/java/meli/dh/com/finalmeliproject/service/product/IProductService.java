@@ -11,7 +11,7 @@ public interface IProductService {
     List<Product> saveAll(List<Product> products);
 
     List<Product> findAllProducts();
-    Product checkStock(String id);
+    int checkStock(String id);
 
     List<Product> findProductsByCategory(String category);
 

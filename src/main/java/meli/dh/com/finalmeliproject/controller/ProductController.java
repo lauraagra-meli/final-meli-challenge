@@ -5,6 +5,8 @@ import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.Product;
+import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
+import meli.dh.com.finalmeliproject.model.ShoppingCart;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import meli.dh.com.finalmeliproject.service.product.ProductService;
@@ -15,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products")
@@ -41,7 +45,7 @@ public class ProductController {
 
     @GetMapping("/check-stock/{id}")
     public ResponseEntity<Integer> checkStock(@PathVariable String id){
-        return new ResponseEntity<>(productService.checkStock(id).getQuantity(),HttpStatus.OK);
+        return new ResponseEntity<>(productService.checkStock(id),HttpStatus.OK);
     }
 
     @GetMapping("/by-category")
@@ -50,14 +54,14 @@ public class ProductController {
         return ResponseEntity.ok().body(productsByCategory);
     }
 
-    @PostMapping("/by-shopping-cart")
+    @PostMapping("orders/by-shopping-cart")
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
         return new ResponseEntity<>(iShoppingCartService.shoppingCart(request.getPurchaseOrder()),
                 HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<WareHouseProduct>> findAllShoppingCartProducts(@PathVariable long id) {
-        return null;//ResponseEntity.ok().body(iShoppingCartService.findAllShoppingCartProducts(id));
+    @GetMapping("orders/{id}")
+    public ResponseEntity<ShoppingCart> findAllShoppingCartProducts(@PathVariable long id) {
+        return ResponseEntity.ok().body(iShoppingCartService.findShoppingCartProductsById(id));
     }
 }

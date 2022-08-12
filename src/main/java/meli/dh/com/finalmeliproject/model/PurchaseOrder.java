@@ -1,5 +1,6 @@
 package meli.dh.com.finalmeliproject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +11,11 @@ import java.time.LocalDateTime;
 @Entity
 public class PurchaseOrder {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private LocalDateTime dateOrder;
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    private LocalDateTime dateOrder = LocalDateTime.now();
 
     private String statusOrder;
 
