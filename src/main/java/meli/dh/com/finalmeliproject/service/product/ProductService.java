@@ -46,14 +46,6 @@ public class ProductService implements IProductService {
         return products;
     }
 
-    public Product checkStock(String id) {
-        Product product = repo.findById(id);
-
-        if (product == null) {
-            throw new NotFoundExceptionImp("Product not found");
-        }
-        return product;
-
     @Override
     public int checkStock(String id) {
         try {
