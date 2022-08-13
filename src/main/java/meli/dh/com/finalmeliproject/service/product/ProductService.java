@@ -43,6 +43,7 @@ public class ProductService implements IProductService {
         if (products.size() == 0) {
             throw new NotFoundExceptionImp("Dont exist products");
         }
+
         return products;
     }
 

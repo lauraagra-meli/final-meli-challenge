@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface IWareHouseProductRepo extends JpaRepository<WareHouseProduct, Long> {
 
-    @Query("select p from WareHouseProduct p where p.product.id = ?1" )
+    @Query("select p from WareHouseProduct p where p.product.id = ?1")
     WareHouseProduct findByProductId(String id);
 }
