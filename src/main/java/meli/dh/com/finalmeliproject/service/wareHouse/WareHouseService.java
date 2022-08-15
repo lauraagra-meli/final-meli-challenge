@@ -47,7 +47,7 @@ public class WareHouseService implements IWareHouseService {
     }
 
     @Override
-    public List<WareHouseProduct> saveAll(List<WareHouseProduct> wareHouseProducts){
+    public List<WareHouseProduct> saveAll(List<WareHouseProduct> wareHouseProducts) {
         return wareHouseProductRepo.saveAll(wareHouseProducts);
     }
 
@@ -57,7 +57,7 @@ public class WareHouseService implements IWareHouseService {
     }
 
     @Override
-    public boolean wareHouseExist(String id){
+    public boolean wareHouseExist(String id) {
         return wareHouseRepo.findById(id).isPresent();
     }
 }

@@ -1,13 +1,10 @@
 package meli.dh.com.finalmeliproject.dto;
 
 import lombok.*;
-import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import meli.dh.com.finalmeliproject.repository.IWareHouseProductRepo;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 
 @NoArgsConstructor
@@ -20,7 +17,7 @@ public class WareHouseDTO {
     private List<WareHouseProductDTO> wareHouseProducts;
 
 
-    public WareHouseDTO(IWareHouseProductRepo.ISumProductStockDTO dto){
+    public WareHouseDTO(IWareHouseProductRepo.ISumProductStockDTO dto) {
         List<WareHouseProductDTO> wareHouseProductList = new ArrayList<>();
         this.productId = dto.getProductId();
         WareHouseProductDTO wareHouseProduct = new WareHouseProductDTO();
