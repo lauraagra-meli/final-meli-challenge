@@ -54,7 +54,7 @@ public class BatchService implements IBatchService{
                     p.getPrice(),
                     wareHouseCategory.getCategory(),
                     batch,
-                    p.getDueDate(),
+                    inboundOrderDTO.getDueDate(),
                     p.getManufacturingDate()
             );
 
@@ -74,6 +74,7 @@ public class BatchService implements IBatchService{
 
         batch.setId(inboundOrderDTO.getBatchId());
         if (batch.getId() == 0){
+            batch.setDueDate(inboundOrderDTO.getDueDate());
             batch.setId(batchRepo.save(batch).getId());
         }
 

@@ -24,7 +24,7 @@ class BatchTest {
         productList.add(new Product("MELI12321", "TEST", 10, null, null, LocalDate.of(2023, 01, 12), LocalDateTime.now()));
         inboundOrderList.add(new InboundOrder(1, LocalDateTime.now(), null, null, null));
 
-        batch = new Batch(1, null);
+        batch = new Batch(1, LocalDate.now(),null);
     }
 
     @Test
