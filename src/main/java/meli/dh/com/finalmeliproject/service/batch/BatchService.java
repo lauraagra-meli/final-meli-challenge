@@ -47,7 +47,7 @@ public class BatchService implements IBatchService{
                 throw new BadRequestExceptionImp("The size of the category batch exceeds the limit of the warehouse.");
             }
 
-            wareHouseCategory.subStorage(p.getQuantity());
+            wareHouseCategory.sumStorage(p.getQuantity());
 
             Product product = new Product(
                     p.getName(),
