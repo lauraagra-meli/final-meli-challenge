@@ -2,6 +2,7 @@ package meli.dh.com.finalmeliproject.controller;
 
 
 import meli.dh.com.finalmeliproject.dto.WareHouseDTO;
+import meli.dh.com.finalmeliproject.service.wareHouse.IWareHouseService;
 import meli.dh.com.finalmeliproject.service.wareHouse.WareHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 public class WareHouseController {
 
     @Autowired
-    WareHouseService service;
+    IWareHouseService service;
 
     @GetMapping("/{id}")
     public ResponseEntity<List<WareHouseDTO>> allProductsByWareHouse(@PathVariable String id) {
