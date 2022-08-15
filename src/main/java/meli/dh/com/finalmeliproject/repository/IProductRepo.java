@@ -13,7 +13,8 @@ import java.util.List;
 public interface IProductRepo extends JpaRepository<Product, Long> {
     public Product findById(String id);
 
-    @Query(value= "SELECT DISTINCT p.name AS 'productId', wp.quantity AS 'currentQuantity', p.due_date AS 'dueDate', id_warehouse AS 'warehouseCode', id_batch as 'batchNumber', category_name AS 'sectionCode'" +
+    @Query(value= "SELECT DISTINCT p.name AS 'productId', wp.quantity AS 'currentQuantity', p.due_date AS 'dueDate', id_warehouse " +
+            "AS 'warehouseCode', id_batch as 'batchNumber', category_name AS 'sectionCode'" +
             "FROM ware_house_product wp " +
             "INNER JOIN product p on wp.id_product = p.id " +
             "INNER JOIN category c on c.id = p.id_category " +
