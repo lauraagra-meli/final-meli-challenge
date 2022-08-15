@@ -1,5 +1,6 @@
 package meli.dh.com.finalmeliproject.service.product;
 
+import com.sun.istack.Nullable;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
@@ -8,7 +9,10 @@ import meli.dh.com.finalmeliproject.repository.IProductRepo;
 import meli.dh.com.finalmeliproject.repository.IWareHouseProductRepo;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,6 +83,13 @@ public class ProductService implements IProductService {
         }
         return response;
     }
+
+    //FEATURE 03 - Filtering prods
+    public List<ProductBatchDTO> filterProductsPerBatch (@PathVariable String id, @RequestParam @Nullable int batchId){
+//        return ResponseEntity.ok().body(repo.allProductsPerBatch(id));
+        return null;
+    }
+
 
     public WareHouseProduct findByProductId(String id) {
         WareHouseProduct product = iWareHouseProductRepo.findByProductId(id);
