@@ -46,8 +46,6 @@ public class WareHouseService implements IWareHouseService {
         return wareHouseProductList;
     }
 
-
-
     @Override
     public List<WareHouseProduct> saveAll(List<WareHouseProduct> wareHouseProducts){
         return wareHouseProductRepo.saveAll(wareHouseProducts);
