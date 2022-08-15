@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class ProductBatchDTO {
-    CategoryDTO category;
+    private CategoryDTO category;
     private String productId;
     private List<ProductBatchStockDTO> productsList;
 }

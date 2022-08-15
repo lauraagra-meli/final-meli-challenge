@@ -2,6 +2,7 @@ package meli.dh.com.finalmeliproject.service.product;
 
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 import meli.dh.com.finalmeliproject.dto.ProductDTO;
+import meli.dh.com.finalmeliproject.dto.TestDTO;
 import meli.dh.com.finalmeliproject.model.Product;
 import org.springframework.http.ResponseEntity;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
@@ -16,7 +17,7 @@ public interface IProductService {
 
     List<Product> findProductsByCategory(String category);
 
-    ProductBatchDTO allProductsInWarehouse(String id);
+    List<TestDTO> allProductsInWarehouse(String id);
 
     WareHouseProduct findByProductId(String id);
 

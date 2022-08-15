@@ -2,6 +2,7 @@ package meli.dh.com.finalmeliproject.controller;
 
 import com.sun.istack.Nullable;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
+import meli.dh.com.finalmeliproject.dto.TestDTO;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
@@ -56,10 +57,13 @@ public class ProductController {
     }
 
     //FEATURE 03
-//    @GetMapping("/{id}")
-//    public ResponseEntity<ProductBatchDTO> allProductsInWarehouse(@PathVariable String id){
-//        return productService.allProductsInWarehouse();
-//    }
+    @GetMapping("/filter/{id}")
+    public ResponseEntity<List<TestDTO>> allProductsInWarehouse(@PathVariable String id){
+//        return productService.allProductsInWarehouse(id);
+//        return service.allProductsInWarehouse(id);
+        return ResponseEntity.ok().body(service.allProductsInWarehouse(id));
+
+    }
 
     @PostMapping("orders/by-shopping-cart")
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
