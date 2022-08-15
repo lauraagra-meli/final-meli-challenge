@@ -17,7 +17,7 @@ public interface IProductRepo extends JpaRepository<Product, Long> {
             "INNER JOIN category c ON p.id_category = c.id " +
             "INNER JOIN ware_house_product wp ON p.id = wp.id_product " +
             "WHERE p.id = :productId", nativeQuery = true)
-    public List<ISumOfProductStockDTO> allProductsInWarehouse (@Param("productId") String productId);
+    public List<ISumOfProductStockDTO> allProductsPerBatch (@Param("productId") String productId);
 
     public static interface ISumOfProductStockDTO {
         String getSectionCode();

@@ -14,7 +14,7 @@ public interface IProductService {
 
     List<Product> findProductsByCategory(String category);
 
-    List<ProductBatchDTO> allProductsInWarehouse(String id);
+    List<ProductBatchDTO> allProductsPerBatch(String id);
 
     WareHouseProduct findByProductId(String id);
 

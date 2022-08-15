@@ -68,9 +68,9 @@ public class ProductService implements IProductService {
 
     //FEATURE 03
     @Override
-    public List<ProductBatchDTO> allProductsInWarehouse(String id) {
+    public List<ProductBatchDTO> allProductsPerBatch(String id) {
 
-        List<ProductBatchDTO> response = repo.allProductsInWarehouse(id).stream()
+        List<ProductBatchDTO> response = repo.allProductsPerBatch(id).stream()
                 .map(ProductBatchDTO::new)
                 .collect(Collectors.toList());
         if (response.isEmpty()) {

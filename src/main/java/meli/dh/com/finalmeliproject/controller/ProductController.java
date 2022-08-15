@@ -50,9 +50,9 @@ public class ProductController {
     }
 
     //FEATURE 03
-    @GetMapping("/filter/{id}")
-    public ResponseEntity<List<ProductBatchDTO>> allProductsInWarehouse(@PathVariable String id){
-        return ResponseEntity.ok().body(service.allProductsInWarehouse(id));
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<ProductBatchDTO>> allProductsPerBatch(@PathVariable String id){
+        return ResponseEntity.ok().body(service.allProductsPerBatch(id));
     }
 
     @PostMapping("orders/by-shopping-cart")
