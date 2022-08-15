@@ -2,24 +2,28 @@ package meli.dh.com.finalmeliproject.controller;
 
 import com.sun.istack.Nullable;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
+
+import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
+import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
+import meli.dh.com.finalmeliproject.model.Product;
+import meli.dh.com.finalmeliproject.model.ShoppingCart;
+
 import meli.dh.com.finalmeliproject.dto.ProductDTO;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.*;
 import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
+
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import meli.dh.com.finalmeliproject.service.product.ProductService;
 import meli.dh.com.finalmeliproject.service.shoppingCart.IShoppingCartService;
-import meli.dh.com.finalmeliproject.service.shoppingCart.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products")
@@ -57,10 +61,10 @@ public class ProductController {
     }
 
     //FEATURE 03
-//    @GetMapping("/{id}")
-//    public ResponseEntity<ProductBatchDTO> allProductsInWarehouse(@PathVariable String id){
-//        return productService.allProductsInWarehouse();
-//    }
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<ProductBatchDTO>> allProductsPerBatch(@PathVariable String id){
+        return ResponseEntity.ok().body(service.allProductsPerBatch(id));
+    }
 
     @PostMapping("/orders")
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
