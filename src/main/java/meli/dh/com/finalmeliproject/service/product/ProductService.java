@@ -88,11 +88,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductsBatchFilter> findFilter(LocalDate dueDate, String categoryName) {
+    public List<ProductsBatchFilter> findFilter(int amountDays, String categoryName) {
 
-        List<ProductsBatchFilter> productsBatchFilters = inboundOrderRepo.findByDueDate(dueDate, categoryName).stream().map(ProductsBatchFilter::new).collect(Collectors.toList());
+        LocalDate filterDate = LocalDate.now();
+        filterDate = filterDate.plusDays(amountDays);
+
+        List<ProductsBatchFilter> productsBatchFilters = inboundOrderRepo.findByDueDate(filterDate, categoryName).stream().map(ProductsBatchFilter::new).collect(Collectors.toList());
         if (productsBatchFilters.size() == 0) {
-            throw new NotFoundExceptionImp("Not exist products with this features. | dueDate: " + dueDate.toString() + " | categoryName: " + categoryName);
+            throw new NotFoundExceptionImp("Not exist products with this features. | dueDate: " + filterDate.toString() + " | categoryName: " + categoryName);
         }
         return productsBatchFilters;
     }

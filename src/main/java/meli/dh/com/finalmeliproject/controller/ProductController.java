@@ -95,7 +95,7 @@ public class ProductController {
     }
 
     @GetMapping("/due-date")
-    public ResponseEntity<List<ProductsBatchFilter>> findByDueDate(@RequestParam @Nullable String dueDate, String categoryName) {
-        return new ResponseEntity<>(productService.findFilter(LocalDate.parse(dueDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), categoryName), HttpStatus.OK);
+    public ResponseEntity<List<ProductsBatchFilter>> findByDueDate(@RequestParam @Nullable int amountDay, String categoryName) {
+        return new ResponseEntity<>(productService.findFilter(amountDay, categoryName), HttpStatus.OK);
     }
 }

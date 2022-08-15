@@ -21,6 +21,6 @@ public interface IProductService {
 
     WareHouseProduct findByProductId(String id);
 
-    List<ProductsBatchFilter> findFilter(LocalDate dueDate, String categoryName);
+    List<ProductsBatchFilter> findFilter(int amountDays, String categoryName);
 
 }
