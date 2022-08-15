@@ -35,7 +35,7 @@ public class InboundService implements IInboundService {
     public ResponseDTO save(InboundOrderDTO inboundOrderDTO, long representativeId) {
         ResponseDTO response = new ResponseDTO();
         Batch batch;
-        this.validations(
+        validations(
                 inboundOrderDTO.getWareHouseCategory().getWareHouseCode(), //id do armazem
                 representativeId, //id do representante
                 inboundOrderDTO.getWareHouseCategory().getWareHouseCode() //nome da categoria
