@@ -8,12 +8,15 @@ import meli.dh.com.finalmeliproject.mocks.GenerateShoppingCart;
 import meli.dh.com.finalmeliproject.mocks.GenerateWareHouseCategoryDTO;
 import meli.dh.com.finalmeliproject.mocks.repo.BuyerRepoMock;
 import meli.dh.com.finalmeliproject.mocks.repo.ProductShoppingCartRepoMock;
+import meli.dh.com.finalmeliproject.mocks.repo.PurchaseOrderRepoMock;
 import meli.dh.com.finalmeliproject.mocks.repo.ShoppingCartRepoMock;
 import meli.dh.com.finalmeliproject.mocks.service.BuyerServiceMock;
 import meli.dh.com.finalmeliproject.mocks.service.ProductServiceMock;
+import meli.dh.com.finalmeliproject.model.PurchaseOrder;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
 import meli.dh.com.finalmeliproject.model.WareHouseCategory;
 import meli.dh.com.finalmeliproject.repository.IProductShoppingCartRepo;
+import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
 import meli.dh.com.finalmeliproject.repository.IShoppingCartRepo;
 import meli.dh.com.finalmeliproject.service.buyer.BuyerService;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
@@ -27,6 +30,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeastOnce;
@@ -53,6 +57,9 @@ class ShoppingCartServiceTest {
     @Mock
     private IBuyerService buyerService;
 
+    @Mock
+    private IPurchaseOrderRepo purchaseOrderRepo;
+
 
     void shoppingCartSetup(){
         BDDMockito.when(
@@ -78,6 +85,10 @@ class ShoppingCartServiceTest {
         BDDMockito.when(
                 productShoppingCartRepo.saveAll(ArgumentMatchers.any())
         ).thenReturn(ProductShoppingCartRepoMock.saveAll());
+
+        BDDMockito.when(
+                purchaseOrderRepo.save(ArgumentMatchers.any())
+        ).thenReturn(PurchaseOrderRepoMock.save());
     }
 
     @Test
