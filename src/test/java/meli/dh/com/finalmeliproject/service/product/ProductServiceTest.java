@@ -1,9 +1,8 @@
-package meli.dh.com.finalmeliproject.service.Product;
+package meli.dh.com.finalmeliproject.service.product;
 
 import meli.dh.com.finalmeliproject.mocks.GenerateProduct;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
-import meli.dh.com.finalmeliproject.service.product.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

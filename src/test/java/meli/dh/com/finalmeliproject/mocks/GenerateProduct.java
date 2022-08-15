@@ -23,6 +23,7 @@ public class GenerateProduct {
                 .batch(batch)
                 .dueDate(LocalDate.of(2023,2,12))
                 .manufacturingDate(LocalDateTime.of(2022, 12, 15, 10, 23, 12))
+                .price(1)
                 .build();
     }
 
@@ -38,6 +39,7 @@ public class GenerateProduct {
         product.setBatch(batch);
         product.setDueDate(LocalDate.of(2023,2,12));
         product.setManufacturingDate(LocalDateTime.of(2022, 12, 15, 10, 32, 12));
+        product.setPrice(1);
         listOfProducts.add(product);
 
         return listOfProducts;

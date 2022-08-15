@@ -1,7 +1,9 @@
 package meli.dh.com.finalmeliproject.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import meli.dh.com.finalmeliproject.model.enums.OrderStatus;
 
@@ -10,6 +12,8 @@ import java.time.LocalDateTime;
 
 @Setter @Getter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,9 +11,18 @@ public class GenerateWareHouseProduct {
     public static WareHouseProduct newWareHouseProduct(){
         return new WareHouseProduct(
                 1,
+                2,
+                GenerateProduct.newProductToSave(),
+                GenerateWareHouse.newWareHouse()
+        );
+    }
+
+    public static WareHouseProduct newWareHouseProductManyQuantity(){
+        return new WareHouseProduct(
                 1,
-                new Product(),
-                new WareHouse()
+                0,
+                GenerateProduct.newProductToSave(),
+                GenerateWareHouse.newWareHouse()
         );
     }
 

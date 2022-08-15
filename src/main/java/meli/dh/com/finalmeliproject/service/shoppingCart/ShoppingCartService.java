@@ -22,7 +22,7 @@ import java.util.Optional;
 public class ShoppingCartService implements IShoppingCartService {
 
     @Autowired
-    private IProductService iProductService;
+    private IProductService productService;
 
     @Autowired
     private IShoppingCartRepo shoppingCartRepo;
@@ -50,7 +50,7 @@ public class ShoppingCartService implements IShoppingCartService {
             ProductShoppingCart productShoopingCart = new ProductShoppingCart();
 
             //verifica se tem o produto em estoque disponível
-            WareHouseProduct wareHouseProduct = iProductService.findByProductId(p.getProductId());
+            WareHouseProduct wareHouseProduct = productService.findByProductId(p.getProductId());
             if (p.getQuantity() > wareHouseProduct.getQuantity()) {
                 throw new BadRequestExceptionImp("Product quantity " + wareHouseProduct.getProduct().getName() + " is insufficient stock");
             }
@@ -103,7 +103,7 @@ public class ShoppingCartService implements IShoppingCartService {
 
         //atualiza a quantidade do produto no banco de dados
         for (ProductShoppingCart product : products) {
-            WareHouseProduct wareHouseProduct = iProductService.findByProductId(product.getProduct().getId());
+            WareHouseProduct wareHouseProduct = productService.findByProductId(product.getProduct().getId());
 
             // validar se o produto ainda possui estoque
             if (product.getProductQuantity() > wareHouseProduct.getQuantity()) {
@@ -116,11 +116,19 @@ public class ShoppingCartService implements IShoppingCartService {
         return purchaseOrderRepo.save(purchaseOrder.get());
     }
 
-    private ShoppingCart currentShoppingCart(long shoppingCartId, long buyerId) {
+    private ShoppingCart findById(long id){
+        Optional<ShoppingCart> sc = shoppingCartRepo.findById(id);
+        if (sc.isPresent()){
+            return sc.get();
+        }
+        throw new BadRequestExceptionImp("Not exist Shopping Cart with id: " + id);
+    }
+
+    private ShoppingCart currentShoppingCart(long shoppingCartId, long buyerId){
         ShoppingCart shoppingCart;
 
         if (shoppingCartId > 0) {
-            return findShoppingCartProductsById(shoppingCartId);
+            return findById(shoppingCartId);
         }
 
         shoppingCart = new ShoppingCart();
