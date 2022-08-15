@@ -4,11 +4,10 @@ import meli.dh.com.finalmeliproject.dto.shoppingCart.ProductPurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
-import meli.dh.com.finalmeliproject.model.Buyer;
-import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
-import meli.dh.com.finalmeliproject.model.ShoppingCart;
-import meli.dh.com.finalmeliproject.model.WareHouseProduct;
+import meli.dh.com.finalmeliproject.model.*;
+import meli.dh.com.finalmeliproject.model.enums.OrderStatus;
 import meli.dh.com.finalmeliproject.repository.IProductShoppingCartRepo;
+import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
 import meli.dh.com.finalmeliproject.repository.IShoppingCartRepo;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
@@ -32,16 +31,19 @@ public class ShoppingCartService implements IShoppingCartService {
     private IProductShoppingCartRepo productShoppingCartRepo;
 
     @Autowired
+    private IPurchaseOrderRepo purchaseOrderRepo;
+
+    @Autowired
     private IBuyerService buyerService;
 
     @Override
     public ResponseShoppingCartDto shoppingCart(PurchaseOrderDto orderDto) {
         ResponseShoppingCartDto responseShoppingCartDto = new ResponseShoppingCartDto();
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
         double totalPrice = 0;
 
         ShoppingCart shoppingCart = currentShoppingCart(orderDto.getShoopingCartId(), orderDto.getBuyerId());
         List<ProductShoppingCart> productShoppingCarts = new ArrayList<>();
-
         List<WareHouseProduct> wareHouseProducts = new ArrayList<>();
 
         //Trata todos os produtos que foi estão na lista de do carrinho de compra
@@ -58,21 +60,16 @@ public class ShoppingCartService implements IShoppingCartService {
             totalPrice += wareHouseProduct.getProduct().getPrice() * p.getQuantity();
             responseShoppingCartDto.setTotalPrice(totalPrice);
 
-            //alimenta a lista que ira atualizar a quantidade dos produtos
-            wareHouseProduct.setQuantity(wareHouseProduct.getQuantity() - p.getQuantity());
-            wareHouseProducts.add(wareHouseProduct);
-
             //itera lista de "produtos de carrinho" e compras
             productShoopingCart.setProductQuantity(p.getQuantity());
             productShoopingCart.setProduct(wareHouseProduct.getProduct());
             productShoopingCart.setShoppingCart(shoppingCart);
             productShoppingCarts.add(productShoopingCart);
 
-        }
-
-        //atualiza a quantidade do produto no banco de dados
-        for (WareHouseProduct wp : wareHouseProducts){
-            iProductService.save(wp.getProduct());
+            // define o status do carrinho como aberto até finalizar a compra e o adiciona à purchase order
+            purchaseOrder.setStatusOrder(OrderStatus.OPENED);
+            purchaseOrder.setShoppingCart(shoppingCart);
+            purchaseOrderRepo.save(purchaseOrder);
         }
 
         shoppingCartRepo.save(shoppingCart);
@@ -91,19 +88,34 @@ public class ShoppingCartService implements IShoppingCartService {
         return shoppingCart.get();
     }
 
-    private ShoppingCart findById(long id){
-        Optional<ShoppingCart> sc = shoppingCartRepo.findById(id);
-        if (sc.isPresent()){
-            return sc.get();
+    public PurchaseOrder editShoppingCart(long orderId) {
+        Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepo.findById(orderId);
+
+        if (purchaseOrder.isEmpty()) {
+            throw new BadRequestExceptionImp("Purchase Order dont exist");
         }
-        throw new BadRequestExceptionImp("Not exist Shopping Cart with id: " + id);
+        if (purchaseOrder.get().getStatusOrder() == OrderStatus.CLOSED) {
+            throw new BadRequestExceptionImp("Purchase Order Status is already closed");
+        }
+
+        purchaseOrder.get().setStatusOrder(OrderStatus.CLOSED);
+
+        List<ProductShoppingCart> products = purchaseOrder.get().getShoppingCart().getListOfShoppingProducts();
+
+        //atualiza a quantidade do produto no banco de dados
+        for (ProductShoppingCart product : products) {
+            WareHouseProduct wareHouseProduct = iProductService.findByProductId(product.getProduct().getId());
+            wareHouseProduct.setQuantity((int) (wareHouseProduct.getQuantity() - product.getProductQuantity()));
+        }
+
+        return purchaseOrderRepo.save(purchaseOrder.get());
     }
 
-    private ShoppingCart currentShoppingCart(long shoppingCartId, long buyerId){
+    private ShoppingCart currentShoppingCart(long shoppingCartId, long buyerId) {
         ShoppingCart shoppingCart;
 
         if (shoppingCartId > 0) {
-            return findById(shoppingCartId);
+            return findShoppingCartProductsById(shoppingCartId);
         }
 
         shoppingCart = new ShoppingCart();
