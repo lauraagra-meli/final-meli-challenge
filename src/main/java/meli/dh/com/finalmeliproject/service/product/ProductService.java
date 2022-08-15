@@ -1,8 +1,6 @@
 package meli.dh.com.finalmeliproject.service.product;
 
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
-import meli.dh.com.finalmeliproject.dto.ProductDTO;
-import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
@@ -11,7 +9,7 @@ import meli.dh.com.finalmeliproject.repository.IWareHouseProductRepo;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,18 +50,18 @@ public class ProductService implements IProductService {
         try {
             WareHouseProduct product = iWareHouseProductRepo.findByProductId(id);
             return product.getQuantity();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new NotFoundExceptionImp("Product not found");
         }
     }
 
     @Override
     public List<Product> findProductsByCategory(String category) {
-        List<Product> productsByCategory =  repo.findAll().stream()
+        List<Product> productsByCategory = repo.findAll().stream()
                 .filter(product -> product.getCategory().getCategoryName().equals(category))
                 .collect(Collectors.toList());
 
-        if (productsByCategory.isEmpty()){
+        if (productsByCategory.isEmpty()) {
             throw new NotFoundExceptionImp("Category not found.");
         }
         return productsByCategory;
@@ -71,13 +69,19 @@ public class ProductService implements IProductService {
 
     //FEATURE 03
     @Override
-    public ProductBatchDTO allProductsInWarehouse(String id) {
-        return null;
+    public List<ProductBatchDTO> allProductsPerBatch(String id) {
+
+        List<ProductBatchDTO> response = repo.allProductsPerBatch(id).stream()
+                .map(ProductBatchDTO::new)
+                .collect(Collectors.toList());
+        if (response.isEmpty()) {
+            throw new NotFoundExceptionImp("Product id not found");
+        }
+        return response;
     }
 
-    public WareHouseProduct findByProductId(String id){
-        WareHouseProduct product =iWareHouseProductRepo.findByProductId(id);
-
+    public WareHouseProduct findByProductId(String id) {
+        WareHouseProduct product = iWareHouseProductRepo.findByProductId(id);
         return product;
     }
 
