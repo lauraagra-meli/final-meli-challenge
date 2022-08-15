@@ -2,23 +2,16 @@ package meli.dh.com.finalmeliproject.service.shoppingCart;
 
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
-import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.mocks.GeneratePurchaseOrderDTO;
-import meli.dh.com.finalmeliproject.mocks.GenerateShoppingCart;
-import meli.dh.com.finalmeliproject.mocks.GenerateWareHouseCategoryDTO;
-import meli.dh.com.finalmeliproject.mocks.repo.BuyerRepoMock;
 import meli.dh.com.finalmeliproject.mocks.repo.ProductShoppingCartRepoMock;
 import meli.dh.com.finalmeliproject.mocks.repo.PurchaseOrderRepoMock;
 import meli.dh.com.finalmeliproject.mocks.repo.ShoppingCartRepoMock;
 import meli.dh.com.finalmeliproject.mocks.service.BuyerServiceMock;
 import meli.dh.com.finalmeliproject.mocks.service.ProductServiceMock;
-import meli.dh.com.finalmeliproject.model.PurchaseOrder;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
-import meli.dh.com.finalmeliproject.model.WareHouseCategory;
 import meli.dh.com.finalmeliproject.repository.IProductShoppingCartRepo;
 import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
 import meli.dh.com.finalmeliproject.repository.IShoppingCartRepo;
-import meli.dh.com.finalmeliproject.service.buyer.BuyerService;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import org.junit.jupiter.api.Test;
@@ -30,9 +23,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
@@ -165,4 +158,77 @@ class ShoppingCartServiceTest {
         );
     }
 
+    @Test
+    void editShoopingCartExpPurchaseOrderDontExist(){
+        BDDMockito.when(
+                purchaseOrderRepo.findById(ArgumentMatchers.anyLong())
+        ).thenReturn(PurchaseOrderRepoMock.findByIdExceptionNotExist());
+
+        BadRequestExceptionImp exceptionImp = assertThrows(
+                BadRequestExceptionImp.class,
+                () -> {
+                    shoppingCartService.editShoppingCart(1L);
+                }
+        );
+
+        assertThat(exceptionImp.getMessage()).isEqualTo("Purchase Order dont exist");
+
+    }
+
+    @Test
+    void editShoopingCartExpPurchaseOrderIsClosed(){
+        BDDMockito.when(
+                purchaseOrderRepo.findById(ArgumentMatchers.anyLong())
+        ).thenReturn(PurchaseOrderRepoMock.findByIdExceptionIsClose());
+
+        BadRequestExceptionImp exceptionImp = assertThrows(
+                BadRequestExceptionImp.class,
+                () -> {
+                    shoppingCartService.editShoppingCart(1L);
+                }
+        );
+
+        assertThat(exceptionImp.getMessage()).isEqualTo("Purchase Order Status is already closed");
+
+    }
+
+    @Test
+    void editShoopingCartExpQuatityIsInsufficient(){
+        BDDMockito.when(
+                purchaseOrderRepo.findById(ArgumentMatchers.anyLong())
+        ).thenReturn(PurchaseOrderRepoMock.findById());
+
+        BDDMockito.when(
+                productService.findByProductId(ArgumentMatchers.anyString())
+        ).thenReturn(ProductServiceMock.findProductByIdQuantityInsufficient());
+
+        BadRequestExceptionImp exceptionImp = assertThrows(
+                BadRequestExceptionImp.class,
+                () -> {
+                    shoppingCartService.editShoppingCart(1L);
+                }
+        );
+
+        assertThat(exceptionImp.getMessage()).isEqualTo("Product quantity maçã pera is insufficient stock");
+
+    }
+
+    @Test
+    void editShoopingCart(){
+        BDDMockito.when(
+                purchaseOrderRepo.findById(ArgumentMatchers.anyLong())
+        ).thenReturn(PurchaseOrderRepoMock.findById());
+
+        BDDMockito.when(
+                purchaseOrderRepo.save(any())
+        ).thenReturn(PurchaseOrderRepoMock.save());
+
+        BDDMockito.when(
+                productService.findByProductId(ArgumentMatchers.anyString())
+        ).thenReturn(ProductServiceMock.findProductById());
+
+        shoppingCartService.editShoppingCart(1L);
+
+        verify(purchaseOrderRepo).save(any());
+    }
 }

@@ -14,9 +14,6 @@ import java.util.Optional;
 public class WareHouseProductService implements IWareHouseProductService {
 
     @Autowired
-    private IWareHouseProductRepo wareHouseProductRepo;
-
-    @Autowired
     private IBatchRepo batchRepo;
 
 

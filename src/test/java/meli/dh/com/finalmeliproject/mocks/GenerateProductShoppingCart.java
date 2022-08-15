@@ -11,7 +11,7 @@ public class GenerateProductShoppingCart {
         List<ProductShoppingCart> productShoppingCartList = new ArrayList<>();
         productShoppingCartList.add(
                 new ProductShoppingCart(
-                        1, 3,
+                        1, 1,
                         GenerateProduct.newProductToSave(),
                         new ShoppingCart()));
 

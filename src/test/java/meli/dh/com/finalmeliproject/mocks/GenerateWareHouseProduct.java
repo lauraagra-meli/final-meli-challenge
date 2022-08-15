@@ -17,6 +17,15 @@ public class GenerateWareHouseProduct {
         );
     }
 
+    public static WareHouseProduct newWareHouseProductManyQuantity(){
+        return new WareHouseProduct(
+                1,
+                0,
+                GenerateProduct.newProductToSave(),
+                GenerateWareHouse.newWareHouse()
+        );
+    }
+
     public static List<WareHouseProduct> newWareHouseProductList(){
         List<WareHouseProduct> wList = new ArrayList<>();
 

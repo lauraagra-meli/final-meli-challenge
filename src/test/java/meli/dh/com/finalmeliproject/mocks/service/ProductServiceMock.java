@@ -10,6 +10,10 @@ public class ProductServiceMock {
         return GenerateWareHouseProduct.newWareHouseProduct();
     }
 
+    public static WareHouseProduct findProductByIdQuantityInsufficient(){
+        return GenerateWareHouseProduct.newWareHouseProductManyQuantity();
+    }
+
     public static Product save(){
         return GenerateProduct.newProductToSave();
     }
