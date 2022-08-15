@@ -1,8 +1,10 @@
 package meli.dh.com.finalmeliproject.controller;
 
 import com.sun.istack.Nullable;
+import meli.dh.com.finalmeliproject.dto.BatchDTO;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 
+import meli.dh.com.finalmeliproject.dto.ProductBatchStockDTO;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.Product;
@@ -60,15 +62,15 @@ public class ProductController {
         return ResponseEntity.ok().body(productsByCategory);
     }
 
-    //FEATURE 03
+
     @GetMapping("/list/{id}")
     public ResponseEntity<List<ProductBatchDTO>> allProductsPerBatch(@PathVariable String id){
         return ResponseEntity.ok().body(service.allProductsPerBatch(id));
     }
 
-    @GetMapping("/list/filter/{id}")
-    public ResponseEntity<List<ProductBatchDTO>> filterProductsPerBatch(@PathVariable String nome, @RequestParam @Nullable int batchId){
-        return ResponseEntity.ok().body(service.allProductsPerBatch(nome));
+    @GetMapping("/list/filter")
+    public ResponseEntity<List<Product>> filterProductsPerBatch(@RequestParam String productId, @RequestParam String order){
+        return ResponseEntity.ok().body(service.filterProductsByBatch(productId, order));
     }
 
     @PostMapping("/orders")

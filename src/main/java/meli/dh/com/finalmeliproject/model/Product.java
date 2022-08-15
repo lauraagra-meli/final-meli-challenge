@@ -51,4 +51,8 @@ public class Product {
         this.setDueDate(dueDate);
         this.setManufacturingDate(manufacturingDate);
     }
+
+    public int compareToBatch(Product p) {
+        return (int) (this.getBatch().getId() - p.getBatch().getId());
+    }
 }
