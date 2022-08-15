@@ -66,16 +66,12 @@ public class ProductController {
         return ResponseEntity.ok().body(service.allProductsPerBatch(id));
     }
 
-<<<<<<< HEAD
     @GetMapping("/list/filter/{id}")
     public ResponseEntity<List<ProductBatchDTO>> filterProductsPerBatch(@PathVariable String nome, @RequestParam @Nullable int batchId){
         return ResponseEntity.ok().body(service.allProductsPerBatch(nome));
     }
 
-    @PostMapping("orders/by-shopping-cart")
-=======
     @PostMapping("/orders")
->>>>>>> 6c85e4c368e26e7955dd0bc777e2a25ba0fe6f00
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
         return new ResponseEntity<>(iShoppingCartService.shoppingCart(request.getPurchaseOrder()),
                 HttpStatus.CREATED);
