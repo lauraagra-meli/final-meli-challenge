@@ -2,10 +2,19 @@ package meli.dh.com.finalmeliproject.controller;
 
 import com.sun.istack.Nullable;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
+
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
+
+import meli.dh.com.finalmeliproject.dto.ProductDTO;
+import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
+import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
+import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
+import meli.dh.com.finalmeliproject.model.*;
+import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
+
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import meli.dh.com.finalmeliproject.service.product.ProductService;
 import meli.dh.com.finalmeliproject.service.shoppingCart.IShoppingCartService;
@@ -35,12 +44,14 @@ public class ProductController {
      */
     @GetMapping
     public ResponseEntity<List<Product>> findProductsList(){
-        return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.findAllProducts(),
+                HttpStatus.OK);
     }
 
     @GetMapping("/check-stock/{id}")
     public ResponseEntity<Integer> checkStock(@PathVariable String id){
-        return new ResponseEntity<>(productService.checkStock(id),HttpStatus.OK);
+        return new ResponseEntity<>(productService.checkStock(id),
+                HttpStatus.OK);
     }
 
     @GetMapping("/by-category")
@@ -55,19 +66,29 @@ public class ProductController {
         return ResponseEntity.ok().body(service.allProductsPerBatch(id));
     }
 
+<<<<<<< HEAD
     @GetMapping("/list/filter/{id}")
     public ResponseEntity<List<ProductBatchDTO>> filterProductsPerBatch(@PathVariable String nome, @RequestParam @Nullable int batchId){
         return ResponseEntity.ok().body(service.allProductsPerBatch(nome));
     }
 
     @PostMapping("orders/by-shopping-cart")
+=======
+    @PostMapping("/orders")
+>>>>>>> 6c85e4c368e26e7955dd0bc777e2a25ba0fe6f00
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
         return new ResponseEntity<>(iShoppingCartService.shoppingCart(request.getPurchaseOrder()),
                 HttpStatus.CREATED);
     }
 
-    @GetMapping("orders/{id}")
+    @GetMapping("/orders/{id}")
     public ResponseEntity<ShoppingCart> findAllShoppingCartProducts(@PathVariable long id) {
         return ResponseEntity.ok().body(iShoppingCartService.findShoppingCartProductsById(id));
+    }
+
+    @PutMapping("/orders")
+    public ResponseEntity<PurchaseOrder> editShoppingCart(@RequestParam long orderId) {
+        return new ResponseEntity<>(iShoppingCartService.editShoppingCart(orderId),
+                HttpStatus.CREATED);
     }
 }
