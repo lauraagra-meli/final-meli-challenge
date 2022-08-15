@@ -1,8 +1,11 @@
 package meli.dh.com.finalmeliproject.service.product;
 
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
+import meli.dh.com.finalmeliproject.dto.ProductsBatchFilter;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IProductService {
@@ -17,5 +20,7 @@ public interface IProductService {
     List<ProductBatchDTO> allProductsPerBatch(String id);
 
     WareHouseProduct findByProductId(String id);
+
+    List<ProductsBatchFilter> findFilter(LocalDate dueDate, String categoryName);
 
 }

@@ -3,8 +3,10 @@ package meli.dh.com.finalmeliproject.controller;
 import com.sun.istack.Nullable;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 
+import meli.dh.com.finalmeliproject.dto.ProductsBatchFilter;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
+import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
 
@@ -23,6 +25,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -86,5 +92,10 @@ public class ProductController {
     public ResponseEntity<PurchaseOrder> editShoppingCart(@RequestParam long orderId) {
         return new ResponseEntity<>(iShoppingCartService.editShoppingCart(orderId),
                 HttpStatus.CREATED);
+    }
+
+    @GetMapping("/due-date")
+    public ResponseEntity<List<ProductsBatchFilter>> findByDueDate(@RequestParam @Nullable String dueDate, String categoryName) {
+        return new ResponseEntity<>(productService.findFilter(LocalDate.parse(dueDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), categoryName), HttpStatus.OK);
     }
 }

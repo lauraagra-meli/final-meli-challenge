@@ -1,19 +1,17 @@
 package meli.dh.com.finalmeliproject.service.product;
 
-import com.sun.istack.Nullable;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
+import meli.dh.com.finalmeliproject.dto.ProductsBatchFilter;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
+import meli.dh.com.finalmeliproject.repository.IInboundOrderRepo;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
 import meli.dh.com.finalmeliproject.repository.IWareHouseProductRepo;
-import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +25,7 @@ public class ProductService implements IProductService {
     private IProductRepo repo;
 
     @Autowired
-    private IBuyerService buyerService;
+    private IInboundOrderRepo inboundOrderRepo;
 
     public Product save(Product product) {
         return repo.save(product);
@@ -78,22 +76,25 @@ public class ProductService implements IProductService {
         List<ProductBatchDTO> response = repo.allProductsPerBatch(id).stream()
                 .map(ProductBatchDTO::new)
                 .collect(Collectors.toList());
+
         if (response.isEmpty()) {
             throw new NotFoundExceptionImp("Product id not found");
         }
         return response;
     }
 
-    //FEATURE 03 - Filtering prods
-    public List<ProductBatchDTO> filterProductsPerBatch (@PathVariable String id, @RequestParam @Nullable int batchId){
-//        return ResponseEntity.ok().body(repo.allProductsPerBatch(id));
-        return null;
+    public WareHouseProduct findByProductId(String id) {
+        return iWareHouseProductRepo.findByProductId(id);
     }
 
+    @Override
+    public List<ProductsBatchFilter> findFilter(LocalDate dueDate, String categoryName) {
 
-    public WareHouseProduct findByProductId(String id) {
-        WareHouseProduct product = iWareHouseProductRepo.findByProductId(id);
-        return product;
+        List<ProductsBatchFilter> productsBatchFilters = inboundOrderRepo.findByDueDate(dueDate, categoryName).stream().map(ProductsBatchFilter::new).collect(Collectors.toList());
+        if (productsBatchFilters.size() == 0) {
+            throw new NotFoundExceptionImp("Not exist products with this features. | dueDate: " + dueDate.toString() + " | categoryName: " + categoryName);
+        }
+        return productsBatchFilters;
     }
 
 }
