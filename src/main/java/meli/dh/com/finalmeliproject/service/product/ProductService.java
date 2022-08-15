@@ -70,9 +70,9 @@ public class ProductService implements IProductService {
 
     //FEATURE 03
     @Override
-    public List<TestDTO> allProductsInWarehouse(String id) {
+    public List<ProductBatchDTO> allProductsInWarehouse(String id) {
         return repo.allProductsInWarehouse(id).stream()
-                .map(TestDTO::new)
+                .map(ProductBatchDTO::new)
                 .collect(Collectors.toList());
 
     }
