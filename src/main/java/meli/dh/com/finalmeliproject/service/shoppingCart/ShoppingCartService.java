@@ -44,7 +44,6 @@ public class ShoppingCartService implements IShoppingCartService {
 
         ShoppingCart shoppingCart = currentShoppingCart(orderDto.getShoopingCartId(), orderDto.getBuyerId());
         List<ProductShoppingCart> productShoppingCarts = new ArrayList<>();
-        List<WareHouseProduct> wareHouseProducts = new ArrayList<>();
 
         //Trata todos os produtos que foi estão na lista de do carrinho de compra
         for (ProductPurchaseOrderDto p : orderDto.getProducts()) {
@@ -65,12 +64,12 @@ public class ShoppingCartService implements IShoppingCartService {
             productShoopingCart.setProduct(wareHouseProduct.getProduct());
             productShoopingCart.setShoppingCart(shoppingCart);
             productShoppingCarts.add(productShoopingCart);
-
-            // define o status do carrinho como aberto até finalizar a compra e o adiciona à purchase order
-            purchaseOrder.setStatusOrder(OrderStatus.OPENED);
-            purchaseOrder.setShoppingCart(shoppingCart);
-            purchaseOrderRepo.save(purchaseOrder);
         }
+
+        // define o status do carrinho como aberto até finalizar a compra e o adiciona à purchase order
+        purchaseOrder.setStatusOrder(OrderStatus.OPENED);
+        purchaseOrder.setShoppingCart(shoppingCart);
+        purchaseOrderRepo.save(purchaseOrder);
 
         shoppingCartRepo.save(shoppingCart);
         productShoppingCartRepo.saveAll(productShoppingCarts);
@@ -105,6 +104,12 @@ public class ShoppingCartService implements IShoppingCartService {
         //atualiza a quantidade do produto no banco de dados
         for (ProductShoppingCart product : products) {
             WareHouseProduct wareHouseProduct = iProductService.findByProductId(product.getProduct().getId());
+
+            // validar se o produto ainda possui estoque
+            if (product.getProductQuantity() > wareHouseProduct.getQuantity()) {
+                throw new BadRequestExceptionImp("Product quantity " + wareHouseProduct.getProduct().getName() + " is insufficient stock");
+            }
+
             wareHouseProduct.setQuantity((int) (wareHouseProduct.getQuantity() - product.getProductQuantity()));
         }
 
