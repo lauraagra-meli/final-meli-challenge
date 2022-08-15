@@ -1,6 +1,8 @@
 package meli.dh.com.finalmeliproject.service.product;
 
+import meli.dh.com.finalmeliproject.dto.BatchDTO;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
+import meli.dh.com.finalmeliproject.model.Batch;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
 import java.util.List;
@@ -15,6 +17,7 @@ public interface IProductService {
     List<Product> findProductsByCategory(String category);
 
     List<ProductBatchDTO> allProductsPerBatch(String id);
+    Batch filterProductsPerBatch (long batch);
 
     WareHouseProduct findByProductId(String id);
 

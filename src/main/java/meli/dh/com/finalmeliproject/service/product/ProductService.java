@@ -1,10 +1,13 @@
 package meli.dh.com.finalmeliproject.service.product;
 
 import com.sun.istack.Nullable;
+import meli.dh.com.finalmeliproject.dto.BatchDTO;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
+import meli.dh.com.finalmeliproject.model.Batch;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
+import meli.dh.com.finalmeliproject.repository.IBatchRepo;
 import meli.dh.com.finalmeliproject.repository.IProductRepo;
 import meli.dh.com.finalmeliproject.repository.IWareHouseProductRepo;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
@@ -85,9 +88,10 @@ public class ProductService implements IProductService {
     }
 
     //FEATURE 03 - Filtering prods
-    public List<ProductBatchDTO> filterProductsPerBatch (@PathVariable String id, @RequestParam @Nullable int batchId){
-//        return ResponseEntity.ok().body(repo.findById(id));
-        return null;
+    @Override
+    public Batch filterProductsPerBatch (long batchId){
+        Batch response = repo.(batchId);
+        return response;
     }
 
 
