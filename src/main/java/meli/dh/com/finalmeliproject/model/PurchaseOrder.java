@@ -3,6 +3,7 @@ package meli.dh.com.finalmeliproject.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import meli.dh.com.finalmeliproject.model.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,9 +18,10 @@ public class PurchaseOrder {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime dateOrder = LocalDateTime.now();
 
-    private String statusOrder;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus statusOrder;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_shoppingCart")
     private ShoppingCart shoppingCart;
 }

@@ -1,25 +1,29 @@
 package meli.dh.com.finalmeliproject.controller;
 
 import com.sun.istack.Nullable;
-import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
+import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
+
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.Product;
-import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
-import meli.dh.com.finalmeliproject.model.WareHouseProduct;
+
+import meli.dh.com.finalmeliproject.dto.ProductDTO;
+import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
+import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
+import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
+import meli.dh.com.finalmeliproject.model.*;
+import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
+
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import meli.dh.com.finalmeliproject.service.product.ProductService;
 import meli.dh.com.finalmeliproject.service.shoppingCart.IShoppingCartService;
-import meli.dh.com.finalmeliproject.service.shoppingCart.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products")
@@ -40,12 +44,14 @@ public class ProductController {
      */
     @GetMapping
     public ResponseEntity<List<Product>> findProductsList(){
-        return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.findAllProducts(),
+                HttpStatus.OK);
     }
 
     @GetMapping("/check-stock/{id}")
     public ResponseEntity<Integer> checkStock(@PathVariable String id){
-        return new ResponseEntity<>(productService.checkStock(id),HttpStatus.OK);
+        return new ResponseEntity<>(productService.checkStock(id),
+                HttpStatus.OK);
     }
 
     @GetMapping("/by-category")
@@ -54,14 +60,26 @@ public class ProductController {
         return ResponseEntity.ok().body(productsByCategory);
     }
 
-    @PostMapping("orders/by-shopping-cart")
+    //FEATURE 03
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<ProductBatchDTO>> allProductsPerBatch(@PathVariable String id){
+        return ResponseEntity.ok().body(service.allProductsPerBatch(id));
+    }
+
+    @PostMapping("/orders")
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
         return new ResponseEntity<>(iShoppingCartService.shoppingCart(request.getPurchaseOrder()),
                 HttpStatus.CREATED);
     }
 
-    @GetMapping("orders/{id}")
+    @GetMapping("/orders/{id}")
     public ResponseEntity<ShoppingCart> findAllShoppingCartProducts(@PathVariable long id) {
         return ResponseEntity.ok().body(iShoppingCartService.findShoppingCartProductsById(id));
+    }
+
+    @PutMapping("/orders")
+    public ResponseEntity<PurchaseOrder> editShoppingCart(@RequestParam long orderId) {
+        return new ResponseEntity<>(iShoppingCartService.editShoppingCart(orderId),
+                HttpStatus.CREATED);
     }
 }
