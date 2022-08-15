@@ -55,6 +55,11 @@ public class ProductController {
         return ResponseEntity.ok().body(service.allProductsPerBatch(id));
     }
 
+    @GetMapping("/list/filter/{id}")
+    public ResponseEntity<List<ProductBatchDTO>> filterProductsPerBatch(@PathVariable String nome, @RequestParam @Nullable int batchId){
+        return ResponseEntity.ok().body(service.allProductsPerBatch(nome));
+    }
+
     @PostMapping("orders/by-shopping-cart")
     public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
         return new ResponseEntity<>(iShoppingCartService.shoppingCart(request.getPurchaseOrder()),

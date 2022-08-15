@@ -12,11 +12,11 @@ import java.util.List;
 public interface IProductRepo extends JpaRepository<Product, Long> {
     public Product findById(String id);
 
-    @Query(value= "SELECT c.category_name AS 'sectionCode', wp.id_warehouse AS 'warehouseCode', p.id AS 'productId', p.id_batch AS 'batchNumber', wp.quantity AS 'currentQuantity', p.due_date AS 'dueDate' " +
-            "FROM product p " +
-            "INNER JOIN category c ON p.id_category = c.id " +
-            "INNER JOIN ware_house_product wp ON p.id = wp.id_product " +
-            "WHERE p.id = :productId", nativeQuery = true)
+    @Query(value= "SELECT DISTINCT p.name AS 'productId', wp.quantity AS 'currentQuantity', p.due_date AS 'dueDate', id_warehouse AS 'warehouseCode', id_batch as 'batchNumber', category_name AS 'sectionCode'" +
+            "FROM ware_house_product wp " +
+            "INNER JOIN product p on wp.id_product = p.id " +
+            "INNER JOIN category c on c.id = p.id_category " +
+            "WHERE p.name LIKE :productId", nativeQuery = true)
     public List<ISumOfProductStockDTO> allProductsPerBatch (@Param("productId") String productId);
 
     public static interface ISumOfProductStockDTO {
