@@ -86,7 +86,7 @@ public class ProductService implements IProductService {
 
     //FEATURE 03 - Filtering prods
     public List<ProductBatchDTO> filterProductsPerBatch (@PathVariable String id, @RequestParam @Nullable int batchId){
-//        return ResponseEntity.ok().body(repo.allProductsPerBatch(id));
+//        return ResponseEntity.ok().body(repo.findById(id));
         return null;
     }
 

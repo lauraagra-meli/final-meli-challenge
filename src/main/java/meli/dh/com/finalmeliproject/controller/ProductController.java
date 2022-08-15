@@ -60,12 +60,13 @@ public class ProductController {
         return ResponseEntity.ok().body(productsByCategory);
     }
 
-    //FEATURE 03
+
     @GetMapping("/list/{id}")
     public ResponseEntity<List<ProductBatchDTO>> allProductsPerBatch(@PathVariable String id){
         return ResponseEntity.ok().body(service.allProductsPerBatch(id));
     }
 
+    //FEATURE 03
     @GetMapping("/list/filter/{id}")
     public ResponseEntity<List<ProductBatchDTO>> filterProductsPerBatch(@PathVariable String nome, @RequestParam @Nullable int batchId){
         return ResponseEntity.ok().body(service.allProductsPerBatch(nome));
