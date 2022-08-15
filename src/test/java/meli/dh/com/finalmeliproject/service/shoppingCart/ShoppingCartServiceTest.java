@@ -54,8 +54,7 @@ class ShoppingCartServiceTest {
     private IBuyerService buyerService;
 
 
-    @Test
-    void shoppingCart() {
+    void shoppingCartSetup(){
         BDDMockito.when(
                 shoppingCartRepo.findById(ArgumentMatchers.anyLong())
         ).thenReturn(ShoppingCartRepoMock.findById());
@@ -79,11 +78,55 @@ class ShoppingCartServiceTest {
         BDDMockito.when(
                 productShoppingCartRepo.saveAll(ArgumentMatchers.any())
         ).thenReturn(ProductShoppingCartRepoMock.saveAll());
+    }
+
+    @Test
+    void shoppingCart() {
+        shoppingCartSetup();
 
         ResponseShoppingCartDto response = shoppingCartService.shoppingCart(GeneratePurchaseOrderDTO.newPurchaseOrder());
-
         assertThat(response.getTotalPrice()).isEqualTo(2);
 
+    }
+
+    @Test
+    void shoppingCartWithShoopingId() {
+        shoppingCartSetup();
+
+        ResponseShoppingCartDto response = shoppingCartService.shoppingCart(GeneratePurchaseOrderDTO.newPurchaseOrderWithShoopingId());
+        assertThat(response.getTotalPrice()).isEqualTo(2);
+
+    }
+
+    @Test
+    void shoppingCartWithShoopingIdNotExist() {
+        shoppingCartSetup();
+
+        BDDMockito.when(
+                shoppingCartRepo.findById(ArgumentMatchers.anyLong())
+        ).thenReturn(ShoppingCartRepoMock.findByIdException());
+
+
+        BadRequestExceptionImp exceptionImp = assertThrows(
+                BadRequestExceptionImp.class,
+                () -> {
+                    ResponseShoppingCartDto response = shoppingCartService.shoppingCart(GeneratePurchaseOrderDTO.newPurchaseOrderWithShoopingId());
+                }
+        );
+
+    }
+
+
+    @Test
+    void shoppingCartQuatityNotValid() {
+        shoppingCartSetup();
+
+        BadRequestExceptionImp exceptionImp = assertThrows(
+                BadRequestExceptionImp.class,
+                () -> {
+                    ResponseShoppingCartDto response = shoppingCartService.shoppingCart(GeneratePurchaseOrderDTO.newPurchaseOrderExp());
+                }
+        );
     }
 
     @Test
