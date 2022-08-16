@@ -3,6 +3,7 @@ package meli.dh.com.finalmeliproject.service.batch;
 import meli.dh.com.finalmeliproject.dto.InboundOrderDTO;
 import meli.dh.com.finalmeliproject.dto.ProductDTO;
 import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
+import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.*;
 import meli.dh.com.finalmeliproject.repository.IBatchRepo;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
@@ -10,6 +11,7 @@ import meli.dh.com.finalmeliproject.service.wareHouse.IWareHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -88,5 +90,28 @@ public class BatchService implements IBatchService{
     @Override
     public Batch findById(long batchId) {
         return batchRepo.findById(batchId).get();
+    }
+
+    @Override
+    public List<Batch> findByDueDate(String categoryName, int amountDay) {
+        LocalDate filter = LocalDate.now();
+        filter = filter.plusDays(amountDay);
+
+        List<Batch> batches = batchRepo.findAllByDueDateAfter(filter);
+        List<Batch> batchesFilter = new ArrayList<>();
+
+        for (Batch b : batches) {
+            if (b.getListOfProducts().size() == 0 ) {
+                continue;
+            }
+            if (b.getListOfProducts().get(0).getCategory().getCategoryName().equals(categoryName)){
+                batchesFilter.add(b);
+            }
+        }
+
+        if (batchesFilter.size() == 0 ) {
+            throw new NotFoundExceptionImp("Not exist products with this features. | dueDate after: " + filter.toString() + " | categoryName: " + categoryName);
+        }
+        return batchesFilter;
     }
 }

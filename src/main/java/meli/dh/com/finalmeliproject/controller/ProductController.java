@@ -17,6 +17,7 @@ import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.*;
 import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
 
+import meli.dh.com.finalmeliproject.service.batch.IBatchService;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import meli.dh.com.finalmeliproject.service.product.ProductService;
 import meli.dh.com.finalmeliproject.service.shoppingCart.IShoppingCartService;
@@ -43,6 +44,9 @@ public class ProductController {
 
     @Autowired
     private ProductService service;
+
+    @Autowired
+    private IBatchService batchService;
 
     /***
      * Retorna todos os produtos
@@ -97,5 +101,10 @@ public class ProductController {
     @GetMapping("/due-date")
     public ResponseEntity<List<ProductsBatchFilter>> findByDueDate(@RequestParam @Nullable int amountDay, String categoryName) {
         return new ResponseEntity<>(productService.findFilter(amountDay, categoryName), HttpStatus.OK);
+    }
+
+    @GetMapping("/due-date/all")
+    public ResponseEntity<List<Batch>> findByBatchsDueDate(@RequestParam @Nullable int amountDay, String categoryName) {
+        return new ResponseEntity<>(batchService.findByDueDate(categoryName, amountDay), HttpStatus.OK);
     }
 }

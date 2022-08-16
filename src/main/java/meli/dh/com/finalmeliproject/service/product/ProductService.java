@@ -95,7 +95,7 @@ public class ProductService implements IProductService {
 
         List<ProductsBatchFilter> productsBatchFilters = inboundOrderRepo.findByDueDate(filterDate, categoryName).stream().map(ProductsBatchFilter::new).collect(Collectors.toList());
         if (productsBatchFilters.size() == 0) {
-            throw new NotFoundExceptionImp("Not exist products with this features. | dueDate: " + filterDate.toString() + " | categoryName: " + categoryName);
+            throw new NotFoundExceptionImp("Not exist products with this features. | dueDate after: " + filterDate.toString() + " | categoryName: " + categoryName);
         }
         return productsBatchFilters;
     }
