@@ -18,5 +18,9 @@ import java.util.List;
 public class BatchDTO {
 
     private long id;
+
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dueDate;
+
     private List<Product> listOfProducts;
 }

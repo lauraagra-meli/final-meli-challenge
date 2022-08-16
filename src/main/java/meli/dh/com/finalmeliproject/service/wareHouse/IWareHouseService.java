@@ -13,4 +13,5 @@ public interface IWareHouseService {
     List<WareHouseProduct> saveAll(List<WareHouseProduct> wareHouseProducts);
     WareHouseCategory update(WareHouseCategory wareHouseCategory);
     List<WareHouseDTO> findAllProductsByWareHouse(String id);
+    WareHouseCategory findByWareHouseIdAndCategoryName(String wareHouseId, long categoryId);
 }

@@ -1,11 +1,10 @@
 package meli.dh.com.finalmeliproject.service.product;
 
-import meli.dh.com.finalmeliproject.dto.BatchDTO;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
-import meli.dh.com.finalmeliproject.dto.ProductBatchStockDTO;
-import meli.dh.com.finalmeliproject.model.Batch;
+import meli.dh.com.finalmeliproject.dto.ProductsBatchFilter;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
+
 import java.util.List;
 
 public interface IProductService {
@@ -17,5 +16,5 @@ public interface IProductService {
     List<ProductBatchDTO> allProductsPerBatch(String id);
     List<Product> filterProductsByBatch (String productId, String order);
     WareHouseProduct findByProductId(String id);
-
+    List<ProductsBatchFilter> findFilter(int amountDays, String categoryName);
 }

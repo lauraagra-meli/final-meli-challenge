@@ -7,7 +7,11 @@ import meli.dh.com.finalmeliproject.model.Category;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseCategory;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public interface IBatchService {
     Batch save(InboundOrderDTO inboundOrderDTO, WareHouseCategory wareHouseCategory);
     Batch findById(long batchId);
+    List<Batch> findByDueDate(String categoryName, int amountDay);
 }

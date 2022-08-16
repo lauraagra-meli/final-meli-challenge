@@ -1,22 +1,17 @@
 package meli.dh.com.finalmeliproject.controller;
 
 import com.sun.istack.Nullable;
-import meli.dh.com.finalmeliproject.dto.BatchDTO;
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 
-import meli.dh.com.finalmeliproject.dto.ProductBatchStockDTO;
+import meli.dh.com.finalmeliproject.dto.ProductsBatchFilter;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
 
-import meli.dh.com.finalmeliproject.dto.ProductDTO;
-import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
-import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
-import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.*;
-import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
 
+import meli.dh.com.finalmeliproject.service.batch.IBatchService;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
 import meli.dh.com.finalmeliproject.service.product.ProductService;
 import meli.dh.com.finalmeliproject.service.shoppingCart.IShoppingCartService;
@@ -39,6 +34,9 @@ public class ProductController {
 
     @Autowired
     private ProductService service;
+
+    @Autowired
+    private IBatchService batchService;
 
     /***
      * Retorna todos os produtos
@@ -88,5 +86,15 @@ public class ProductController {
     public ResponseEntity<PurchaseOrder> editShoppingCart(@RequestParam long orderId) {
         return new ResponseEntity<>(iShoppingCartService.editShoppingCart(orderId),
                 HttpStatus.CREATED);
+    }
+
+    @GetMapping("/due-date")
+    public ResponseEntity<List<ProductsBatchFilter>> findByDueDate(@RequestParam @Nullable int amountDay, String categoryName) {
+        return new ResponseEntity<>(productService.findFilter(amountDay, categoryName), HttpStatus.OK);
+    }
+
+    @GetMapping("/due-date/all")
+    public ResponseEntity<List<Batch>> findByBatchsDueDate(@RequestParam @Nullable int amountDay, String categoryName) {
+        return new ResponseEntity<>(batchService.findByDueDate(categoryName, amountDay), HttpStatus.OK);
     }
 }

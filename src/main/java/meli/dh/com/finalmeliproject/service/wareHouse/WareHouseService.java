@@ -60,4 +60,9 @@ public class WareHouseService implements IWareHouseService {
     public boolean wareHouseExist(String id) {
         return wareHouseRepo.findById(id).isPresent();
     }
+
+    @Override
+    public WareHouseCategory findByWareHouseIdAndCategoryName(String wareHouseId, long categoryId){
+        return wareHouseCategoryRepo.findByWareHouseIdAndCategoryId(wareHouseId, categoryId);
+    }
 }

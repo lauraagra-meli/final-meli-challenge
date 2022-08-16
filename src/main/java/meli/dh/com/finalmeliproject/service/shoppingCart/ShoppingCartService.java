@@ -11,9 +11,11 @@ import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
 import meli.dh.com.finalmeliproject.repository.IShoppingCartRepo;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
+import meli.dh.com.finalmeliproject.service.wareHouse.IWareHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +37,9 @@ public class ShoppingCartService implements IShoppingCartService {
 
     @Autowired
     private IBuyerService buyerService;
+
+    @Autowired
+    private IWareHouseService wareHouseService;
 
     @Override
     public ResponseShoppingCartDto shoppingCart(PurchaseOrderDto orderDto) {
@@ -87,6 +92,7 @@ public class ShoppingCartService implements IShoppingCartService {
         return shoppingCart.get();
     }
 
+    @Transactional
     public PurchaseOrder editShoppingCart(long orderId) {
         Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepo.findById(orderId);
 
@@ -109,6 +115,14 @@ public class ShoppingCartService implements IShoppingCartService {
             if (product.getProductQuantity() > wareHouseProduct.getQuantity()) {
                 throw new BadRequestExceptionImp("Product quantity " + wareHouseProduct.getProduct().getName() + " is insufficient stock");
             }
+
+            //libera espaço no armazem que estava sendo ocupudado pelo produto
+            WareHouseCategory wareHouseCategory = wareHouseService.findByWareHouseIdAndCategoryName(
+                    wareHouseProduct.getWareHouse().getId(),
+                    product.getProduct().getCategory().getId()
+            );
+            wareHouseCategory.subStorage((int) product.getProductQuantity());
+            wareHouseService.update(wareHouseCategory);
 
             wareHouseProduct.setQuantity((int) (wareHouseProduct.getQuantity() - product.getProductQuantity()));
         }
