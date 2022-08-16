@@ -6,16 +6,10 @@ import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 import meli.dh.com.finalmeliproject.dto.ProductsBatchFilter;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
-import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
 
-import meli.dh.com.finalmeliproject.dto.ProductDTO;
-import meli.dh.com.finalmeliproject.dto.shoppingCart.PurchaseOrderDto;
-import meli.dh.com.finalmeliproject.dto.shoppingCart.RequestShoppingCartDto;
-import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.*;
-import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
 
 import meli.dh.com.finalmeliproject.service.batch.IBatchService;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
@@ -26,10 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -70,15 +60,15 @@ public class ProductController {
         return ResponseEntity.ok().body(productsByCategory);
     }
 
-    //FEATURE 03
+
     @GetMapping("/list/{id}")
     public ResponseEntity<List<ProductBatchDTO>> allProductsPerBatch(@PathVariable String id){
         return ResponseEntity.ok().body(service.allProductsPerBatch(id));
     }
 
-    @GetMapping("/list/filter/{id}")
-    public ResponseEntity<List<ProductBatchDTO>> filterProductsPerBatch(@PathVariable String nome, @RequestParam @Nullable int batchId){
-        return ResponseEntity.ok().body(service.allProductsPerBatch(nome));
+    @GetMapping("/list/filter")
+    public ResponseEntity<List<Product>> filterProductsPerBatch(@RequestParam String productId, @RequestParam String order){
+        return ResponseEntity.ok().body(service.filterProductsByBatch(productId, order));
     }
 
     @PostMapping("/orders")

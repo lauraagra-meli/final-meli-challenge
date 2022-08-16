@@ -16,7 +16,6 @@ public class WareHouseProductService implements IWareHouseProductService {
     @Autowired
     private IBatchRepo batchRepo;
 
-
     @Override
     public List<BatchDTO> allProducts(String id) {
         List<BatchDTO> allProducts = batchRepo.findById(id);

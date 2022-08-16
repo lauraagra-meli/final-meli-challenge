@@ -16,5 +16,4 @@ public class ProductBatchStockDTO {
     private int batchNumber;
     private int currentQuantity;
     private LocalDate dueDate;
-
 }

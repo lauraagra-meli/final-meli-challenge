@@ -2,6 +2,7 @@ package meli.dh.com.finalmeliproject.service.product;
 
 import meli.dh.com.finalmeliproject.dto.ProductBatchDTO;
 import meli.dh.com.finalmeliproject.dto.ProductsBatchFilter;
+import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.model.Product;
 import meli.dh.com.finalmeliproject.model.WareHouseProduct;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,14 +77,38 @@ public class ProductService implements IProductService {
         List<ProductBatchDTO> response = repo.allProductsPerBatch(id).stream()
                 .map(ProductBatchDTO::new)
                 .collect(Collectors.toList());
-
         if (response.isEmpty()) {
             throw new NotFoundExceptionImp("Product id not found");
         }
         return response;
     }
 
-    @Override
+    public List<Product> filterProductsByBatch (String productId, String order){
+        repo.findById(productId);
+
+        switch (order) {
+            case "B":
+                return repo.findAll()
+                        .stream()
+                        .sorted((b1, b2) -> b1.compareToBatch(b2))
+                        .collect(Collectors.toList());
+            case "Q":
+                return repo.findAll()
+                        .stream()
+                        .sorted()
+                        .collect(Collectors.toList());
+                // TODO: fazer query para pegar a quantidade
+            case "D":
+                return repo.findAll()
+                        .stream()
+                        .sorted((d1, d2) -> d1.getDueDate().compareTo(d2.getDueDate()))
+                        .collect(Collectors.toList());
+            default:
+                throw new BadRequestExceptionImp("Order not found");
+        }
+    }
+
+
     public WareHouseProduct findByProductId(String id) {
         WareHouseProduct wareHouseProduct = iWareHouseProductRepo.findByProductId(id);
         if (wareHouseProduct == null) {
