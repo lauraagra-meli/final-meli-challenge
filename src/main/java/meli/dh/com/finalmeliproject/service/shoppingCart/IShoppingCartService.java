@@ -6,6 +6,7 @@ import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
 import meli.dh.com.finalmeliproject.model.PurchaseOrder;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
 
+import java.util.Map;
 import java.util.Optional;
 
 public interface IShoppingCartService {
@@ -13,5 +14,6 @@ public interface IShoppingCartService {
     ResponseShoppingCartDto shoppingCart(PurchaseOrderDto dto);
     ShoppingCart findShoppingCartProductsById(long id);
     PurchaseOrder editPurchaseOrderStatus(long id);
-    ProductShoppingCart editProductShoppingCart(long id);
+    ProductShoppingCart updateProducQuantitytShoppingCart(long id, Map<String, Long> changes);
+    void deleteProductShoppingCart(long id);
 }

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -131,19 +132,34 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Override
-    public ProductShoppingCart editProductShoppingCart(long id) {
-        return null;
+    public ProductShoppingCart updateProducQuantitytShoppingCart(long id, Map<String, Long> changes) {
+        findByProductShoppingCartId(id).get().setProductQuantity(changes.get("productQuantity"));
+        return productShoppingCartRepo.save(findByProductShoppingCartId(id).get());
     }
 
-    private ShoppingCart findById(long id){
+    public void deleteProductShoppingCart(long id) {
+        productShoppingCartRepo.delete(findByProductShoppingCartId(id).get());
+    }
+
+    private ShoppingCart findById(long id) {
         Optional<ShoppingCart> sc = shoppingCartRepo.findById(id);
-        if (sc.isPresent()){
+        if (sc.isPresent()) {
             return sc.get();
         }
         throw new BadRequestExceptionImp("Not exist Shopping Cart with id: " + id);
     }
 
-    private ShoppingCart currentShoppingCart(long shoppingCartId, long buyerId){
+    private Optional<ProductShoppingCart> findByProductShoppingCartId(long id) {
+        Optional<ProductShoppingCart> productShoppingCartFound = productShoppingCartRepo.findById(id);
+
+        if (productShoppingCartFound.isEmpty()) {
+            throw new BadRequestExceptionImp("Product in shopping cart not found");
+        }
+
+        return productShoppingCartFound;
+    }
+
+    private ShoppingCart currentShoppingCart(long shoppingCartId, long buyerId) {
         ShoppingCart shoppingCart;
 
         if (shoppingCartId > 0) {
