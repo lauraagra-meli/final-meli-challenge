@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -84,7 +85,11 @@ public class ProductService implements IProductService {
     }
 
     public WareHouseProduct findByProductId(String id) {
-        return iWareHouseProductRepo.findByProductId(id);
+        WareHouseProduct wareHouseProduct = iWareHouseProductRepo.findByProductId(id);
+        if (wareHouseProduct == null) {
+            throw new NotFoundExceptionImp("Not exists this products");
+        }
+        return wareHouseProduct;
     }
 
     @Override
