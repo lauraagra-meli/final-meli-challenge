@@ -14,6 +14,6 @@ public interface IShoppingCartService {
     ResponseShoppingCartDto shoppingCart(PurchaseOrderDto dto);
     ShoppingCart findShoppingCartProductsById(long id);
     PurchaseOrder editPurchaseOrderStatus(long id);
-    ProductShoppingCart updateProducQuantitytShoppingCart(long id, Map<String, Long> changes);
+    ProductShoppingCart updateProductQuantityShoppingCart(long id, Map<String, Long> changes);
     void deleteProductShoppingCart(long id);
 }

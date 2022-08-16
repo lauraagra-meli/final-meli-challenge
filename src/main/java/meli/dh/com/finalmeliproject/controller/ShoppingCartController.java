@@ -39,8 +39,8 @@ public class ShoppingCartController {
     }
 
     @PatchMapping("/orders/{id}")
-    public ResponseEntity<ProductShoppingCart> updateProducQuantitytShoppingCart(@PathVariable long id, @RequestBody Map<String, Long> changes) {
-        return new ResponseEntity<>(service.updateProducQuantitytShoppingCart(id, changes), HttpStatus.CREATED);
+    public ResponseEntity<ProductShoppingCart> updateProductQuantityShoppingCart(@PathVariable long id, @RequestBody Map<String, Long> changes) {
+        return new ResponseEntity<>(service.updateProductQuantityShoppingCart(id, changes), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/orders/{id}")

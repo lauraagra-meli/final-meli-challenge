@@ -132,8 +132,22 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Override
-    public ProductShoppingCart updateProducQuantitytShoppingCart(long id, Map<String, Long> changes) {
+    public ProductShoppingCart updateProductQuantityShoppingCart(long id, Map<String, Long> changes) {
+        String productId = findByProductShoppingCartId(id).get().getProduct().getId();
         findByProductShoppingCartId(id).get().setProductQuantity(changes.get("productQuantity"));
+
+        WareHouseProduct wareHouseProduct = productService.findByProductId(productId);
+
+//        if (productShoppingCart.getProduct().getId() purchaseOrder.getStatusOrder().equals(OrderStatus.CLOSED)) {
+//          TODO: validação pra lançar erro caso o produto esteja dentro de purchase order, mas com o status como CLOSED
+//        }
+
+        changes.forEach((k, v) -> {
+            if (v > wareHouseProduct.getQuantity()) {
+                throw new BadRequestExceptionImp("Product quantity " + wareHouseProduct.getProduct().getName() + " is insufficient stock");
+            }
+        });
+
         return productShoppingCartRepo.save(findByProductShoppingCartId(id).get());
     }
 
@@ -153,7 +167,7 @@ public class ShoppingCartService implements IShoppingCartService {
         Optional<ProductShoppingCart> productShoppingCartFound = productShoppingCartRepo.findById(id);
 
         if (productShoppingCartFound.isEmpty()) {
-            throw new BadRequestExceptionImp("Product in shopping cart not found");
+            throw new BadRequestExceptionImp("Product not exist in shopping cart");
         }
 
         return productShoppingCartFound;
