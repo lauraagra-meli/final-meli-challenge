@@ -1,5 +1,6 @@
 package meli.dh.com.finalmeliproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -41,6 +43,10 @@ public class Product {
     private LocalDate dueDate;
 
     private LocalDateTime manufacturingDate;
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<Feedback> feedbacks;
 
     public Product(String name, double price, Category category, Batch batch, LocalDate dueDate, LocalDateTime manufacturingDate) {
         this.setId("CF-" + UUID.randomUUID());
