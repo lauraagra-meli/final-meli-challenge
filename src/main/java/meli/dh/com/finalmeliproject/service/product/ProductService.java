@@ -84,6 +84,7 @@ public class ProductService implements IProductService {
         return response;
     }
 
+    @Override
     public WareHouseProduct findByProductId(String id) {
         WareHouseProduct wareHouseProduct = iWareHouseProductRepo.findByProductId(id);
         if (wareHouseProduct == null) {
