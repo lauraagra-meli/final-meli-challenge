@@ -12,6 +12,6 @@ public interface IShoppingCartService {
 
     ResponseShoppingCartDto shoppingCart(PurchaseOrderDto dto);
     ShoppingCart findShoppingCartProductsById(long id);
-    PurchaseOrder editShoppingCart(long id);
+    PurchaseOrder editPurchaseOrderStatus(long id);
     ProductShoppingCart editProductShoppingCart(long id);
 }

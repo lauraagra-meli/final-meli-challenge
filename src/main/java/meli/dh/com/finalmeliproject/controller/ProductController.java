@@ -84,7 +84,7 @@ public class ProductController {
 
     @PutMapping("/orders")
     public ResponseEntity<PurchaseOrder> editShoppingCart(@RequestParam long orderId) {
-        return new ResponseEntity<>(iShoppingCartService.editShoppingCart(orderId),
+        return new ResponseEntity<>(iShoppingCartService.editPurchaseOrderStatus(orderId),
                 HttpStatus.CREATED);
     }
 

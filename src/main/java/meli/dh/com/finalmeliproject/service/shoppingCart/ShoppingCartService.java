@@ -93,7 +93,7 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Transactional
-    public PurchaseOrder editShoppingCart(long orderId) {
+    public PurchaseOrder editPurchaseOrderStatus(long orderId) {
         Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepo.findById(orderId);
 
         if (purchaseOrder.isEmpty()) {
@@ -128,6 +128,11 @@ public class ShoppingCartService implements IShoppingCartService {
         }
 
         return purchaseOrderRepo.save(purchaseOrder.get());
+    }
+
+    @Override
+    public ProductShoppingCart editProductShoppingCart(long id) {
+        return null;
     }
 
     private ShoppingCart findById(long id){

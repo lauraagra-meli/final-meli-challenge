@@ -167,7 +167,7 @@ class ShoppingCartServiceTest {
         BadRequestExceptionImp exceptionImp = assertThrows(
                 BadRequestExceptionImp.class,
                 () -> {
-                    shoppingCartService.editShoppingCart(1L);
+                    shoppingCartService.editPurchaseOrderStatus(1L);
                 }
         );
 
@@ -184,7 +184,7 @@ class ShoppingCartServiceTest {
         BadRequestExceptionImp exceptionImp = assertThrows(
                 BadRequestExceptionImp.class,
                 () -> {
-                    shoppingCartService.editShoppingCart(1L);
+                    shoppingCartService.editPurchaseOrderStatus(1L);
                 }
         );
 
@@ -205,7 +205,7 @@ class ShoppingCartServiceTest {
         BadRequestExceptionImp exceptionImp = assertThrows(
                 BadRequestExceptionImp.class,
                 () -> {
-                    shoppingCartService.editShoppingCart(1L);
+                    shoppingCartService.editPurchaseOrderStatus(1L);
                 }
         );
 
@@ -227,7 +227,7 @@ class ShoppingCartServiceTest {
                 productService.findByProductId(ArgumentMatchers.anyString())
         ).thenReturn(ProductServiceMock.findProductById());
 
-        shoppingCartService.editShoppingCart(1L);
+        shoppingCartService.editPurchaseOrderStatus(1L);
 
         verify(purchaseOrderRepo).save(any());
     }
