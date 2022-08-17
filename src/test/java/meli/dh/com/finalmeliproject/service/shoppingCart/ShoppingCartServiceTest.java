@@ -2,18 +2,23 @@ package meli.dh.com.finalmeliproject.service.shoppingCart;
 
 import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.exception.BadRequestExceptionImp;
+import meli.dh.com.finalmeliproject.mocks.GenerateProduct;
+import meli.dh.com.finalmeliproject.mocks.GenerateProductShoppingCart;
 import meli.dh.com.finalmeliproject.mocks.GeneratePurchaseOrderDTO;
+import meli.dh.com.finalmeliproject.mocks.GenerateWareHouseProduct;
 import meli.dh.com.finalmeliproject.mocks.repo.ProductShoppingCartRepoMock;
 import meli.dh.com.finalmeliproject.mocks.repo.PurchaseOrderRepoMock;
 import meli.dh.com.finalmeliproject.mocks.repo.ShoppingCartRepoMock;
 import meli.dh.com.finalmeliproject.mocks.service.BuyerServiceMock;
 import meli.dh.com.finalmeliproject.mocks.service.ProductServiceMock;
+import meli.dh.com.finalmeliproject.mocks.service.WareHouseServiceMock;
+import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
-import meli.dh.com.finalmeliproject.repository.IProductShoppingCartRepo;
-import meli.dh.com.finalmeliproject.repository.IPurchaseOrderRepo;
-import meli.dh.com.finalmeliproject.repository.IShoppingCartRepo;
+import meli.dh.com.finalmeliproject.model.WareHouse;
+import meli.dh.com.finalmeliproject.repository.*;
 import meli.dh.com.finalmeliproject.service.buyer.IBuyerService;
 import meli.dh.com.finalmeliproject.service.product.IProductService;
+import meli.dh.com.finalmeliproject.service.wareHouse.WareHouseService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -23,6 +28,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+
+import java.util.Map;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -52,6 +60,9 @@ class ShoppingCartServiceTest {
 
     @Mock
     private IPurchaseOrderRepo purchaseOrderRepo;
+
+    @Mock
+    private WareHouseService wareHouseService;
 
 
     void shoppingCartSetup(){
@@ -214,6 +225,26 @@ class ShoppingCartServiceTest {
     }
 
     @Test
+    void updateProductQuantityShoppingCart() {
+        Optional<ProductShoppingCart> productShoppingCartMock = Optional.ofNullable(GenerateProductShoppingCart.newProductShoppingCart());
+        ProductShoppingCart updatedProductShoppingCartMock = (GenerateProductShoppingCart.newProductShoppingCart());
+        updatedProductShoppingCartMock.setProductQuantity(1L);
+
+        BDDMockito.when(productShoppingCartRepo.findById(ArgumentMatchers.anyLong()))
+                .thenReturn(productShoppingCartMock);
+        BDDMockito.when(productShoppingCartRepo.save(ArgumentMatchers.any(ProductShoppingCart.class)))
+                .thenReturn(updatedProductShoppingCartMock);
+        BDDMockito.when(productService.findByProductId(ArgumentMatchers.anyString()))
+                .thenReturn(GenerateWareHouseProduct.newWareHouseProduct());
+
+        Map<String, Long> changes = Map.of("productQuantity", 1L);
+        ProductShoppingCart productShoppingCartSaved = shoppingCartService.updateProductQuantityShoppingCart(1L, changes);
+//
+        assertThat(productShoppingCartSaved).isNotNull();
+        assertThat(productShoppingCartSaved.getProductQuantity()).isEqualTo(updatedProductShoppingCartMock.getProductQuantity());
+    }
+
+    @Test
     void editShoopingCart(){
         BDDMockito.when(
                 purchaseOrderRepo.findById(ArgumentMatchers.anyLong())
@@ -226,6 +257,8 @@ class ShoppingCartServiceTest {
         BDDMockito.when(
                 productService.findByProductId(ArgumentMatchers.anyString())
         ).thenReturn(ProductServiceMock.findProductById());
+        BDDMockito.when(wareHouseService.findByWareHouseIdAndCategoryName(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong()))
+                        .thenReturn(WareHouseServiceMock.findWareHouseCategoryByWareHouseId());
 
         shoppingCartService.editPurchaseOrderStatus(1L);
 
