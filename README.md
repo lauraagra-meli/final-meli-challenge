@@ -54,6 +54,8 @@ The final project objective is to implement a REST API applying the knowledge ac
 Qualidade e Segurança).
 
 # Final requirement - edit products shopping cart
+- update quantity of products in shopping cart
+- delete products in shopping cart
 
 [Requisito 6 - Template.pdf](https://github.com/lauraagra-meli/final-meli-challenge/files/9355808/Requisito.6.-.Template.pdf)
 
