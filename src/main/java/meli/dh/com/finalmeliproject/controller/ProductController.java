@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products")
@@ -60,7 +61,6 @@ public class ProductController {
         return ResponseEntity.ok().body(productsByCategory);
     }
 
-
     @GetMapping("/list/{id}")
     public ResponseEntity<List<ProductBatchDTO>> allProductsPerBatch(@PathVariable String id){
         return ResponseEntity.ok().body(service.allProductsPerBatch(id));
@@ -69,23 +69,6 @@ public class ProductController {
     @GetMapping("/list/filter")
     public ResponseEntity<List<Product>> filterProductsPerBatch(@RequestParam String productId, @RequestParam String order){
         return ResponseEntity.ok().body(service.filterProductsByBatch(productId, order));
-    }
-
-    @PostMapping("/orders")
-    public ResponseEntity<ResponseShoppingCartDto> shoppingCart(@RequestBody RequestShoppingCartDto request){
-        return new ResponseEntity<>(iShoppingCartService.shoppingCart(request.getPurchaseOrder()),
-                HttpStatus.CREATED);
-    }
-
-    @GetMapping("/orders/{id}")
-    public ResponseEntity<ShoppingCart> findAllShoppingCartProducts(@PathVariable long id) {
-        return ResponseEntity.ok().body(iShoppingCartService.findShoppingCartProductsById(id));
-    }
-
-    @PutMapping("/orders")
-    public ResponseEntity<PurchaseOrder> editShoppingCart(@RequestParam long orderId) {
-        return new ResponseEntity<>(iShoppingCartService.editShoppingCart(orderId),
-                HttpStatus.CREATED);
     }
 
     @GetMapping("/due-date")

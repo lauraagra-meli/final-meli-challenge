@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -93,7 +94,7 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Transactional
-    public PurchaseOrder editShoppingCart(long orderId) {
+    public PurchaseOrder editPurchaseOrderStatus(long orderId) {
         Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepo.findById(orderId);
 
         if (purchaseOrder.isEmpty()) {
@@ -130,15 +131,49 @@ public class ShoppingCartService implements IShoppingCartService {
         return purchaseOrderRepo.save(purchaseOrder.get());
     }
 
-    private ShoppingCart findById(long id){
+    @Override
+    public ProductShoppingCart updateProductQuantityShoppingCart(long id, Map<String, Long> changes) {
+        String productId = findByProductShoppingCartId(id).get().getProduct().getId();
+        findByProductShoppingCartId(id).get().setProductQuantity(changes.get("productQuantity"));
+
+        WareHouseProduct wareHouseProduct = productService.findByProductId(productId);
+
+//        if (productShoppingCart.getProduct().getId() purchaseOrder.getStatusOrder().equals(OrderStatus.CLOSED)) {
+//          TODO: validação pra lançar erro caso o produto esteja dentro de purchase order, mas com o status como CLOSED
+//        }
+
+        changes.forEach((k, v) -> {
+            if (v > wareHouseProduct.getQuantity()) {
+                throw new BadRequestExceptionImp("Product quantity " + wareHouseProduct.getProduct().getName() + " is insufficient stock");
+            }
+        });
+
+        return productShoppingCartRepo.save(findByProductShoppingCartId(id).get());
+    }
+
+    public void deleteProductShoppingCart(long id) {
+        productShoppingCartRepo.delete(findByProductShoppingCartId(id).get());
+    }
+
+    private ShoppingCart findById(long id) {
         Optional<ShoppingCart> sc = shoppingCartRepo.findById(id);
-        if (sc.isPresent()){
+        if (sc.isPresent()) {
             return sc.get();
         }
         throw new BadRequestExceptionImp("Not exist Shopping Cart with id: " + id);
     }
 
-    private ShoppingCart currentShoppingCart(long shoppingCartId, long buyerId){
+    private Optional<ProductShoppingCart> findByProductShoppingCartId(long id) {
+        Optional<ProductShoppingCart> productShoppingCartFound = productShoppingCartRepo.findById(id);
+
+        if (productShoppingCartFound.isEmpty()) {
+            throw new BadRequestExceptionImp("Product not exist in shopping cart");
+        }
+
+        return productShoppingCartFound;
+    }
+
+    private ShoppingCart currentShoppingCart(long shoppingCartId, long buyerId) {
         ShoppingCart shoppingCart;
 
         if (shoppingCartId > 0) {
