@@ -5,7 +5,6 @@ import meli.dh.com.finalmeliproject.dto.shoppingCart.ResponseShoppingCartDto;
 import meli.dh.com.finalmeliproject.model.ProductShoppingCart;
 import meli.dh.com.finalmeliproject.model.PurchaseOrder;
 import meli.dh.com.finalmeliproject.model.ShoppingCart;
-import meli.dh.com.finalmeliproject.service.product.IProductService;
 import meli.dh.com.finalmeliproject.service.shoppingCart.IShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
