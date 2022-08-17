@@ -53,5 +53,7 @@ Final Meli challenge of the integrator project by Digital House
 The final project objective is to implement a REST API applying the knowledge acquired during Meli Bootcamp (Git, Java, Spring, Banco de Dados,
 Qualidade e Segurança).
 
+# Final requirement - edit products shopping cart
+
 [Requisito 6 - Template.pdf](https://github.com/lauraagra-meli/final-meli-challenge/files/9355808/Requisito.6.-.Template.pdf)
 
