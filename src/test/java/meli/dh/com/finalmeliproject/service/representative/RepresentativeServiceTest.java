@@ -1,10 +1,9 @@
-package meli.dh.com.finalmeliproject.service.Representative;
+package meli.dh.com.finalmeliproject.service.representative;
 
 import meli.dh.com.finalmeliproject.exception.NotFoundExceptionImp;
 import meli.dh.com.finalmeliproject.mocks.GenerateRepresentative;
 import meli.dh.com.finalmeliproject.model.Representative;
 import meli.dh.com.finalmeliproject.repository.IRepresentativeRepo;
-import meli.dh.com.finalmeliproject.service.representative.RepresentativeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -52,8 +51,7 @@ class RepresentativeServiceTest {
 
         assertThat(savedRep.getId()).isNotNull();
         assertThat(savedRep.getId()).isPositive();
-        assertThat(savedRep.getId()).isEqualTo(representative.getId());
-        verify(representativeRepo, atLeastOnce()).findById(savedRep.getId());
+        verify(representativeRepo, atLeastOnce()).findById(ArgumentMatchers.anyLong());
     }
 
     @Test

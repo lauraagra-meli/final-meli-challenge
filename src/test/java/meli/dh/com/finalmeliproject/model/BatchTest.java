@@ -1,6 +1,5 @@
 package meli.dh.com.finalmeliproject.model;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,10 +21,10 @@ class BatchTest {
     void setup() {
         productList = new ArrayList<>();
         inboundOrderList = new ArrayList<>();
-        productList.add(new Product("MELI12321", "carne", 10, null, null, LocalDate.of(2023, 01, 12), LocalDateTime.now()));
+        productList.add(new Product("MELI12321", "TEST", 10, null, null, LocalDate.of(2023, 01, 12), LocalDateTime.now()));
         inboundOrderList.add(new InboundOrder(1, LocalDateTime.now(), null, null, null));
 
-        batch = new Batch(1, null);
+        batch = new Batch(1, LocalDate.now(),null);
     }
 
     @Test
@@ -54,6 +53,12 @@ class BatchTest {
     @Test
     void noConstructor() {
         batch = new Batch();
+        assertEquals(batch.getId(), 0);
+    }
+
+    @Test
+    void builderTest() {
+        batch = Batch.builder().build();
         assertEquals(batch.getId(), 0);
     }
 }

@@ -1,64 +1,98 @@
 package meli.dh.com.finalmeliproject.model;
 
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductTest {
 
     @Test
-    void getId() {
+    void getAndSetId() {
+        Product p = new Product();
+        p.setId("TEST");
+
+        assertThat(p.getId()).isEqualTo("TEST");
     }
 
     @Test
-    void getName() {
+    void getAndSetName() {
+        Product p = new Product();
+        p.setName("TEST");
+
+        assertThat(p.getName()).isEqualTo("TEST");
     }
 
     @Test
-    void getQuantity() {
+    void getAndSetCategory() {
+        Product p = new Product();
+        Category c = new Category();
+        p.setCategory(c);
+
+        assertThat(p.getCategory()).isEqualTo(c);
     }
 
     @Test
-    void getCategory() {
+    void getAndSetBatch() {
+        Product p = new Product();
+        Batch b = new Batch();
+        p.setBatch(b);
+
+        assertThat(p.getBatch()).isEqualTo(b);
     }
 
     @Test
-    void getBatch() {
+    void getAndSetDueDate() {
+        Product p = new Product();
+        LocalDate ld = LocalDate.now();
+        p.setDueDate(ld);
+
+        assertThat(p.getDueDate()).isEqualTo(ld);
+
     }
 
     @Test
-    void getDueDate() {
+    void getAndSetManufacturingDate() {
+        Product p = new Product();
+        LocalDateTime ldt = LocalDateTime.now();
+        p.setManufacturingDate(ldt);
+
+        assertThat(p.getManufacturingDate()).isEqualTo(ldt);
     }
 
     @Test
-    void getManufacturingDate() {
+    void allConstructor(){
+        Product p = new Product(
+                "TEST",
+                "TEST",
+                1,
+                new Category(),
+                new Batch(),
+                LocalDate.now(),
+                LocalDateTime.now());
+
+        assertThat(p).isNotNull();
     }
 
     @Test
-    void setId() {
+    void customConstructor(){
+        Product p = new Product(
+                "TEST",
+                1,
+                new Category(),
+                new Batch(),
+                LocalDate.now(),
+                LocalDateTime.now());
+
+        assertThat(p).isNotNull();
     }
 
     @Test
-    void setName() {
-    }
-
-    @Test
-    void setQuantity() {
-    }
-
-    @Test
-    void setCategory() {
-    }
-
-    @Test
-    void setBatch() {
-    }
-
-    @Test
-    void setDueDate() {
-    }
-
-    @Test
-    void setManufacturingDate() {
+    void builder(){
+        Product p = Product.builder().build();
+        assertThat(p).isNotNull();
     }
 }

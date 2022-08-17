@@ -24,7 +24,7 @@ class CategoryTest {
     void setup() {
         shippingCategoryList.add(new ShippingCategory(1, 100, null, null));
         packageList.add(new Package(1, "caixa", 20, null));
-        productList.add(new Product("MELI20932", "batata", 10, null, null, LocalDate.of(2023, 02, 01), LocalDateTime.now()));
+        productList.add(new Product("MELI20932", "TEST", 10, null, null, LocalDate.of(2023, 02, 01), LocalDateTime.now()));
         inboundOrderList.add(new InboundOrder(1, LocalDateTime.now(), null, null, null));
 
         category = new Category(1, "congelados", -20, 0);
@@ -77,6 +77,12 @@ class CategoryTest {
     @Test
     void noConstructor() {
         category = new Category();
+        assertEquals(category.getId(), 0);
+    }
+
+    @Test
+    void builderTest() {
+        category = Category.builder().build();
         assertEquals(category.getId(), 0);
     }
 }

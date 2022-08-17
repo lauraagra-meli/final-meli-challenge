@@ -1,13 +1,13 @@
 package meli.dh.com.finalmeliproject.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter @Setter
+@Builder
 @Entity
 public class ProductShoppingCart {
 
@@ -24,5 +24,4 @@ public class ProductShoppingCart {
     @ManyToOne
     @JoinColumn(name = "id_shoppingcart")
     private ShoppingCart shoppingCart;
-
 }

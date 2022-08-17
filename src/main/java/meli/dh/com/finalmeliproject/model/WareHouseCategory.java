@@ -34,6 +34,9 @@ public class WareHouseCategory {
     }
 
     public void subStorage(int productQuantity){
-        this.storage += productQuantity;
+        this.storage -= productQuantity;
+        if (storage < 0) {
+            storage = 0;
+        }
     }
 }
